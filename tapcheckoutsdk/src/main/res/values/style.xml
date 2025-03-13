@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme.NoDisplay" parent="Theme.AppCompat.Light">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoDisplay">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.FixedSize">
+        <item name="android:windowEnterAnimation">@anim/zoom_in</item>
+
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="BaseAppTheme" parent="android:Theme.Material">   <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@anim/bottom_up</item>
+        <item name="android:windowExitTransition">@anim/bottom_down</item>
+    </style>
+
+    <style name="Animation.MyCustomAnimation" parent="android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/bottom_up</item>
+        <item name="android:activityOpenExitAnimation">@anim/nothing</item>
+        <item name="android:activityCloseEnterAnimation">@anim/nothing</item>
+        <item name="android:activityCloseExitAnimation">@anim/nothing</item>
+
+
+    </style>
+
+
+    <style name="my_Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="title">3ds Authentication</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="Theme.MyAnimTheme" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:windowAnimationStyle">@style/Animation.MyCustomAnimation</item>
+        <item name="toolbarStyle">@style/my_Toolbar</item>
+        <!-- Secondary brand color. -->
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:layoutDirection">locale</item>
+        <item name="colorPrimary">@color/white</item>
+
+    </style>
+
+
+    <style name="scannerTheme" parent="android:Theme.NoDisplay">
+    </style>
+
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetDialogFrCustomBottomSheet</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">     @android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+
+    <style name="CustomBottomSheetDialogFragment" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetDialogFr</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimations</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="shapeAppearanceOverlay">@style/CustomBottomSheetDialogFrCustomBottomSheetDialog</item>
+    </style>
+
+
+    <style name="CustomBottomSheetDialogFr" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+
+    </style>
+
+    <style name="DialogAnimations">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/bottom_down</item>
+    </style>
+
+
+
+    <style name="CustomBottomSheetDialogFrCustomBottomSheetDialog" parent="Widget.Design.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+
+    </style>
+    <style name="CustomBottomSheetDialogFrCustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/_16sdp</item>
+        <item name="cornerSizeTopLeft">@dimen/_16sdp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+
+</resources>

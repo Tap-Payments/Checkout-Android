@@ -1,0 +1,6 @@
+
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fromYDelta="0%p" android:toYDelta="100%p"
+android:duration="1000"
+    tools:ignore="MissingDefaultResource" />

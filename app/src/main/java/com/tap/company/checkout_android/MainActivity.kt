@@ -9,13 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chillibits.simplesettings.tool.getPrefStringValue
 import com.chillibits.simplesettings.tool.getPrefs
-import com.tap.company.tapcheckout_android.CheckoutConfiguration
-import com.tap.company.tapcheckout_android.TapCheckoutStatusDelegate
-import com.tap.company.tapcheckout_android.TapCheckoutView
+
 import okhttp3.Call
 import android.text.method.ScrollingMovementMethod
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import company.tap.tapcheckout_android.CheckoutConfiguration
+import company.tap.tapcheckout_android.TapCheckout
+import company.tap.tapcheckout_android.TapCheckoutStatusDelegate
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -29,8 +30,8 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() ,TapCheckoutStatusDelegate{
-    lateinit var payButton: TapCheckoutView
+class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
+    lateinit var payButton: TapCheckout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() ,TapCheckoutStatusDelegate{
         }
 
         /**
-         * configureWithPayButtonDictionary and calling the PayButton SDK
+         * configureWithTapCheckoutDictionary and calling the PayButton SDK
          */
         val scope = intent.getStringExtra("scopeKey")
         val charge = intent.getStringExtra("scopeKey")
@@ -474,7 +475,7 @@ class MainActivity : AppCompatActivity() ,TapCheckoutStatusDelegate{
         )
 
         if (intentId == null) {
-            CheckoutConfiguration.configureWithPayButtonDictionary(
+            CheckoutConfiguration.configureWithTapCheckoutDictionary(
                 this,
                 publicKey,
                 null,
@@ -483,7 +484,7 @@ class MainActivity : AppCompatActivity() ,TapCheckoutStatusDelegate{
                 this
             )
         } else {
-            CheckoutConfiguration.configureWithPayButtonDictionary(
+            CheckoutConfiguration.configureWithTapCheckoutDictionary(
                 this,
                 publicKey,
                 intentId,

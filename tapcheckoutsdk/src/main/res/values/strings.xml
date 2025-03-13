@@ -1,0 +1,46 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="card_not_supported">Card not supported</string>
+    <string name="user_cancell">User canceled 3ds</string>
+ <!-- Dev environment key  <string name="enryptkeyTest" translatable="false">
+        -&#45;&#45;&#45;&#45;BEGIN PUBLIC KEY-&#45;&#45;&#45;&#45;
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB
+h0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu
+BLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L
+SZhWp4Mnd6wjVgXAsQIDAQAB
+-&#45;&#45;&#45;&#45;END PUBLIC KEY-&#45;&#45;&#45;&#45;
+    </string>  -->
+    <string name="enryptkeyTest" translatable="false">
+        -----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB
+h0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu
+BLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L
+SZhWp4Mnd6wjVgXAsQIDAQAB
+-----END PUBLIC KEY-----
+    </string>
+    <string name="enryptkeyProduction" translatable="false">
+     -----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9hSRms7Ir1HmzdZxGXFYgmpi3
+ez7VBFje0f8wwrxYS9oVoBtN4iAt0DOs3DbeuqtueI31wtpFVUMGg8W7R0SbtkZd
+GzszQNqt/wyqxpDC9q+97XdXwkWQFA72s76ud7eMXQlsWKsvgwhY+Ywzt0KlpNC3
+Hj+N6UWFOYK98Xi+sQIDAQAB
+-----END PUBLIC KEY-----
+    </string>
+    <string name="enryptkeyBeta" translatable="false" tools:ignore="ExtraTranslation">
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9hSRms7Ir1HmzdZxGXFYgmpi3
+ez7VBFje0f8wwrxYS9oVoBtN4iAt0DOs3DbeuqtueI31wtpFVUMGg8W7R0SbtkZd
+GzszQNqt/wyqxpDC9q+97XdXwkWQFA72s76ud7eMXQlsWKsvgwhY+Ywzt0KlpNC3
+Hj+N6UWFOYK98Xi+sQIDAQAB
+-----END PUBLIC KEY-----
+    </string>
+    <string name="enryptkeyStagging" translatable="false" tools:ignore="ExtraTranslation">
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi9W5jyTvA4Iwv3V5sfNQ7VdSz
+7WqwBbnWFbIUL/GjaaE93mvDv4zbgRSznHaHQPH6pxrMhMh0tV58njkvjHvQ/tvg
+pwM8SemNPKEEAPl69tnMvCrJRPh2dWL3OHY8yCW4c38Hyx4fy56Zd5cdoVWfCReu
+jCsvASLGz+cfRrj2swIDAQAB
+-----END PUBLIC KEY-----
+    </string>
+    <string name="exit">Exit</string>
+    <string name="dismissing">Dismissing .. Please wait ..</string>
+</resources>

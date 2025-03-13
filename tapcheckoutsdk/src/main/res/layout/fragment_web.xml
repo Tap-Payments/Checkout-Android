@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/topLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/corner_radius_top"
+        android:visibility="visible"
+        android:paddingTop="@dimen/margin_basic_10dp">
+
+        <View
+            android:id="@+id/draggerView"
+            android:layout_width="75dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center" />
+        <company.tap.tapuilibrary.uikit.atoms.TapDragIndicator
+            android:layout_width="75dp"
+            android:layout_height="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="150dp"
+            android:layout_marginEnd="150dp"
+            android:background="@drawable/corner_radius"
+            app:cardElevation="@dimen/margin_basic_0dp">
+
+            <company.tap.tapuilibrary.uikit.atoms.TapSeparatorView
+                android:id="@+id/indicatorSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/gray" />
+
+        </company.tap.tapuilibrary.uikit.atoms.TapDragIndicator>
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
+        android:progressTint="@color/blue"
+        android:foregroundTint="@color/blue"
+        android:progressBackgroundTint="@color/blue"
+        android:secondaryProgressTint="@color/blue"
+        android:paddingTop="5dp"
+        android:progress="20"
+        android:paddingBottom="5dp"
+        android:indeterminate="true" />
+
+<WebView
+    android:id="@+id/web_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource"
+   />
+</LinearLayout>
