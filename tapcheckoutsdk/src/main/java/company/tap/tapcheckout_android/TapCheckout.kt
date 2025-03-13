@@ -408,26 +408,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
     }
 
-    private fun initializePaymentData(buttonType: ThreeDsPayButtonType?) {
-        when (buttonType) {
-            ThreeDsPayButtonType.KNET -> applySchemes(SCHEMES.KNET)
-            ThreeDsPayButtonType.BENEFIT -> applySchemes(SCHEMES.BENEFIT)
-            ThreeDsPayButtonType.FAWRY -> applySchemes(SCHEMES.FAWRY)
-            ThreeDsPayButtonType.PAYPAL -> applySchemes(SCHEMES.PAYPAL)
-            ThreeDsPayButtonType.TABBY -> applySchemes(SCHEMES.TABBY)
-            ThreeDsPayButtonType.GOOGLEPAY -> applySchemes(SCHEMES.GOOGLE)
-            ThreeDsPayButtonType.CAREEMPAY -> applySchemes(SCHEMES.CAREEMPAY)
-            ThreeDsPayButtonType.SAMSUNGPAY -> applySchemes(SCHEMES.SAMSUNGPAY)
-            ThreeDsPayButtonType.VISA -> applySchemes(SCHEMES.VISA)
-            ThreeDsPayButtonType.AMERICANEXPRESS -> applySchemes(SCHEMES.AMERICANEXPRESS)
-            ThreeDsPayButtonType.MADA -> applySchemes(SCHEMES.MADA)
-            ThreeDsPayButtonType.MASTERCARD -> applySchemes(SCHEMES.MASTERCARD)
-            ThreeDsPayButtonType.CARD -> applySchemes(SCHEMES.CARD)
 
-
-            else -> {}
-        }
-    }
 
     private fun applySchemes(scheme: SCHEMES) {
         webviewStarterUrl = scheme.value.first
