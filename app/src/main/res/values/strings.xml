@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Checkout-Android</string>
+    <string name="generate_authenticate_token">generate authorization token</string>
+
 </resources>

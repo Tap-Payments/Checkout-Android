@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.tap.company.tapcheckout_android.TapCheckoutView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/redirect_pay"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text"
+        android:layout_marginTop="@dimen/_150sdp"
+        android:scrollbars="vertical"
+        tools:text="Hello guys"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold|italic"
+        android:textColor="@color/black_color"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/generate_authenticate_token"
+        android:id="@+id/auth_token"
+        android:visibility="gone"
+        />
+
+
+
+
+
+
+</LinearLayout>
