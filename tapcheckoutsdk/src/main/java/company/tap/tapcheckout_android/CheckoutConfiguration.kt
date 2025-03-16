@@ -32,9 +32,8 @@ class CheckoutConfiguration {
         fun configureWithTapCheckoutDictionary(
             context: Context,
             publicKey: String?,
-            intentId: String?,
             tapRedirectViewWeb: TapCheckout?,
-            tapMapConfiguration: java.util.HashMap<String, Any>?,
+            tapMapConfiguration: java.util.HashMap<String, Any>,
             tapCheckoutStatusDelegate: TapCheckoutStatusDelegate? = null
 
         ) {
@@ -43,7 +42,6 @@ class CheckoutConfiguration {
                 getTapButtonSDKConfigUrls(
                     tapMapConfiguration,
                     publicKey,
-                    intentId,
                     tapRedirectViewWeb,
                     context,
                     tapCheckoutStatusDelegate
@@ -53,7 +51,7 @@ class CheckoutConfiguration {
 
         }
 
-        private suspend fun getTapButtonSDKConfigUrls(tapMapConfiguration: HashMap<String, Any>?, publicKey: String?, intentId: String?,tapCardInputViewWeb: TapCheckout?, context: Context, tapCheckoutStatusDelegate: TapCheckoutStatusDelegate?) {
+        private suspend fun getTapButtonSDKConfigUrls(tapMapConfiguration: HashMap<String, Any>, publicKey: String?,tapCardInputViewWeb: TapCheckout?, context: Context, tapCheckoutStatusDelegate: TapCheckoutStatusDelegate?) {
             try {
                 /**
                  * request to get Tap configs
@@ -76,7 +74,6 @@ class CheckoutConfiguration {
                 startWithSDKConfigs(
                     context,
                     publicKey ,
-                    intentId,
                     tapCardInputViewWeb,
                     tapMapConfiguration,
                     tapCheckoutStatusDelegate
@@ -91,7 +88,6 @@ class CheckoutConfiguration {
                 startWithSDKConfigs(
                     context,
                     publicKey,
-                    intentId,
                     tapCardInputViewWeb,
                     tapMapConfiguration,
                     tapCheckoutStatusDelegate
@@ -168,9 +164,8 @@ class CheckoutConfiguration {
         }
         private fun startWithSDKConfigs(context: Context,
                                         _publicKey: String?,
-                                        intentId:String?,
                                         tapRedirectViewWeb: TapCheckout?,
-                                        tapMapConfiguration: java.util.HashMap<String, Any>?,
+                                        tapMapConfiguration: java.util.HashMap<String, Any>,
                                         tapCheckoutStatusDelegate: TapCheckoutStatusDelegate? = null){
             with(tapMapConfiguration) {
                 android.util.Log.e("map vals>>", tapMapConfiguration.toString())
@@ -193,7 +188,7 @@ class CheckoutConfiguration {
 
                 TapCheckoutDataConfiguration.addTapCheckOutStatusDelegate(tapCheckoutStatusDelegate)
 
-                headers?.let { tapRedirectViewWeb?.init(tapMapConfiguration, it,intentId,publickKey) }
+                headers?.let { tapRedirectViewWeb?.init(tapMapConfiguration, it,publickKey) }
 
             }
         }

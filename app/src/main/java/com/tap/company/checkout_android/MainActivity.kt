@@ -3,20 +3,17 @@ package com.tap.company.checkout_android
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chillibits.simplesettings.tool.getPrefStringValue
 import com.chillibits.simplesettings.tool.getPrefs
-
-import okhttp3.Call
-import android.text.method.ScrollingMovementMethod
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import company.tap.tapcheckout_android.CheckoutConfiguration
 import company.tap.tapcheckout_android.TapCheckout
 import company.tap.tapcheckout_android.TapCheckoutStatusDelegate
+import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -67,432 +64,109 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
          * configureWithTapCheckoutDictionary and calling the PayButton SDK
          */
         val scope = intent.getStringExtra("scopeKey")
-        val charge = intent.getStringExtra("scopeKey")
+       // val charge = intent.getStringExtra("scopeKey")
         val configuration = LinkedHashMap<String, Any>()
-        val jsonObject = JSONObject()
-        jsonObject.put("scope", scope)
-        jsonObject.put("purpose", charge)
-        jsonObject.put("statement_descriptor", "statement_descriptor")
-        jsonObject.put("description", "sd")
-        jsonObject.put("reference", "uuid_testabcdfgkgdgd121992")
-        jsonObject.put("customer_initiated", true)
-        jsonObject.put("hash_string", "")
-        jsonObject.put("idempotent", "")
+       // val configuration = JSONObject()
 
+        configuration.put("open", true)
+        configuration.put("hashString", "")
+        configuration.put("checkoutMode", "page")
+        configuration.put("language", "en")
+        configuration.put("themeMode", "dark")
+        configuration.put("paymentType", "ALL")
+        configuration.put("supportedPaymentMethods", "ALL")
+        configuration.put("selectedCurrency", "SAR")
+        configuration.put("supportedCurrencies", "ALL")
 
-        val merchant = JSONObject()
-        val terminal = JSONObject()
-        terminal.put("id", "")
-        val terminaldevice = JSONObject()
-        terminaldevice.put("id", "")
-        terminal.put("terminal_device", terminaldevice)
-
-        val medata = JSONObject()
-        medata.put("uud", "qq")
-        medata.put("uud2", "222")
-
-        val operator = JSONObject()
-        operator.put("id", "")
-        val device = JSONObject()
-        device.put("id", "")
-        operator.put("device", device)
-        merchant.put("id", intent.getStringExtra("merchantId"))
-        merchant.put("terminal", terminal)
-        merchant.put("operator", operator)
-        val paymentprovider = JSONObject()
-        val technology = JSONObject()
-        technology.put("id", "")
-
-        val institution = JSONObject()
-        institution.put("id", "")
-
-        paymentprovider.put("technology", technology)
-        paymentprovider.put("institution", institution)
-
-        val ddevelopmenthouse = JSONObject()
-        ddevelopmenthouse.put("id", "")
-
-        val platform = JSONObject()
-        platform.put("id", "")
-
-        merchant.put("payment_provider", paymentprovider)
-        merchant.put("institution", institution)
-        merchant.put("development_house", ddevelopmenthouse)
-        merchant.put("platform", platform)
-
-        jsonObject.put("merchant", merchant)
-
-        val authenticate = JSONObject()
-        authenticate.put("id", "")
-        authenticate.put("required", true)
-
-        jsonObject.put("authenticate", authenticate)
-        val transaction = JSONObject()
-        val cardholderlogin = JSONObject()
-        cardholderlogin.put("type", "GUEST")
-        cardholderlogin.put("timestamp", "123213213")
-
-        val payment_agreement = JSONObject()
-
-        // val contract = JSONObject()
-        // contract.put("id","")
-        // payment_agreement.put("id","")
-        // payment_agreement.put("contract",contract)
-
-        // transaction.put("card_holder_login",cardholderlogin)
-        // transaction.put("metadata",medata)
-        // transaction.put("reference","TEST")
-        //  transaction.put("payment_agreement",payment_agreement)
-
-        //  jsonObject.put("transaction", transaction)
-
-        val invoice = JSONObject()
-        invoice.put("id", "")
-        jsonObject.put("invoice", invoice)
-
-
-        val descriptiom = JSONObject()
-        descriptiom.put("text", "name ")
-        descriptiom.put("lang", "en ")
-
-        val reference = JSONObject()
-        reference.put("sku", "stock keeping unit ")
-        reference.put("gtin", "global trade item number ")
-        reference.put("code", "00dfd ")
-        reference.put("financial_code", "0022343")
-
-
-        val descArray = JSONArray()
-        descArray.put(descriptiom)
-
-        val product = JSONObject()
-        product.put("id", "")
-        product.put("amount", intent.getStringExtra("amountKey")?.toDouble())
-        product.put("name", descArray)
-        product.put("description", descArray)
-        product.put("metadata", medata)
-        product.put("category", "PHYSICAL_GOODS")
-        product.put("reference", reference)
-        val itemsList = JSONObject()
-        itemsList.put("id", " ")
-        itemsList.put("quantity", 1)
-        itemsList.put("pickup", false)
-        itemsList.put("product", product)
-
-        val itemsArry = JSONArray()
-        itemsArry.put(itemsList)
-        val items = JSONObject()
-        items.put("count", 1)
-        items.put("list", itemsArry)
-
-
-        val order = JSONObject()
-        order.put("amount", (intent.getStringExtra("amountKey")?.toDouble()))
-        // order.put("amount",3)
-        order.put("currency", intent.getStringExtra("orderCurrencyKey"))
-        order.put("description", descArray)
-        order.put("reference", intent.getStringExtra("orderRefrenceKey"))
-        order.put("items", items)
-
-        val discount = JSONObject()
-        discount.put("type", "F")
-        discount.put("value", 1)
-
-        val tax = JSONObject()
-        tax.put("name", "VAT")
-        tax.put("description", "test")
-        tax.put("type", "F")
-        tax.put("value", 1)
-
-        val taxarry = JSONArray()
-        taxarry.put(tax)
-
-
-        val adddress = JSONObject()
-        adddress.put("type", "home ")
-        adddress.put("line1", "sdfghjk ")
-        adddress.put("line2", "oiuytr ")
-        adddress.put("line3", "line3 ")
-        adddress.put("line4", "line4 ")
-        adddress.put("apartment", " ")
-        adddress.put("building", " ")
-        adddress.put("street", " ")
-        adddress.put("avenue", " ")
-        adddress.put("block", " ")
-        adddress.put("area", " ")
-        adddress.put("city", "salmyia")
-        adddress.put("state", "kuwait")
-        adddress.put("country", "KW")
-        adddress.put("zip_code", "30003")
-        adddress.put("postal_code", " ")
-
-        val provider = JSONObject()
-        provider.put("id", "")
-
-
-        val shippigobject = JSONObject()
-        shippigobject.put("amount", 1)
-        shippigobject.put("description", descArray)
-        shippigobject.put("recipient_name", descArray)
-        shippigobject.put("address", adddress)
-        shippigobject.put("provider", provider)
-        shippigobject.put("metadata", medata)
-
-        // order.put("tax",taxarry)
-        // order.put("discount",discount)
-        //  order.put("shipping",shippigobject)
-        order.put("metadata", medata)
-
-
-        jsonObject.put("order", order)
-
-        val name = JSONObject()
-        name.put("first", "OSAMA ")
-        name.put("last", "Ahmed ")
-        name.put("middle", " ")
-        name.put("title", "MR ")
-
-        val nameList = JSONArray()
-        nameList.put(name)
-
-        val nameCard = JSONObject()
-        nameCard.put("content", "OSAMA AHMED ")
-        nameCard.put("editable", true)
-
-        val phone = JSONObject()
-        phone.put("country_code", "965")
-        phone.put("number", "55683784")
-
-        val contact = JSONObject()
-        contact.put("email", "tap.test@company")
-        contact.put("phone", phone)
+        val gateway = JSONObject()
+        gateway.put("publicKey", "pk_test_gznOhsfdL0QMV8AW7tSN2wKP")
+        configuration.put("gateway", gateway)
 
         val customer = JSONObject()
-        customer.put("id", intent.getStringExtra("customerIdKey"))
-        customer.put("name", nameList)
-        customer.put("name_on_card", nameCard)
-        customer.put("contact", contact)
+        customer.put("firstName", "Ahmed")
+        customer.put("lastName", "Sharkawy")
+        customer.put("email", "example@gmail.com")
 
+        val phone = JSONObject()
+        phone.put("countryCode", "20")
+        phone.put("number", "1099137773")
+        customer.put("phone", phone)
 
+        configuration.put("customer", customer)
 
+        val transaction = JSONObject()
+        transaction.put("mode", "charge")
 
-        customer.put("address", adddress)
+        val charge = JSONObject()
+        charge.put("saveCard", true)
 
-        jsonObject.put("customer", customer)
-        val receipt = JSONObject()
-        receipt.put("email", false)
-        receipt.put("sms", false)
-
-        jsonObject.put("receipt", receipt)
-
-
-        val configOb = JSONObject()
-        configOb.put("initiator", "MERCHANT")
-        configOb.put("type", "BUTTON")
-        val features = JSONObject()
-        features.put("acceptance_badge", true)
-        features.put("order", true)
-        features.put("multiple_currencies", true)
-
-        val currency_conversions = JSONObject()
-        currency_conversions.put("dynamic", true)
-        currency_conversions.put("location", true)
-        currency_conversions.put("payment", true)
-        currency_conversions.put("cobadge", true)
-
-        val alternative_card_inputs = JSONObject()
-        alternative_card_inputs.put("card_scanner", true)
-        alternative_card_inputs.put("card_nfc ", true)
-
-        val customer_cards = JSONObject()
-        customer_cards.put("save_card", true)
-        customer_cards.put("auto_save_card", true)
-        customer_cards.put("display_saved_cards", true)
-
-
-        val payments = JSONObject()
-        payments.put("card", true)
-        payments.put("device", true)
-        payments.put("wallet", true)
-        payments.put("bnpl", true)
-        payments.put("mobile", true)
-        payments.put("cash", true)
-        payments.put("redirect", true)
-
-        features.put("currency_conversions", currency_conversions)
-        features.put("payments", payments)
-        features.put("alternative_card_inputs", alternative_card_inputs)
-        features.put("customer_cards", customer_cards)
-
-        val acceptance = JSONObject()
-        val supported_regions = JSONArray()
-        supported_regions.put("LOCAL")
-        supported_regions.put("REGIONAL")
-        supported_regions.put("GLOBAL")
-
-        val supported_countries = JSONArray()
-        supported_countries.put("AE")
-        supported_countries.put("SA")
-        supported_countries.put("KW")
-        supported_countries.put("EG")
-
-        val supported_currencies = JSONArray()
-        supported_currencies.put("KWD")
-        supported_currencies.put("SAR")
-        supported_currencies.put("AED")
-        supported_currencies.put("OMR")
-        supported_currencies.put("QAR")
-        supported_currencies.put("BHD")
-        supported_currencies.put("EGP")
-        supported_currencies.put("GBP")
-        supported_currencies.put("USD")
-        supported_currencies.put("EUR")
-        supported_currencies.put("AED")
-
-
-        val supported_payment_methods = JSONArray()
-        supported_payment_methods.put("BENEFITPAY")
-
-        /*val supported_payment_types = JSONArray()
-        // supported_payment_methods.put ("CARD")
-        supported_payment_types.put("DEVICE")
-        supported_payment_types.put("WEB")*/
-
-        val supported_schemes = JSONArray()
-        // supported_schemes.put("CARD")
-        supported_schemes.put("MADA")
-        supported_schemes.put("OMANNET")
-        supported_schemes.put("VISA")
-        supported_schemes.put("MASTERCARD")
-        supported_schemes.put("AMEX")
-        supported_schemes.put("BENEFIT_CARD")
-        val defaultHash = hashSetOf("VISA", "AMEX", "MASTERCARD", "BENEFIT_CARD", "OMANNET", "MADA")
-        val defaultFundHash = hashSetOf("CREDIT", "DEBIT")
-
-        println("defaultHash" + defaultHash)
-
-        val supported_fund_source = JSONArray()
-        // supported_fund_source.put("CARD")
-        supported_fund_source.put("DEBIT")
-        supported_fund_source.put("CREDIT")
-        val supported_payment_flows = JSONArray()
-        //supported_payment_flows.put("CARD")
-        supported_payment_flows.put("POPUP")
-        supported_payment_flows.put("PAGE")
-
-        val supported_payment_authentications = JSONArray()
-        supported_payment_authentications.put("3DS")
-        supported_payment_authentications.put("EMV")
-        supported_payment_authentications.put("PASSKEY")
-
-        // acceptance.put("supported_regions",supported_regions)
-        // acceptance.put("supported_countries",supported_countries)
-        // acceptance.put("supported_payment_types",supported_payment_types)
-        // acceptance.put("supported_currencies",supported_currencies)
-
-        val paymethods = getPrefStringValue("buttonKey", "KNET")
-
-        val arry = JSONArray()
-        arry.put(paymethods)
-
-        acceptance.put("supported_payment_methods", arry)
-
-
-        acceptance.put(
-            "supported_schemes",
-            JSONArray(getPrefs().getStringSet("supportedSchemesKey", defaultHash.toHashSet()))
-        )
-        acceptance.put(
-            "supported_fund_source",
-            JSONArray(
-                getPrefs().getStringSet(
-                    "supportedFundSourceKey",
-                    defaultFundHash.toHashSet()
-                )
-            )
-        )
-        acceptance.put("supported_payment_authentications", supported_payment_authentications)
-        acceptance.put("supported_payment_flows", supported_payment_flows)
-
-        val interfacee = JSONObject()
-        interfacee.put("locale", intent.getStringExtra("selectedlangKey") ?: "EN")
-        interfacee.put("theme", intent.getStringExtra("selectedthemeKey") ?: "LIGHT")
-        interfacee.put("edges", intent.getStringExtra("selectedcardedgeKey") ?: "CURVED")
-        interfacee.put("color_style", intent.getStringExtra("selectedcolorstyleKey") ?: "COLORED")
-        interfacee.put("user_experience", "POPUP")
-        interfacee.put("card_direction", "DYNAMIC")
-        interfacee.put("loader", true)
-        interfacee.put("powered", true)
-
-
-        val fieldvisibility = JSONObject()
-
-        val card = JSONObject()
-        card.put("number", true)
-        card.put("expiry", true)
-        card.put("cvv", true)
-        card.put("cardholder", true)
-
-        val conatct = JSONObject()
-        conatct.put("email", true)
-        conatct.put("number", true)
-
-        val shipping = JSONObject()
-        shipping.put("address", true)
-
-        fieldvisibility.put("name", true)
-        fieldvisibility.put("card", card)
-        fieldvisibility.put("contact", conatct)
-        //  fieldvisibility.put("shipping",shipping)
-
-        configOb.put("features", features)
-        configOb.put("acceptance", acceptance)
-        configOb.put("field_visibility", fieldvisibility)
-        configOb.put("interface", interfacee)
-
-
-        val checkout = JSONObject()
-        checkout.put("auto", true)
-        checkout.put("metadata", medata)
-
-        val post = JSONObject()
-        post.put("url", "osama.cm")
+        val auto = JSONObject()
+        auto.put("type", "VOID")
+        auto.put("time", 100)
+        charge.put("auto", auto)
 
         val redirect = JSONObject()
-        redirect.put("url", "osama.cm")
+        redirect.put("url", "https://demo.staging.tap.company/v2/sdk/checkout")
+        charge.put("redirect", redirect)
 
-        val domain = JSONObject()
-        domain.put("url", "demo.tap.PayButtonSDK")
+        charge.put("threeDSecure", true)
 
-        jsonObject.put("config", configOb)
-        jsonObject.put("domain", domain)
-        jsonObject.put("redirect", redirect)
-        jsonObject.put("post", post)
-        jsonObject.put("checkout", checkout)
+        val subscription = JSONObject()
+        subscription.put("type", "SCHEDULED")
+        subscription.put("amount_variability", "FIXED")
+        subscription.put("txn_count", 0)
+        charge.put("subscription", subscription)
 
-        val intentObjc: HashMap<String, Any> = Gson().fromJson(
-            jsonObject.toString(), object : TypeToken<HashMap<String?, Any?>?>() {}.type
-        )
+        val airline = JSONObject()
+        val reference = JSONObject()
+        reference.put("booking", "")
+        airline.put("reference", reference)
+        charge.put("airline", airline)
+
+        transaction.put("charge", charge)
+        configuration.put("transaction", transaction)
+
+        configuration.put("amount", 0.1)
+
+        val order = JSONObject()
+        order.put("id", "")
+        order.put("currency", "SAR")
+        order.put("amount", 0.1)
+
+        val items = JSONArray()
+        val item = JSONObject()
+        item.put("amount", 0.1)
+        item.put("currency", "SAR")
+        item.put("name", "Item Title 1")
+        item.put("quantity", 1)
+        item.put("description", "item description 1")
+        items.put(item)
+
+        order.put("items", items)
+        configuration.put("order", order)
+
+        val cardOptions = JSONObject()
+        cardOptions.put("showBrands", true)
+        cardOptions.put("showLoadingState", false)
+        cardOptions.put("collectHolderName", true)
+        cardOptions.put("preLoadCardName", "")
+        cardOptions.put("cardNameEditable", true)
+        cardOptions.put("cardFundingSource", "all")
+        cardOptions.put("saveCardOption", "all")
+        cardOptions.put("forceLtr", false)
+
+        configuration.put("cardOptions", cardOptions)
+        configuration.put("isApplePayAvailableOnClient", true)
 
         if (intentId == null) {
             CheckoutConfiguration.configureWithTapCheckoutDictionary(
                 this,
                 publicKey,
-                null,
                 findViewById(R.id.redirect_pay),
-                intentObjc,
+                configuration,
                 this
             )
-        } else {
-            CheckoutConfiguration.configureWithTapCheckoutDictionary(
-                this,
-                publicKey,
-                intentId,
-                findViewById(R.id.redirect_pay),
-                null,
-                this
-            )
-        }
+        } 
 
 
     }

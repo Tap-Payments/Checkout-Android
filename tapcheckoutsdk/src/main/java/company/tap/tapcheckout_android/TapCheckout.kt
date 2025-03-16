@@ -39,6 +39,7 @@ import company.tap.tapcheckout_android.threeDsWebview.ThreeDsWebViewActivityButt
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -135,6 +136,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                 cacheMode = WebSettings.LOAD_NO_CACHE
                 useWideViewPort = true
                 loadWithOverviewMode = true
+                mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 
             }
         }
@@ -143,6 +145,9 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
         webChrome = WebChrome(context)
         redirectWebView.webChromeClient = webChrome
         redirectWebView.webViewClient = MyWebViewClient()
+        redirectWebView.clearCache(true)
+        redirectWebView.clearHistory()
+
 
 
     }
@@ -329,15 +334,13 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
     }
 
-    fun init(configuraton: java.util.HashMap<String, Any>?, headers: Headers,_intentId : String?, _publickey:String?) {
+    fun init(configuraton: java.util.HashMap<String, Any>, headers: Headers, _publickey:String?) {
 
         if (configuraton != null) {
             redirectConfiguration = configuraton
         }
         headersVal = Headers(headers.mdn,headers.application)
-        if (_intentId != null) {
-            intentVal = _intentId
-        }
+
         if (_publickey != null) {
             publickKeyVal = _publickey
         }
@@ -347,48 +350,20 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
          * else sends error
          * */
 
-       // val intentObj = configuraton?.get(intentKey) as HashMap<*, *>
-       // val intentID = intentObj?.get(intentKey)
-        val intentID = _intentId
 
        // val operator = configuraton?.get(operatorKey) as HashMap<*, *>
        // val publickKey = operator.get(publicKeyToGet)
         val publickKey = _publickey
 
-        if (intentID.toString().isNullOrBlank() || publickKey.toString().isNullOrBlank()) {
+        if ( publickKey.toString().isNullOrBlank()) {
             TapCheckoutDataConfiguration.getTapCheckoutListener()
                 ?.onCheckoutError("public key and intent id are required")
+        }else {
+            callConfigAPI(configuraton)
         }
-        else if (intentID==null && intentID==""  && configuraton.isNullOrEmpty()){
-            TapCheckoutDataConfiguration.getTapCheckoutListener()
-                ?.onCheckoutError("Whether intent id or body is required")
-        }
-        else if (!configuraton.isNullOrEmpty() ){
-            callIntentAPI(configuraton,headers)
 
-        }
-        else if(intentID!=null && intentID!="" && configuraton.isNullOrEmpty()) {
-            val operator = HashMap<String, String>()
-            operator["publicKey"] = publickKeyVal
-            /**
-             * intent
-             */
-            val intentObj = HashMap<String,Any>()
 
-            if (intentID != null) {
-                intentObj.put("intent",intentID)
-            }
-            /**
-             * configuration
-             */
 
-            val configurations = LinkedHashMap<String,Any>()
-
-            configurations.put("operator",operator)
-            configurations.put("intent",intentObj)
-                callIntentRetereiveAPI(configurations, headers)
-
-        }
 
 
 
@@ -407,7 +382,6 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
         //    Log.e("urlToBeloaded",urlToBeloaded)
 
     }
-
 
 
     private fun applySchemes(scheme: SCHEMES) {
@@ -718,7 +692,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                         dialog.setOnKeyListener { view, keyCode, keyEvent ->
                             if (keyEvent.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
                                 dismissDialog()
-                                init(redirectConfiguration,headersVal, intentVal ,publickKeyVal)
+                                init(redirectConfiguration,headersVal ,publickKeyVal)
                                 return@setOnKeyListener  true
                             }
                             return@setOnKeyListener false
@@ -810,6 +784,64 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
     override fun onEnterBackground() {
         iSAppInForeground = false
         Log.e("applifeCycle","onEnterBackground")
+
+    }
+
+    private fun callConfigAPI(configuraton: java.util.HashMap<String, Any>) {
+        try {
+            val baseURL = "https://mw-sdk.staging.tap.company/v2/checkout/config"
+            val builder: OkHttpClient.Builder = OkHttpClient().newBuilder()
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            builder.addInterceptor(interceptor)
+
+            val body = (configuraton as Map<*, *>?)?.let { JSONObject(it).toString().toRequestBody("application/json".toMediaTypeOrNull()) }
+            val okHttpClient: OkHttpClient = builder.build()
+            val request: Request = Request.Builder()
+                .url(baseURL )
+                .method("POST", body)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("application", headersVal.application.toString())
+                .addHeader("mdn", headersVal.mdn.toString())
+                .build()
+            okHttpClient.newCall(request).enqueue(object : Callback {
+                override fun onResponse(call: Call, response: Response) {
+                    try {
+                        var responseBody: JSONObject? =
+                            response.body?.string()?.let { JSONObject(it) } // toString() is not the response body, it is a debug representation of the response body
+
+                        if(!responseBody.toString().contains("errors")){
+                            var redirectURL = responseBody?.getString("redirect_url")
+                            if (redirectURL != null) {
+                                // knetWebView.loadUrl(redirectURL)
+                                urlToBeloaded = redirectURL
+                                Handler(Looper.getMainLooper()).post {
+                                  //  redirectWebView.loadUrl(redirectURL)
+                                    redirectWebView.loadUrl("https://checkout.staging.tap.company/v2/?mode=page&themeMode=dark&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ZDY3ZWQxMThjNzNkNDhhNjI2MzkzNCJ9.BMfm_TNmEol-K6vhUTkTEad6DftTZJzQJqgISzpxn4c")
+                                    //redirectWebView.loadUrl("https://www.google.com/");
+
+
+
+                                }
+                            }
+                        }else{
+
+
+                        }
+
+                    } catch (ex: JSONException) {
+                        throw RuntimeException(ex)
+                    } catch (ex: IOException) {
+                        throw RuntimeException(ex)
+                    }
+
+                }
+
+                override fun onFailure(call: Call, e: IOException) {}
+            })
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
 
     }
 }

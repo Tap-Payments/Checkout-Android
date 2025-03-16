@@ -107,7 +107,7 @@ object TapCheckoutDataConfiguration {
     }
 
     fun initializeSDK(activity: Activity, configurations:  java.util.HashMap<String, Any>, tapCheckout: TapCheckout, publicKey: String?,intentId:String?){
-        CheckoutConfiguration.configureWithTapCheckoutDictionary(activity,publicKey,intentId,tapCheckout,configurations)
+        CheckoutConfiguration.configureWithTapCheckoutDictionary(activity,publicKey,tapCheckout,configurations)
     }
 
 
