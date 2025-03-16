@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © Marc Auberer 2020-2022. All rights reserved
+  -->
+
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <PreferenceCategory  app:title="@string/button_type">
+
+
+        <DropDownPreference
+            app:key="buttonKey"
+            app:entries="@array/ButtonList"
+            app:entryValues="@array/ButtonList"
+            app:defaultValue="1"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory  app:title="@string/scope_title">
+
+
+        <DropDownPreference
+            app:key="scopeKey"
+            app:entries="@array/ScopeList"
+            app:entryValues="@array/ScopeList"
+            app:defaultValue="1"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/transaction">
+
+        <EditTextPreference
+            app:key="transactionRefrenceKey"
+            app:defaultValue="trx"
+            app:title="Trx ref"
+            app:useSimpleSummaryProvider="true"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/order">
+
+        <EditTextPreference
+            app:key="orderIdKey"
+            app:defaultValue=""
+            app:title="@string/order_id"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            app:key="amountKey"
+            app:defaultValue=""
+            app:title="@string/amount"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            app:key="orderCurrencyKey"
+            app:defaultValue=""
+            app:title="@string/order_curr"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            app:key="orderRefrenceKey"
+            app:defaultValue=""
+            app:title="@string/trans_refrence"
+            app:useSimpleSummaryProvider="true"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/merchantTitle">
+
+        <EditTextPreference
+            app:key="merchantId"
+            app:defaultValue=""
+            app:title="Tap Merchant ID"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/customerTitle">
+
+        <EditTextPreference
+            app:key="customerIdKey"
+            app:defaultValue=""
+            app:title="Customer id"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/operation"
+      >
+
+        <EditTextPreference
+            app:key="publicKey"
+            app:defaultValue="pk_test_ohzQrUWRnTkCLD1cqMeudyjX"
+            app:title="Public Key"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            app:key="hashStringKey"
+            app:defaultValue=""
+            app:title="HashString"
+            app:isPreferenceVisible="false"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+
+
+
+
+
+
+
+
+
+    <PreferenceCategory android:title="@string/currency" app:isPreferenceVisible="false">
+
+
+        <DropDownPreference
+            app:key="selectedCurrencyKey"
+            app:entries="@array/currencies"
+            app:entryValues="@array/currencies"
+            app:defaultValue="1"
+            app:useSimpleSummaryProvider="true"/>
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:title="@string/acceptance">
+
+        <MultiSelectListPreference
+            app:key="supportedSchemesKey"
+            android:entries="@array/SupportedSchemes"
+            app:title="supportedSchemes"
+            android:entryValues="@array/SupportedSchemes"
+
+            app:useSimpleSummaryProvider="true"/>
+        <MultiSelectListPreference
+            app:key="supportedFundSourceKey"
+            app:title="supportedFundSource"
+            android:entries="@array/SupportedFundSource"
+            android:entryValues="@array/SupportedFundSource"
+            app:useSimpleSummaryProvider="true"/>
+
+        <MultiSelectListPreference
+            app:key="supportedPaymentAuthenticationsKey"
+            app:title="supportedPaymentAuthentications"
+            android:entries="@array/SupportedPaymentAuthentication"
+            android:entryValues="@array/SupportedPaymentAuthentication"
+            app:isPreferenceVisible="false"
+            app:useSimpleSummaryProvider="true"/>
+
+        <MultiSelectListPreference
+            app:key="supportedPaymentMethodKey"
+            app:title="supportedPaymentMethod"
+            android:entries="@array/SupportedPaymentMethods"
+            android:entryValues="@array/SupportedPaymentMethods"
+            app:isPreferenceVisible="false"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+
+
+    <PreferenceCategory
+        app:title="@string/fields" app:isPreferenceVisible="false">
+        <CheckBoxPreference
+            app:key="displayHoldernameKey"
+            app:title="Card Holder"
+            android:defaultValue="true"
+            />
+
+        <CheckBoxPreference
+            app:key="displayCVVKey"
+            app:title="@string/card_cvv"
+            android:defaultValue="true"
+            />
+
+
+
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/features"
+        app:isPreferenceVisible="false">
+        <CheckBoxPreference
+            app:key="displayPymtBrndKey"
+            app:title="@string/display_payment_brands"
+            android:defaultValue="true"
+            />
+
+        <CheckBoxPreference
+            app:key="displaySaveCardKey"
+            app:title="@string/saveCard"
+            android:defaultValue="true"
+            />
+
+
+        <CheckBoxPreference
+            app:key="displayAutosaveCardKey"
+            app:title="@string/autoSaveCard"
+            android:defaultValue="true"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/interface_">
+
+        <DropDownPreference
+            app:key="selectedlangKey"
+            app:title="@string/choose_language"
+            app:entries="@array/Lanugages"
+            app:entryValues="@array/LanugagesValues"
+            app:defaultValue="1"
+            app:useSimpleSummaryProvider="true"/>
+
+        <DropDownPreference
+            app:key="selectedthemeKey"
+            app:title="@string/choose_theme"
+            app:entries="@array/Theme"
+            app:entryValues="@array/Theme"
+            app:defaultValue="1"
+            app:useSimpleSummaryProvider="true"/>
+
+        <DropDownPreference
+            app:key="selectedcardedgeKey"
+            app:title="Card Edges"
+
+            app:entries="@array/Edges"
+            app:entryValues="@array/Edges"
+            app:defaultValue="1"
+            app:useSimpleSummaryProvider="true"/>
+
+        <DropDownPreference
+            app:key="selectedcardirectKey"
+            app:title="Card Direction"
+            app:entries="@array/Direction"
+            app:entryValues="@array/Direction"
+            app:defaultValue="1"
+            app:isPreferenceVisible="false"
+            app:useSimpleSummaryProvider="true"/>
+
+        <DropDownPreference
+            app:key="selectedcolorstyleKey"
+            app:title="Color Style"
+            app:entries="@array/colorStyle"
+            app:entryValues="@array/colorStyle"
+            app:defaultValue="1"
+            app:useSimpleSummaryProvider="true"/>
+
+        <CheckBoxPreference
+            app:key="loaderKey"
+            app:title="Loader"
+            android:defaultValue="true"
+            app:isPreferenceVisible="false"
+            />
+
+
+
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/post"
+        app:isPreferenceVisible="false">
+
+        <EditTextPreference
+            app:key="posturlKey"
+            app:defaultValue=""
+
+            app:title="@string/post_url"
+
+            app:useSimpleSummaryProvider="true"/>
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:isPreferenceVisible="false"
+        app:title="@string/redirect"
+        >
+
+        <EditTextPreference
+            app:key="redirectUrlKey"
+            app:defaultValue="onTapKnetRedirect://"
+
+            app:title="@string/post_url"
+            app:useSimpleSummaryProvider="true"/>
+
+
+
+    </PreferenceCategory>
+    <Preference
+        app:key="dialog_preference"
+        android:title="Done"
+        app:summary="Tap to show Button" />
+
+</PreferenceScreen>

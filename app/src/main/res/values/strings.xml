@@ -1,5 +1,233 @@
 <resources>
     <string name="app_name">Checkout-Android</string>
-    <string name="generate_authenticate_token">generate authorization token</string>
 
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="card_name">Card Holder</string>
+    <string name="addons">ADDONS</string>
+    <string name="fields">FieldVisibility</string>
+    <string name="display_payment_brands">Display Payment Brands</string>
+    <string name="display_card_scanning">Scanner</string>
+    <string name="display_nfc">Nfc</string>
+    <string name="operation">Operator</string>
+    <string name="sandbox">SandBox</string>
+    <string name="production">Production</string>
+    <string name="sandbox_key">Public Key</string>
+    <string name="transaction">Transaction</string>
+    <string name="amount">Amount</string>
+    <string name="acceptance">Acceptance</string>
+    <string name="supported_brands">Supported scheme</string>
+    <string name="supported_scheme">Supported scheme</string>
+
+    <string name="scope_title">Scope</string>
+    <string name="interface_">Interface</string>
+    <string name="scanner_border_color">Scanner Border Color</string>
+    <string name="choose_language">Choose Language</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="card_edges">Card Edges</string>
+    <string name="curved">curved</string>
+    <string name="straight">flat</string>
+    <string name="display_powerdby_logo">powered</string>
+    <string name="done">Done</string>
+    <string name="production_key">Production Key</string>
+    <string name="merchant_id">Merchant id</string>
+    <string name="credit">CREDIT</string>
+    <string name="debit">DEBIT</string>
+    <string name="all">ALL</string>
+    <string name="threeds">ThreeDs</string>
+    <string name="emv">EMV</string>
+    <string name="show_save">Show Save Switch</string>
+    <string name="ltr">ltr</string>
+    <string name="rtl">dynamic</string>
+    <string name="card_directions">Card Direction</string>
+    <string name="merchant">edit customer info</string>
+    <string name="id">id</string>
+    <string name="phone_number">Phone number</string>
+    <string name="last_name">Last name</string>
+    <string name="middle_name">Middle name</string>
+    <string name="first_name">First name</string>
+    <string name="email">Email</string>
+    <string name="editable">Editable</string>
+    <string name="edit_transaction_title">Edit Transaction</string>
+    <string name="transaction_descr">Transaction Description</string>
+    <string name="Authenticate">AuthenticatedToken</string>
+    <string name="Token">Token</string>
+    <string name="currency">Currency</string>
+    <string name="order_id">Order id</string>
+    <string name="order_desc">Order Description</string>
+    <string name="trans_refrence">Reference</string>
+    <string name="invoice">Invoice</string>
+    <string name="invoice_id">Invoice id</string>
+    <string name="post">Post</string>
+    <string name="post_url">url</string>
+    <string name="purpose">Purpose</string>
+    <string name="order">Order</string>
+    <string name="features">Features</string>
+    <string name="redirect">Redirect</string>
+    <string name="card_cvv">CVV</string>
+    <string name="colored">colored</string>
+    <string name="monochrome">monochrome</string>
+    <string name="colorStyle">ColorStyle</string>
+    <string name="supportedPaymentAuthentications">supportedPaymentAuthentications</string>
+    <string name="redirect_url"> url </string>
+    <string name="saveCard">Save Card</string>
+    <string name="autoSaveCard">Auto Save Card</string>
+    <string name="loading">Loading</string>
+    <string name="supportedFundSource">Supported Fund Source</string>
+    <string name="display_holdername">Card Holder</string>
+    <string name="display_CVV">CVV</string>
+    <string name="choose_theme">Choose Theme</string>
+    <string name="payment_agreement_id">Payment agreement id </string>
+    <string name="payment_agreement_contract">Payment agreement contract </string>
+    <string name="button_type">Button</string>
+    <string name="generate_authenticate_token">generate authorization token</string>
+    <string name="customerTitle">Customer</string>
+    <string name="order_curr">Order Currency</string>
+    <string name="merchantTitle">Merchant</string>
+
+    <string-array name="ScopeList">
+        <item>CHARGE</item>
+        <item>AUTHORIZE</item>
+        <item>TAPTOKEN</item>
+        <item>GOOGLEPAYTOKEN</item>
+
+    </string-array>
+
+
+    <string-array name="ButtonList">
+        <item>KNET</item>
+        <item>BENEFIT</item>
+        <item>FAWRY</item>
+        <item>PAYPAL</item>
+        <item>TABBY</item>
+        <item>GOOGLE_PAY</item>
+        <item>BENEFITPAY</item>
+        <item>CAREEM_PAY</item>
+        <item>STCPAY</item>
+        <item>CLICK2PAY</item>
+        <item>QPAY</item>
+        <item>DEEMA</item>
+        <!--        <item>VISA</item>-->
+        <!--        <item>AMERICANEXPRESS</item>-->
+        <!--        <item>MADA</item>-->
+        <!--        <item>MASTERCARD</item>-->
+        <!--   <item>CARD</item>-->
+
+
+    </string-array>
+    <string-array name="AuthorizeList">
+        <item>VOID</item>
+        <item>CAPTURE</item>
+    </string-array>
+
+    <string-array name="ScopeList_default_values">
+        <item>1</item>
+    </string-array>
+
+    <string-array name="PurposeList">
+        <item>Transaction</item>
+        <item>Save Card</item>
+        <item>Verify Cardholder</item>
+        <item>Order Transaction</item>
+        <item>Subscription Transaction</item>
+        <item>Billing Transaction</item>
+        <item>Installment Transaction</item>
+        <item>Milestone Transaction</item>
+
+    </string-array>
+
+    <string-array name="SupportedFundSource">
+        <item>CREDIT</item>
+        <item>DEBIT</item>
+    </string-array>
+
+
+    <string-array name="SupportedFundSourceValues">
+        <item>1</item>
+    </string-array>
+
+    <string-array name="SupportedPaymentAuthentication">
+        <item>3DS</item>
+    </string-array>
+
+    <string-array name="SupportedPaymentAuthenticationValues">
+        <item>1</item>
+    </string-array>
+
+    <string-array name="SupportedSchemes">
+        <item>MADA</item>
+        <item>VISA</item>
+        <item>MASTERCARD</item>
+        <item>AMEX</item>
+        <item>OMANNET</item>
+        <item>BENEFIT_CARD</item>
+
+    </string-array>
+
+    <string-array name="Lanugages">
+        <item>ENGLISH</item>
+        <item>ARABIC</item>
+        <item>DYNAMIC</item>
+
+    </string-array>
+    <string-array name="LanugagesValues">
+        <item>EN</item>
+        <item>AR</item>
+        <item>DYNAMIC</item>
+    </string-array>
+
+    <string-array name="Theme">
+        <item>LIGHT</item>
+        <item>DARK</item>
+        <item>DYNAMIC</item>
+
+    </string-array>
+
+    <string-array name="Edges">
+        <item>FLAT</item>
+        <item>CIRCULAR</item>
+    </string-array>
+
+    <string-array name="Direction">
+        <item>DYNAMIC</item>
+        <item>LTR</item>
+    </string-array>
+
+
+    <string-array name="colorStyle">
+        <item>COLORED</item>
+        <item>MONOCHROME</item>
+    </string-array>
+
+
+
+
+
+    <string-array name="currencies">
+        <item>BHD</item>
+        <item>KWD</item>
+        <item>AED</item>
+        <item>SAR</item>
+        <item>USD</item>
+        <item>EGP</item>
+
+    </string-array>
+    <string-array name="PurposeList_default_values">
+        <item>1</item>
+    </string-array>
+
+    <string-array  name ="SupportedPaymentMethods">
+        <item>MADA</item>
+        <item>VISA</item>
+        <item>MASTERCARD</item>
+        <item>AMERICAN_EXPRESS</item>
+        <item>OMANNET</item>
+        <item>MEEZA</item>
+
+    </string-array>
 </resources>

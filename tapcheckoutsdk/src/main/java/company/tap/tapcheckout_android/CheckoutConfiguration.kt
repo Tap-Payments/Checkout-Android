@@ -64,10 +64,10 @@ class CheckoutConfiguration {
 
                 BASE_URL_1 = tapButtonSDKConfigUrlResponse.baseURL
                 prodEncKey = tapButtonSDKConfigUrlResponse.prodEncKey
-                payButonurlFormat = tapButtonSDKConfigUrlResponse.payButtonUrlFormat
 
 
-                println("payButonurlFormat is"+payButonurlFormat)
+
+
                 //testEncKey = tapButtonSDKConfigUrlResponse.testEncKey
                 testEncKey = context.resources.getString(R.string.enryptkeyTest)
                 //  urlWebStarter = tapButtonSDKConfigUrlResponse.baseURL
