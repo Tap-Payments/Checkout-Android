@@ -308,6 +308,6 @@
     <Preference
         app:key="dialog_preference"
         android:title="Done"
-        app:summary="Tap to show Button" />
+        app:summary="Tap to show Checkout" />
 
 </PreferenceScreen>
