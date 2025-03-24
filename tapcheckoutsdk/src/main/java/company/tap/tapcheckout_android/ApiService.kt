@@ -1,7 +1,7 @@
 package company.tap.tapcheckout_android
 
 import androidx.annotation.RestrictTo
-import company.tap.tapcheckout_android.models.TapButtonSDKConfigUrlResponse
+import company.tap.tapcheckout_android.models.TapCheckoutSDKConfigUrlResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -22,9 +22,9 @@ object ApiService {
     var BASE_URL_1 = "https://mw-sdk.dev.tap.company/v2/"
     var BASE_URL_11 = "https://tap-sdks.b-cdn.net/"
 
-    interface TapButtonSDKConfigUrls {
+    interface TapCheckoutSDKConfigUrls {
         @GET("mobile/checkout/base_url.json")
-        suspend   fun getButtonSDKConfigUrl(): TapButtonSDKConfigUrlResponse
+        suspend   fun getCheckoutSDKConfigUrl(): TapCheckoutSDKConfigUrlResponse
 
 
     }

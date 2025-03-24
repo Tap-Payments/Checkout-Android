@@ -22,7 +22,7 @@ class CheckoutConfiguration {
 
     companion object {
         private val retrofit = ApiService.RetrofitClient.getClient1()
-        private val tapSDKConfigsUrl = retrofit.create(ApiService.TapButtonSDKConfigUrls::class.java)
+        private val tapSDKConfigsUrl = retrofit.create(ApiService.TapCheckoutSDKConfigUrls::class.java)
         private var testEncKey: String? = null
         private var prodEncKey: String? = null
         var  payButonurlFormat:String?="https://button.dev.tap.company/?intentId=%@&publicKey=%@&mdn=%@&platform=mobile"
@@ -57,11 +57,11 @@ class CheckoutConfiguration {
                  * request to get Tap configs
                  */
 
-                val tapButtonSDKConfigUrlResponse = tapSDKConfigsUrl.getButtonSDKConfigUrl()
-                println("tapButtonSDKConfigUrlResponse>>>>"+tapButtonSDKConfigUrlResponse)
+                val tapCheckoutSDKConfigUrlResponse = tapSDKConfigsUrl.getCheckoutSDKConfigUrl()
+                println("tapCheckoutSDKConfigUrlResponse>>>>"+tapCheckoutSDKConfigUrlResponse)
 
-                BASE_URL_1 = tapButtonSDKConfigUrlResponse.baseURL
-                prodEncKey = tapButtonSDKConfigUrlResponse.prodEncKey
+                BASE_URL_1 = tapCheckoutSDKConfigUrlResponse.baseURL
+                prodEncKey = tapCheckoutSDKConfigUrlResponse.prodEncKey
 
 
 

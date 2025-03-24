@@ -58,7 +58,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
     lateinit var webviewStarterUrl: String
     private var isBenefitPayUrlIntercepted =false
     // lateinit var webViewScheme: String
-    var webViewScheme: String = "tapbuttonsdk://"
+    var webViewScheme: String = "tapcheckoutsdk://"
     private lateinit var webChrome: WebChrome
 
     lateinit var webViewFrame: FrameLayout
@@ -636,7 +636,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                                 // knetWebView.loadUrl(redirectURL)
                                 urlToBeloaded = redirectURL
                                 Handler(Looper.getMainLooper()).post {
-                                   redirectWebView.loadUrl(redirectURL)
+                                  // redirectWebView.loadUrl(redirectURL)
+                                   redirectWebView.loadUrl("https://tap-checkout-wrapper.netlify.app/?platform=mobile&themeMode=dark&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ZGZmZWIyY2NlOTRjMDE2MjhlNDczNiJ9.O442WVCwjpJElD3RlhtfITUBtbIzEpB7YDJB4Ad5Cjg")
                                    // redirectWebView.loadUrl("https://checkout.staging.tap.company/v2/?mode=page&themeMode=dark&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ZDY3ZWQxMThjNzNkNDhhNjI2MzkzNCJ9.BMfm_TNmEol-K6vhUTkTEad6DftTZJzQJqgISzpxn4c")
                                     //redirectWebView.loadUrl("https://www.google.com/");
 

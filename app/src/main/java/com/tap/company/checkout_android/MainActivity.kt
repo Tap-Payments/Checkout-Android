@@ -28,7 +28,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
-    lateinit var payButton: TapCheckout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         }
 
         /**
-         * configureWithTapCheckoutDictionary and calling the PayButton SDK
+         * configureWithTapCheckoutDictionary and calling the Checkout SDK
          */
         val scope = intent.getStringExtra("scopeKey")
        // val charge = intent.getStringExtra("scopeKey")
