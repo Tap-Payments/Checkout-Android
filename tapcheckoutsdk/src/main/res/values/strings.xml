@@ -9,8 +9,11 @@ BLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L
 SZhWp4Mnd6wjVgXAsQIDAQAB
 -&#45;&#45;&#45;&#45;END PUBLIC KEY-&#45;&#45;&#45;&#45;
     </string>  -->
+<!--    <string name="enryptkeyTest" translatable="false">
+-&#45;&#45;&#45;&#45;BEGIN PUBLIC KEY-&#45;&#45;&#45;&#45;\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB\nh0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu\nBLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L\nSZhWp4Mnd6wjVgXAsQIDAQAB\n-&#45;&#45;&#45;&#45;END PUBLIC KEY-&#45;&#45;&#45;&#45;
+    </string>-->
     <string name="enryptkeyTest" translatable="false">
------BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB\nh0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu\nBLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L\nSZhWp4Mnd6wjVgXAsQIDAQAB\n-----END PUBLIC KEY-----
+-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPBh0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAuBLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1LSZhWp4Mnd6wjVgXAsQIDAQAB-----END PUBLIC KEY-----
     </string>
     <string name="enryptkeyProduction" translatable="false">
 -----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB\nh0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu\nBLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L\nSZhWp4Mnd6wjVgXAsQIDAQAB\n-----END PUBLIC KEY-----

@@ -609,7 +609,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
     private fun callConfigAPI(configuraton: java.util.HashMap<String, Any>) {
         try {
-            val baseURL = "https://mw-sdk.staging.tap.company/v2/checkout/config"
+          //  val baseURL = "https://mw-sdk.staging.tap.company/v2/checkout/config"
+            val baseURL = "https://mw-sdk.dev.tap.company/v2/checkout/config"
             val builder: OkHttpClient.Builder = OkHttpClient().newBuilder()
             val interceptor = HttpLoggingInterceptor()
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -636,8 +637,10 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                                 // knetWebView.loadUrl(redirectURL)
                                 urlToBeloaded = redirectURL
                                 Handler(Looper.getMainLooper()).post {
-                                  // redirectWebView.loadUrl(redirectURL)
-                                   redirectWebView.loadUrl("https://tap-checkout-wrapper.netlify.app/?platform=mobile&themeMode=dark&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ZGZmZWIyY2NlOTRjMDE2MjhlNDczNiJ9.O442WVCwjpJElD3RlhtfITUBtbIzEpB7YDJB4Ad5Cjg")
+                                    //todo replace later to be redirectURL only and append &platform=mobile
+                                   redirectWebView.loadUrl(redirectURL.replace("https://checkout.dev.tap.company","https://tap-checkout-wrapper.netlify.app")+"&platform=mobile")
+                                    println("Redirect Webview url >>>"+redirectURL.replace("https://checkout.dev.tap.company","https://tap-checkout-wrapper.netlify.app")+"&platform=mobile")
+                                  // redirectWebView.loadUrl("https://tap-checkout-wrapper.netlify.app/?platform=mobile&themeMode=dark&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ZGZmZWIyY2NlOTRjMDE2MjhlNDczNiJ9.O442WVCwjpJElD3RlhtfITUBtbIzEpB7YDJB4Ad5Cjg")
                                    // redirectWebView.loadUrl("https://checkout.staging.tap.company/v2/?mode=page&themeMode=dark&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ZDY3ZWQxMThjNzNkNDhhNjI2MzkzNCJ9.BMfm_TNmEol-K6vhUTkTEad6DftTZJzQJqgISzpxn4c")
                                     //redirectWebView.loadUrl("https://www.google.com/");
 
