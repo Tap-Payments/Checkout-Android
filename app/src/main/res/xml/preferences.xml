@@ -8,14 +8,13 @@
 
 
 
-    <PreferenceCategory  app:title="@string/button_type">
+    <PreferenceCategory
+        app:title="@string/operation">
 
-
-        <DropDownPreference
-            app:key="buttonKey"
-            app:entries="@array/ButtonList"
-            app:entryValues="@array/ButtonList"
-            app:defaultValue="1"
+        <EditTextPreference
+            app:key="publicKey"
+            app:defaultValue="pk_test_gznOhsfdL0QMV8AW7tSN2wKP"
+            app:title="Public Key"
             app:useSimpleSummaryProvider="true"/>
 
     </PreferenceCategory>
@@ -32,7 +31,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:title="@string/transaction">
+        app:title="@string/transaction"
+        app:isPreferenceVisible="false">
 
         <EditTextPreference
             app:key="transactionRefrenceKey"
@@ -91,6 +91,32 @@
             app:defaultValue=""
             app:title="Customer id"
             app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            app:key="customerFNameKey"
+            app:defaultValue="Android"
+            app:title="Customer First Name"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            app:key="customerLKey"
+            app:defaultValue="Test"
+            app:title="Customer Last Name"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            app:key="customerEmailKey"
+            app:defaultValue="example@gmail.com"
+            app:title="Customer Email"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            app:key="customerCountryCodeKey"
+            app:defaultValue="965"
+            app:title="Customer Country Code"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            app:key="customerPhoneKey"
+            app:defaultValue="55567890"
+            app:title="Customer Phone No"
+            app:useSimpleSummaryProvider="true"/>
 
     </PreferenceCategory>
 
@@ -144,13 +170,21 @@
             android:entries="@array/SupportedSchemes"
             app:title="supportedSchemes"
             android:entryValues="@array/SupportedSchemes"
-
+app:isPreferenceVisible="false"
+            app:useSimpleSummaryProvider="true"/>
+        <MultiSelectListPreference
+            app:key="paymentTypeKey"
+            android:entries="@array/paymentTypes"
+            app:title="Payment Types"
+            android:entryValues="@array/paymentTypes"
+            android:defaultValue="@array/DefaultSupportedPaymentMethods"
             app:useSimpleSummaryProvider="true"/>
         <MultiSelectListPreference
             app:key="supportedFundSourceKey"
             app:title="supportedFundSource"
             android:entries="@array/SupportedFundSource"
             android:entryValues="@array/SupportedFundSource"
+            app:isPreferenceVisible="false"
             app:useSimpleSummaryProvider="true"/>
 
         <MultiSelectListPreference
@@ -166,7 +200,8 @@
             app:title="supportedPaymentMethod"
             android:entries="@array/SupportedPaymentMethods"
             android:entryValues="@array/SupportedPaymentMethods"
-            app:isPreferenceVisible="false"
+            android:defaultValue="@array/DefaultSupportedPaymentMethods"
+            app:isPreferenceVisible="true"
             app:useSimpleSummaryProvider="true"/>
 
     </PreferenceCategory>
@@ -195,7 +230,7 @@
 
     <PreferenceCategory
         app:title="@string/features"
-        app:isPreferenceVisible="false">
+        app:isPreferenceVisible="true">
         <CheckBoxPreference
             app:key="displayPymtBrndKey"
             app:title="@string/display_payment_brands"
@@ -203,9 +238,30 @@
             />
 
         <CheckBoxPreference
+            app:key="showLoadingStateKey"
+            app:title="@string/show_loading_state"
+            android:defaultValue="false"
+            />
+        <CheckBoxPreference
+            app:key="collectCardHodlernameKey"
+            app:title="@string/collect_card_holdername"
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            app:key="cardNameEditableeKey"
+            app:title="@string/CardnameEditable"
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            app:key="forceLtrKey"
+            app:title="@string/forceLtr"
+            android:defaultValue="false"
+            />
+        <CheckBoxPreference
             app:key="displaySaveCardKey"
             app:title="@string/saveCard"
             android:defaultValue="true"
+            app:isPreferenceVisible="false"
             />
 
 
@@ -213,6 +269,7 @@
             app:key="displayAutosaveCardKey"
             app:title="@string/autoSaveCard"
             android:defaultValue="true"
+            app:isPreferenceVisible="false"
             />
     </PreferenceCategory>
 
@@ -238,7 +295,7 @@
         <DropDownPreference
             app:key="selectedcardedgeKey"
             app:title="Card Edges"
-
+            app:isPreferenceVisible="false"
             app:entries="@array/Edges"
             app:entryValues="@array/Edges"
             app:defaultValue="1"
@@ -259,6 +316,7 @@
             app:entries="@array/colorStyle"
             app:entryValues="@array/colorStyle"
             app:defaultValue="1"
+            app:isPreferenceVisible="false"
             app:useSimpleSummaryProvider="true"/>
 
         <CheckBoxPreference

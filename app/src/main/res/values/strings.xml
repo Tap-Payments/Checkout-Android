@@ -89,9 +89,13 @@
     <string name="customerTitle">Customer</string>
     <string name="order_curr">Order Currency</string>
     <string name="merchantTitle">Merchant</string>
+    <string name="show_loading_state">Show Loading state</string>
+    <string name="collect_card_holdername">Collect Card HolderName</string>
+    <string name="CardnameEditable">Card Name Editable</string>
+    <string name="forceLtr">Force LTR</string>
 
     <string-array name="ScopeList">
-        <item>CHARGE</item>
+        <item>charge</item>
         <item>AUTHORIZE</item>
         <item>TAPTOKEN</item>
         <item>GOOGLEPAYTOKEN</item>
@@ -168,7 +172,11 @@
         <item>BENEFIT_CARD</item>
 
     </string-array>
+    <string-array name="paymentTypes">
+        <item>ALL</item>
 
+
+    </string-array>
     <string-array name="Lanugages">
         <item>ENGLISH</item>
         <item>ARABIC</item>
@@ -176,15 +184,15 @@
 
     </string-array>
     <string-array name="LanugagesValues">
-        <item>EN</item>
-        <item>AR</item>
-        <item>DYNAMIC</item>
+        <item>en</item>
+        <item>ar</item>
+        <item>dynamic</item>
     </string-array>
 
     <string-array name="Theme">
-        <item>LIGHT</item>
-        <item>DARK</item>
-        <item>DYNAMIC</item>
+        <item>light</item>
+        <item>dark</item>
+        <item>dynamic</item>
 
     </string-array>
 
@@ -222,6 +230,7 @@
     </string-array>
 
     <string-array  name ="SupportedPaymentMethods">
+        <item>ALL</item>
         <item>MADA</item>
         <item>VISA</item>
         <item>MASTERCARD</item>
@@ -229,5 +238,8 @@
         <item>OMANNET</item>
         <item>MEEZA</item>
 
+
     </string-array>
+    <string-array name="DefaultSupportedPaymentMethods">ALL</string-array>
+
 </resources>

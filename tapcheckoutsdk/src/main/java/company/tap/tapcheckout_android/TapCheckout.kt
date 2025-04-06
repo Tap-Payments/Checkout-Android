@@ -332,6 +332,13 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
 
                     }
+                    if (request?.url.toString().contains(TapCheckoutDelegates.onClose.name)) {
+
+                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
+
+
+
+                    }
                     if (request?.url.toString().contains(TapCheckoutDelegates.onCancel.name)) {
                         android.os.Handler(Looper.getMainLooper()).postDelayed(3000) {
                             if(!onSuccessCalled){
@@ -552,7 +559,17 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
     override fun onDetachedFromWindow() {
         redirectWebView.destroy()
+        println("onDetachedFromWindow")
         super.onDetachedFromWindow()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // Handle back button pressed
+            Log.d("BackPress", "Back button was pressed")
+            return true // consume it
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
 

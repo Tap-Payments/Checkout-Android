@@ -61,7 +61,7 @@ class SettingsActivity : AppCompatActivity(),SimpleSettingsConfig.PreferenceCall
          */
         intent.putExtra("orderIdKey", getPrefStringValue("orderIdKey",""))
         intent.putExtra("orderDescKey", getPrefStringValue("orderDescKey","test"))
-        intent.putExtra("amountKey", getPrefStringValue("amountKey","3"))
+        intent.putExtra("amountKey", getPrefStringValue("amountKey","1"))
         intent.putExtra("orderCurrencyKey", getPrefStringValue("orderCurrencyKey","KWD"))
         intent.putExtra("orderRefrenceKey", getPrefStringValue("orderRefrenceKey","test"))
         intent.putExtra("selectedCurrencyKey", getPrefStringValue("selectedCurrencyKey","test"))
@@ -93,7 +93,7 @@ class SettingsActivity : AppCompatActivity(),SimpleSettingsConfig.PreferenceCall
          * scope && transaction
          */
 
-        intent.putExtra("scopeKey", getPrefStringValue("scopeKey","CHARGE"))
+        intent.putExtra("scopeKey", getPrefStringValue("scopeKey","charge"))
         intent.putExtra("transactionRefrenceKey", getPrefStringValue("transactionRefrenceKey",""))
         intent.putExtra("transactionAuthroizeTypeKey", getPrefStringValue("transactionAuthroizeTypeKey",""))
         intent.putExtra("transactionAuthroizeTimeKey", getPrefStringValue("transactionAuthroizeTimeKey",""))

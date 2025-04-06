@@ -1,5 +1,6 @@
 package com.tap.company.checkout_android
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,7 +8,10 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.chillibits.simplesettings.tool.getPrefBooleanValue
+import com.chillibits.simplesettings.tool.getPrefStringSetValue
 import com.chillibits.simplesettings.tool.getPrefStringValue
 import com.chillibits.simplesettings.tool.getPrefs
 import company.tap.tapcheckout_android.CheckoutConfiguration
@@ -71,31 +75,32 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         configuration.put("open", true)
         configuration.put("hashString", "")
         configuration.put("checkoutMode", "page")
-        configuration.put("language", "en")
-        configuration.put("themeMode", "dark")
-        configuration.put("paymentType", "ALL")
-        configuration.put("supportedPaymentMethods", "ALL")
-        configuration.put("selectedCurrency", "SAR")
+        configuration.put("language", getPrefStringValue("selectedlangKey", default = "en"))
+        configuration.put("themeMode",  getPrefStringValue("selectedthemeKey","dark"))
+        configuration.put("paymentType",  getPrefStringSetValue("paymentTypeKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))
+        configuration.put("supportedPaymentMethods", getPrefStringSetValue("supportedPaymentMethodKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))
+       // configuration.put("supportedPaymentMethods", getPrefStringValue("supportedPaymentMethodKey", "ALL"))
+        configuration.put("selectedCurrency", getPrefStringValue("orderCurrencyKey","KWD"))
         configuration.put("supportedCurrencies", "ALL")
 
         val gateway = JSONObject()
-        gateway.put("publicKey", "pk_test_gznOhsfdL0QMV8AW7tSN2wKP")
+        gateway.put("publicKey", getPrefStringValue("publicKey","pk_test_gznOhsfdL0QMV8AW7tSN2wKP"))
         configuration.put("gateway", gateway)
 
         val customer = JSONObject()
-        customer.put("firstName", "Ahmed")
-        customer.put("lastName", "Sharkawy")
-        customer.put("email", "example@gmail.com")
+        customer.put("firstName", getPrefStringValue("customerFNameKey","First Android"))
+        customer.put("lastName", getPrefStringValue("customerLKey","Test "))
+        customer.put("email", getPrefStringValue("customerEmailKey","example@gmail.com"))
 
         val phone = JSONObject()
-        phone.put("countryCode", "20")
-        phone.put("number", "1099137773")
+        phone.put("countryCode", getPrefStringValue("customerCountryCodeKey","965"))
+        phone.put("number",  getPrefStringValue("customerPhoneKey","55567890"))
         customer.put("phone", phone)
 
         configuration.put("customer", customer)
 
         val transaction = JSONObject()
-        transaction.put("mode", "charge")
+        transaction.put("mode", getPrefStringValue("scopeKey","charge"))
 
         val charge = JSONObject()
         charge.put("saveCard", true)
@@ -126,17 +131,17 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         transaction.put("charge", charge)
         configuration.put("transaction", transaction)
 
-        configuration.put("amount", 0.1)
+        configuration.put("amount", getPrefStringValue("amountKey","1"))
 
         val order = JSONObject()
         order.put("id", "")
-        order.put("currency", "SAR")
-        order.put("amount", 0.1)
+        order.put("currency", getPrefStringValue("orderCurrencyKey","KWD"))
+        order.put("amount", getPrefStringValue("amountKey","1"))
 
         val items = JSONArray()
         val item = JSONObject()
-        item.put("amount", 0.1)
-        item.put("currency", "SAR")
+        item.put("amount", getPrefStringValue("amountKey","1"))
+        item.put("currency", getPrefStringValue("orderCurrencyKey","KWD"))
         item.put("name", "Item Title 1")
         item.put("quantity", 1)
         item.put("description", "item description 1")
@@ -146,14 +151,14 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         configuration.put("order", order)
 
         val cardOptions = JSONObject()
-        cardOptions.put("showBrands", true)
-        cardOptions.put("showLoadingState", false)
-        cardOptions.put("collectHolderName", true)
+        cardOptions.put("showBrands",  getPrefBooleanValue("displayPymtBrndKey",true))
+        cardOptions.put("showLoadingState", getPrefBooleanValue("showLoadingStateKey",false))
+        cardOptions.put("collectHolderName", getPrefBooleanValue("collectCardHodlernameKey",true))
         cardOptions.put("preLoadCardName", "")
-        cardOptions.put("cardNameEditable", true)
+        cardOptions.put("cardNameEditable", getPrefBooleanValue("cardNameEditableeKey",true))
         cardOptions.put("cardFundingSource", "all")
         cardOptions.put("saveCardOption", "all")
-        cardOptions.put("forceLtr", false)
+        cardOptions.put("forceLtr", getPrefBooleanValue("forceLtrKey",false))
 
         configuration.put("cardOptions", cardOptions)
         configuration.put("isApplePayAvailableOnClient", true)
@@ -183,6 +188,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         findViewById<TextView>(R.id.text).text = "onSuccess>>>> $data"
         findViewById<TextView>(R.id.text).movementMethod = ScrollingMovementMethod()
 
+      //  customAlertBox("onCheckoutSuccess",data)
         Toast.makeText(this, "onSuccess $data", Toast.LENGTH_SHORT).show()
 
     }
@@ -199,6 +205,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         Log.e("data", data.toString())
         findViewById<TextView>(R.id.text).text = ""
         findViewById<TextView>(R.id.text).text = "onChargeCreated $data"
+
         Toast.makeText(this, "onChargeCreated $data", Toast.LENGTH_SHORT).show()
 
     }
@@ -211,6 +218,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
     }*/
 
     override fun onCheckoutcancel() {
+      //  customAlertBox("onCheckoutcancel","Canceled")
         Toast.makeText(this, "Cancel ", Toast.LENGTH_SHORT).show()
     }
 
@@ -218,6 +226,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         Log.e("error", error.toString())
         findViewById<TextView>(R.id.text).text = ""
         findViewById<TextView>(R.id.text).text = "onError $error"
+      //  customAlertBox("onCheckoutError",error)
         Toast.makeText(this, "onError received $error ", Toast.LENGTH_SHORT).show()
 
     }
@@ -701,5 +710,63 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         })
     }
 
+    private fun customAlertBox(title:String,message:String){
+        // Create the object of AlertDialog Builder class
+        val builder = AlertDialog.Builder(this)
 
+        // Set the message show for the Alert time
+        builder.setMessage(message)
+
+        // Set Alert Title
+        builder.setTitle(title)
+
+        // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+        builder.setCancelable(false)
+
+        // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+        builder.setPositiveButton("Yes") {
+            // When the user click yes button then app will close
+                dialog, which -> dialog.dismiss()
+        }
+
+        // Set the Negative button with No name Lambda OnClickListener method is use of DialogInterface interface.
+        builder.setNegativeButton("No") {
+            // If user click no then dialog box is canceled.
+                dialog, which -> dialog.cancel()
+        }
+
+        // Create the Alert dialog
+        val alertDialog = builder.create()
+        // Show the Alert Dialog box
+        alertDialog.show()
+    }
+    fun getPrefStringSetAsArray(sharedPreferences: SharedPreferences, key: String): Array<String>? {
+
+        val sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = sharedPreferences.edit()
+        var stringSet: Set<String>? = null
+        if(key.contains("supportedSchemesKey")) {
+            val defaultHash = hashSetOf("VISA", "AMEX", "MASTERCARD", "BENEFIT_CARD")
+// Save a HashSet to SharedPreferences
+            val hashSet = getPrefs().getStringSet("supportedSchemesKey", defaultHash)
+            editor.putStringSet("myKey", hashSet)
+            editor.apply()
+            // Retrieve the HashSet (stored as a Set<String>) from SharedPreferences
+            stringSet = hashSet
+        }else if (
+            key.contains("supportedFundSourceKey")
+
+        ) {
+
+            val defaultHash = hashSetOf("DEBIT", "CREDIT")
+// Save a HashSet to SharedPreferences
+            val hashSet = getPrefs().getStringSet("supportedSchemesKey", defaultHash)
+            editor.putStringSet("myKey", hashSet)
+            editor.apply()
+            // Retrieve the HashSet (stored as a Set<String>) from SharedPreferences
+            stringSet = hashSet
+        }
+        // Convert the Set<String> (HashSet) to Array<String>
+        return stringSet?.toTypedArray()
+    }
 }

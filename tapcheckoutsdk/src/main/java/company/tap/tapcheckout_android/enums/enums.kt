@@ -23,8 +23,8 @@ const val urlKey = "url"
 const val careemPayUrlHandler ="https://checkout"
 
 enum class TapCheckoutDelegates {
-    onReady, onClick, onOrderCreated, onChargeCreated, onError, onSuccess, cancel,onCancel, onClosePopup,onHeightChange,on3dsRedirect,onBinIdentification, launch
-
+    onReady, onClick, onOrderCreated, onChargeCreated, onError, onSuccess, cancel,onCancel, onClosePopup,onHeightChange,on3dsRedirect,onBinIdentification, launch,
+    onClose
 }
 
 enum class SCHEMES(var value: Pair<String, String>) {
