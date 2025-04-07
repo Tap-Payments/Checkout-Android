@@ -32,6 +32,8 @@ import company.tap.tapcheckout_android.enums.careemPayUrlHandler
 import company.tap.tapcheckout_android.enums.keyValueName
 import company.tap.tapcheckout_android.enums.operatorKey
 import company.tap.tapcheckout_android.enums.publicKeyToGet
+import company.tap.tapcheckout_android.enums.tapID
+import company.tap.tapcheckout_android.models.RedirectResponse
 import company.tap.tapcheckout_android.models.ThreeDsResponse
 import company.tap.tapcheckout_android.models.ThreeDsResponseCardPayButtons
 import company.tap.tapcheckout_android.popup_window.WebChrome
@@ -73,10 +75,12 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
     var iSAppInForeground = true
     var onSuccessCalled = false
     var pair =  Pair("",false)
+    private var isRedirectHandled = false
 
     companion object {
         lateinit var threeDsResponse: ThreeDsResponse
         lateinit var threeDsResponseCardPayButtons: ThreeDsResponseCardPayButtons
+        lateinit var redirectResponse: RedirectResponse
 
         private lateinit var redirectWebView: WebView
 
@@ -92,6 +96,10 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
         fun retrieve(value: String) {
             redirectWebView.loadUrl("javascript:window.retrieve('$value')")
         }
+        fun cancelRedirect() {
+            redirectWebView.loadUrl("javascript:window.returnBack()")
+        }
+
 
 
     }
@@ -325,6 +333,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                         TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutClick()
 
                     }
+
                     if (request?.url.toString().contains(TapCheckoutDelegates.cancel.name)) {
 
                         TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
@@ -339,6 +348,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
 
                     }
+
                     if (request?.url.toString().contains(TapCheckoutDelegates.onCancel.name)) {
                         android.os.Handler(Looper.getMainLooper()).postDelayed(3000) {
                             if(!onSuccessCalled){
@@ -372,17 +382,45 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                             ?.onPayButtonHeightChange(newHeight.toString())*/
 
                     }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.on3dsRedirect.name)) {
+                    if (request?.url.toString().contains(TapCheckoutDelegates.onRedirectUrl.name)) {
+                        if (isRedirectHandled) return true // Prevent further handling
+                        isRedirectHandled = true
                         /**
-                         * navigate to 3ds Activity
+                         * navigate onRedirectUrl
                          */
                         val queryParams =
                             request?.url?.getQueryParameterFromUri(keyValueName).toString()
-                        Log.e("data card", queryParams.toString())
+                        Log.e("data onRedirectUrl", queryParams.toString())
+                        try {
+                            val jsonObject = JSONObject(queryParams)
 
-                        threeDsResponseCardPayButtons = queryParams.getModelFromJson()
-                        navigateTo3dsActivity(PaymentFlow.CARDPAY.name)
-                        Log.e("data card", threeDsResponseCardPayButtons.toString())
+                            // Extract fields
+                            val powered = jsonObject.optBoolean("powered", false)
+                            val keyword = jsonObject.optString("keyword", "")
+                            val redirectionObject = jsonObject.optJSONObject("redirectionUrl")
+                            val redirectUrl = redirectionObject?.optString("url") ?: ""
+                            // Optional: load the main url or redirect
+                            val mainUrl = jsonObject.optString("url", "")
+                            // Create the model instance
+                             redirectResponse = RedirectResponse(
+                                redirectUrl = mainUrl,
+                                powered = powered,
+                                keyword = keyword
+                            )
+
+                            Log.d("RedirectResponse", redirectResponse.toString())
+
+
+                            if (redirectResponse.redirectUrl.isNotEmpty() && redirectResponse.keyword.isNotEmpty() ) {
+                               // redirectWebView.loadUrl(mainUrl)
+                                navigateTo3dsActivity(PaymentFlow.REDIRECT.name)
+                                return true
+                            }
+
+                        } catch (e: Exception) {
+                            Log.e("ParseError", "Failed to parse redirect data", e)
+                            isRedirectHandled = false
+                        }
 
 
                     }
@@ -463,6 +501,20 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                     }
 
                     return true
+                }else    if (request?.url.toString().contains(tapID)) {
+
+                    val tapId = request?.url?.getQueryParameter("tap_id")
+
+                    Log.d("TapID", tapId ?: "No tap_id found")
+
+                    if (tapId != null) {
+
+                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutSuccess(
+                            tapId
+                        )
+                    }
+
+
                 }
 
                 else {
@@ -470,6 +522,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                     return false
                 }
             }
+            return false
         }
 
 
@@ -571,6 +624,16 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
         }
         return super.onKeyDown(keyCode, event)
     }
+    fun onBackPressed(): Boolean {
+        return if (redirectWebView.canGoBack()) {
+            redirectWebView.goBack()
+            //todo
+            true // handled
+        } else {
+            false // not handled
+        }
+    }
+
 
 
 
@@ -691,7 +754,7 @@ enum class KnetConfiguration() {
 }
 
 enum class PaymentFlow {
-    CARDPAY, PAYMENTBUTTON
+    CARDPAY, PAYMENTBUTTON,REDIRECT
 }
 
 

@@ -13,6 +13,12 @@ data class ThreeDsResponseCardPayButtons(var threeDsUrl: String, var redirectUrl
     Parcelable
 
 
+@Parcelize
+data class RedirectResponse(
+    var redirectUrl: String,
+    var powered: Boolean,
+    var keyword: String
+) : Parcelable
 
 
 

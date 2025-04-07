@@ -72,6 +72,10 @@ class ThreeDsWebViewActivityButton : AppCompatActivity() {
                 webView.loadUrl(TapCheckout.threeDsResponseCardPayButtons.threeDsUrl)
 
             }
+            PaymentFlow.REDIRECT.name -> {
+                webView.loadUrl(TapCheckout.redirectResponse.redirectUrl)
+
+            }
         }
 
         threeDsBottomsheet = ThreeDsBottomSheetFragmentButton(webView, onCancel = {
@@ -87,6 +91,9 @@ class ThreeDsWebViewActivityButton : AppCompatActivity() {
                           TapKnetPay.buttonTypeConfigured
                       )*/ //SToped cardpay for now
 
+                }
+                PaymentFlow.REDIRECT.name -> {
+                    TapCheckout.cancelRedirect()
                 }
             }
             TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
@@ -140,6 +147,29 @@ class ThreeDsWebViewActivityButton : AppCompatActivity() {
                         else -> {}
                     }
                 }
+
+                PaymentFlow.REDIRECT.name -> {
+                    webView?.loadUrl(request?.url.toString())
+
+                    when (request?.url?.toString()?.contains("tap_id", ignoreCase = true)) {
+                        true -> {
+                            threeDsBottomsheet.dialog?.dismiss()
+                            val splittiedString = request.url.toString().split("?", ignoreCase = true)
+                            if(splittiedString!=null)Log.e("splittedString", splittiedString.toString())
+                            try {
+                                TapCheckout.retrieve(splittiedString[1])
+                            } catch (e: Exception) {
+                                TapCheckoutDataConfiguration.getTapCheckoutListener()
+                                    ?.onCheckoutError(e.message.toString())
+                            }
+                        }
+
+                        false -> {}
+                        else -> {}
+                    }
+
+                }
+
             }
 
             return true

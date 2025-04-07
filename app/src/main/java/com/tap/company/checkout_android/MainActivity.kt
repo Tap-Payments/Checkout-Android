@@ -223,7 +223,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
     }
 
     override fun onCheckoutError(error: String) {
-        Log.e("error", error.toString())
+        Log.e("onCheckoutError", error.toString())
         findViewById<TextView>(R.id.text).text = ""
         findViewById<TextView>(R.id.text).text = "onError $error"
       //  customAlertBox("onCheckoutError",error)
