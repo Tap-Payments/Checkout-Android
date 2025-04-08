@@ -24,7 +24,7 @@ const val careemPayUrlHandler ="https://checkout"
 
 enum class TapCheckoutDelegates {
     onReady, onClick, onOrderCreated, onChargeCreated, onError, onSuccess, cancel,onCancel, onClosePopup,onHeightChange,on3dsRedirect,onBinIdentification, launch,
-    onClose,onRedirectUrl
+    onClose,onRedirectUrl,onScannerClick,onNfcClick
 }
 
 enum class SCHEMES(var value: Pair<String, String>) {

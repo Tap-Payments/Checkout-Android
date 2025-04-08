@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehaviour"
+    android:orientation="vertical">
+
+    <company.tap.tapuilibrary.uikit.views.TapBrandView
+        android:id="@+id/tab_brand_view_nfc"
+        android:layout_width="match_parent"
+        android:layoutDirection="locale"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="-25dp"
+        android:layout_height="match_parent">
+
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_400sdp"-->
+<!--            android:id="@+id/nfc_view"/>-->
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/shimmer_view"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_400sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

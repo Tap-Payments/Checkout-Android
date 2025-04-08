@@ -160,6 +160,12 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         cardOptions.put("saveCardOption", "all")
         cardOptions.put("forceLtr", getPrefBooleanValue("forceLtrKey",false))
 
+        val alternativeCardInputs = JSONObject()
+        alternativeCardInputs.put("cardScanner", getPrefBooleanValue("displayScannerKey",true))
+        alternativeCardInputs.put("cardNFC", getPrefBooleanValue("displayNFCKey",true))
+
+        cardOptions.put("alternativeCardInputs", alternativeCardInputs)
+
         configuration.put("cardOptions", cardOptions)
         configuration.put("isApplePayAvailableOnClient", true)
 

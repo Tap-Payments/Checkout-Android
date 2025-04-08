@@ -264,7 +264,17 @@ app:isPreferenceVisible="false"
             app:isPreferenceVisible="false"
             />
 
+        <CheckBoxPreference
+            app:key="displayScannerKey"
+            app:title="@string/display_card_scanning"
+            android:defaultValue="true"
+            />
 
+        <CheckBoxPreference
+            app:key="displayNFCKey"
+            app:title="@string/display_nfc"
+            android:defaultValue="true"
+            />
         <CheckBoxPreference
             app:key="displayAutosaveCardKey"
             app:title="@string/autoSaveCard"

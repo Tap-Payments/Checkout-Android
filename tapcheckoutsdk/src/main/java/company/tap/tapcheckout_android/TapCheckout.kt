@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.os.postDelayed
 
 import com.google.gson.Gson
+import company.tap.nfcreader.open.utils.TapNfcUtils
 import company.tap.tapcheckout_android.ApiService.BASE_URL_1
 import company.tap.tapcheckout_android.CheckoutConfiguration.Companion.payButonurlFormat
 import company.tap.tapcheckout_android.enums.SCHEMES
@@ -36,7 +37,9 @@ import company.tap.tapcheckout_android.enums.tapID
 import company.tap.tapcheckout_android.models.RedirectResponse
 import company.tap.tapcheckout_android.models.ThreeDsResponse
 import company.tap.tapcheckout_android.models.ThreeDsResponseCardPayButtons
+import company.tap.tapcheckout_android.nfcbottomsheet.NFCBottomSheetActivity
 import company.tap.tapcheckout_android.popup_window.WebChrome
+import company.tap.tapcheckout_android.scanner_activity.ScannerActivity
 import company.tap.tapcheckout_android.threeDsWebview.ThreeDsWebViewActivityButton
 import okhttp3.Call
 import okhttp3.Callback
@@ -78,6 +81,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
     private var isRedirectHandled = false
 
     companion object {
+        var NFCopened: Boolean = false
         lateinit var threeDsResponse: ThreeDsResponse
         lateinit var threeDsResponseCardPayButtons: ThreeDsResponseCardPayButtons
         lateinit var redirectResponse: RedirectResponse
@@ -85,6 +89,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
         private lateinit var redirectWebView: WebView
 
         lateinit var buttonTypeConfigured: ThreeDsPayButtonType
+        var languageThemePair: Pair<String?, String?> = Pair("", "")
         fun cancel() {
             redirectWebView.loadUrl("javascript:window.cancel()")
         }
@@ -100,7 +105,14 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
             redirectWebView.loadUrl("javascript:window.returnBack()")
         }
 
-
+        fun fillCardNumber(
+            cardNumber: String,
+            expiryDate: String,
+            cvv: String,
+            cardHolderName: String
+        ) {
+            redirectWebView.loadUrl("javascript:window.fillCardInputs({cardNumber:'$cardNumber',expiryDate:'$expiryDate',cvv:'$cvv',cardHolderName:'$cardHolderName'})")
+        }
 
     }
 
@@ -380,6 +392,36 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
                        /* RedirectDataConfiguration.getTapCheckoutListener()
                             ?.onPayButtonHeightChange(newHeight.toString())*/
+
+                    }
+                    if (request?.url.toString().contains(TapCheckoutDelegates.onScannerClick.name)) {
+                        /**
+                         * navigate to Scanner Activity
+                         */
+                        val intent = Intent(context, ScannerActivity::class.java)
+                        (context).startActivity(intent)
+
+                    }
+                    if (request?.url.toString().contains(TapCheckoutDelegates.onNfcClick.name)) {
+                        /**
+                         * navigate to NFC Activity
+                         */
+                        if (TapNfcUtils.isNfcAvailable(context)) {
+                            NFCopened = true
+                            /**
+                             * old NFCLauncher
+                             */
+//                        val intent = Intent(context,NFCLaunchActivity::class.java)
+                            /**
+                             * new NFC act as bottomSheet
+                             */
+                            val intent = Intent(context, NFCBottomSheetActivity()::class.java)
+                            (context).startActivity(intent)
+                        } else {
+                            TapCheckoutDataConfiguration.getTapCheckoutListener()
+                                ?.onCheckoutError("NFC is not supported on this device")
+                        }
+
 
                     }
                     if (request?.url.toString().contains(TapCheckoutDelegates.onRedirectUrl.name)) {
