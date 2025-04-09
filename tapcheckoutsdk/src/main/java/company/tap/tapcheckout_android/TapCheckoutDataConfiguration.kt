@@ -6,8 +6,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
+import android.util.Log
+import company.tap.tapcheckout_android.TapCheckoutDataConfiguration.lanuage
+import company.tap.taplocalizationkit.LocalizationManager
 
 import company.tap.tapuilibrary.themekit.ThemeManager
+import java.util.Locale
 
 /**
  * Created by AhlaamK on 3/23/22.
@@ -109,9 +113,29 @@ object TapCheckoutDataConfiguration {
     fun initializeSDK(activity: Activity, configurations:  java.util.HashMap<String, Any>, tapCheckout: TapCheckout, publicKey: String?,intentId:String?){
         CheckoutConfiguration.configureWithTapCheckoutDictionary(activity,publicKey,tapCheckout,configurations)
     }
+    fun setLocale(
+        context: Context,
+        languageString: String,
+        urlString: String?,
+        resources: Resources?,
+        urlPathLocal: Int?
+    ) {
+        LocalizationManager.setLocale(context, Locale(languageString))
+        lanuage = languageString
+        if (resources != null && urlPathLocal != null) {
+            LocalizationManager.loadTapLocale(resources, R.raw.lang)
+        } else if (urlString != null) {
+            if (context != null) {
+                LocalizationManager.loadTapLocale(context, urlString)
+                Log.e("local", urlString.toString())
 
+            }
+        }
+
+    }
 
 }
+
 
 interface TapCheckoutStatusDelegate {
     fun onCheckoutSuccess(data: String)

@@ -3,6 +3,8 @@ package company.tap.tapcheckout_android
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
@@ -172,7 +174,17 @@ fun Context.getDeviceSpecs(): Pair<Int, Int> {
     return pair
 }
 
+fun getDeviceLocale(): Locale? {
+    val defaultLocale = Resources.getSystem().configuration.locales.get(0);
+    return defaultLocale
 
+}
+fun Context.getDeviceTheme(): String {
+    return when(resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES){
+        true ->"dark"
+        false->"light"
+    }
+}
 fun Context.getActivity(): Activity? {
     return when (this) {
         is Activity -> this

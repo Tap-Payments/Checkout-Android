@@ -1,6 +1,9 @@
 package com.tap.company.checkout_android
 
+import android.Manifest
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.chillibits.simplesettings.tool.getPrefStringSetValue
 import com.chillibits.simplesettings.tool.getPrefStringValue
@@ -30,9 +35,10 @@ import okio.IOException
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
-
+    val REQUEST_ID_MULTIPLE_PERMISSIONS = 7
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +52,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
          *
          */
         configureSdk(null)
+        checkAndroidVersion()
 
     }
 
@@ -774,5 +781,42 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         }
         // Convert the Set<String> (HashSet) to Array<String>
         return stringSet?.toTypedArray()
+    }
+    private fun checkAndroidVersion() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkAndRequestPermissions()
+        } else {
+            // code for lollipop and pre-lollipop devices
+        }
+    }
+
+    private fun checkAndRequestPermissions(): Boolean {
+        val camera = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        )
+        val wtite =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val read =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val listPermissionsNeeded: MutableList<String> = ArrayList()
+        if (wtite != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (camera != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA)
+        }
+        if (read != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(
+                this,
+                listPermissionsNeeded.toTypedArray(),
+                REQUEST_ID_MULTIPLE_PERMISSIONS
+            )
+            return false
+        }
+        return true
     }
 }

@@ -40,9 +40,12 @@ class ScannerActivity : AppCompatActivity(), TapTextRecognitionCallBack, TapScan
       //  val intent = ScanCardIntent.Builder(this).build()
       //  startActivityForResult(intent, SCAN_CARD_ID)
 
+        val cameraFragment = CameraFragment()
+        cameraFragment.setCallBack(this,this)
+
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.inline_container, CameraFragment())
+            .replace(R.id.inline_container,cameraFragment)
             .commit()
 //        supportFragmentManager
 //            .beginTransaction()

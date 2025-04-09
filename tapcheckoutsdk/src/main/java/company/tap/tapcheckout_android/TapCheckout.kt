@@ -41,6 +41,7 @@ import company.tap.tapcheckout_android.nfcbottomsheet.NFCBottomSheetActivity
 import company.tap.tapcheckout_android.popup_window.WebChrome
 import company.tap.tapcheckout_android.scanner_activity.ScannerActivity
 import company.tap.tapcheckout_android.threeDsWebview.ThreeDsWebViewActivityButton
+import company.tap.tapuilibrary.themekit.ThemeManager
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -172,15 +173,64 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
     }
 
+    private fun applyThemeForShimmer() {
+        /**
+         * need to be refactored : mulitple copies of same code
+         */
 
+        val tapInterface = TapCheckoutDataConfiguration.configurationsAsHashMap?.get("interface") as? Map<*, *>
+        var lanugage =
+            tapInterface?.get("locale")?.toString() ?: getDeviceLocale()?.language
+        if (lanugage == "dynamic") {
+            lanugage = getDeviceLocale()?.language
+        }
+        var theme = tapInterface?.get("theme")?.toString() ?: context.getDeviceTheme()
+        if (theme == "dynamic") {
+            theme = context.getDeviceTheme()
+        }
+        languageThemePair = Pair(lanugage, theme)
+        setTapThemeAndLanguage(
+            this.context,
+            language = lanugage,
+            themeMode = theme
+        )
+    }
+    private fun setTapThemeAndLanguage(context: Context, language: String?, themeMode: String?) {
+        when (themeMode) {
+            TapTheme.light.name -> {
+                TapCheckoutDataConfiguration.setTheme(
+                    context, context.resources, null,
+                   null, TapTheme.light.name
+                )
+                ThemeManager.currentThemeName = TapTheme.light.name
+            }
 
+            TapTheme.dark.name -> {
+                TapCheckoutDataConfiguration.setTheme(
+                    context, context.resources, null,
+                    null, TapTheme.dark.name
+                )
+                ThemeManager.currentThemeName = TapTheme.dark.name
+            }
+
+            else -> {}
+        }
+        TapCheckoutDataConfiguration.setLocale(
+            this.context,
+            language ?: "en",
+            null,
+            this@TapCheckout.context.resources,
+            R.raw.lang
+        )
+
+    }
     fun init(configuraton: java.util.HashMap<String, Any>, headers: Headers, _publickey:String?) {
 
         if (configuraton != null) {
             redirectConfiguration = configuraton
         }
         headersVal = Headers(headers.mdn,headers.application)
-
+        applyThemeForShimmer()
         if (_publickey != null) {
             publickKeyVal = _publickey
         }

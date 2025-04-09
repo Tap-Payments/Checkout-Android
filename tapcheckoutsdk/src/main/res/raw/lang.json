@@ -1,0 +1,354 @@
+{
+  "ar": {
+    "ActionButton": {
+      "cancel": "إلغاء",
+      "close": "إنهاء الدفع",
+      "confirm": "تأكيد",
+      "next": "التالي",
+      "now": "الآن",
+      "pay": "إدفع",
+      "resend": "إعادة إرسال",
+      "signin": "دخول"
+    },
+    "Common": {
+      "availableInOtherCurrencies": "متاح لعملات أخرى",
+      "back": "الرجوع",
+      "cancel": "إلغاء",
+      "change": "تعديل",
+      "close": "غلق",
+      "confirm": "تأكيد",
+      "currencyAlert": "الدفع بـ",
+      "done": "تم",
+      "edit": "تعديل",
+      "email": "البريد",
+      "item": "منتج",
+      "items": "منتجات",
+      "next": "التالي",
+      "password": "كلمة السر",
+      "phone": "الهاتف",
+      "previous": "السابق",
+      "recent": "كروت سابقة"
+    },
+    "CurrencyChangeWidget": {
+      "confirmButton": "تأكيد",
+      "enabledHeader": "متاح أيضاً بعملات أخرى",
+      "header": "متاح بعد التحويل لهذه العملة"
+    },
+    "DeleteCard": {
+      "cancel": "إلغاء",
+      "confirm": "مسح",
+      "message": "هل أنت متأكد من مسح البطاقة %@؟",
+      "title": "مسح البطاقة"
+    },
+    "ExtraFees": {
+      "cancel": "إلغاء",
+      "confirm": "تأكيد",
+      "message": "سوف تتم إضافة  %@ لهذا النوع العملية، إجمالي المبلغ المطلوب   %@",
+      "title": "تأكيد الرسوم الإضافية"
+    },
+    "GoPay": {
+      "HintLabel": "يمكنك الدفع بالكروت المحفوظفة في جو باي من أي مكان"
+    },
+    "Hints": {
+      "Default": {
+        "scan": "جاهز للتصوير"
+      },
+      "Error": {
+        "wrongCardNumber": "رقم غير صحيح"
+      },
+      "GoPayLogin": {
+        "otp": "تم إرسال الرمز لـ",
+        "password": ""
+      },
+      "Scanned": {
+        "successFullScan": "تم  تصوير الكارت بنجاح"
+      },
+      "Warning": {
+        "missingCVV": "أدخل %i-أرقام الرمز الأمني (عادة بخلف البطاقة.)",
+        "missingExpiryCVV": "تاريخ الإنتهاء و الرمز الأمني مطلوبين",
+        "missingName": "يجب إدخال ٣ أحرف على الاقل للإسم"
+      }
+    },
+    "HorizontalHeaders": {
+      "GatewayHeader": {
+        "leftTitle": "إختر",
+        "rightTitle": "تعديل",
+        "webViewTitle": "توثيق الدفع"
+      },
+      "SaveCardHeader": {
+        "contactCountryPickerHeader": "إختر بلدك",
+        "contactDetailsSectionTitle": "بيانات الاتصال",
+        "shippingSectionTitle": "العنوان"
+      }
+    },
+    "ItemList": {
+      "Discount": "خصم",
+      "hideDesc": "إخفاء الوصف",
+      "showDesc": "إظهار الوصف"
+    },
+    "NFC": {
+      "disabledNFC": "NFC غير ممكّن",
+      "enableNFC": "يرجى تمكين NFC",
+      "nfcDescription": "الاتصال قريب المدى عبارة عن مجموعة من بروتوكولات الاتصال للاتصال بين جهازين إلكترونيين على مسافة 4 سم أو أقل.",
+      "nfcUnsupported": "NFC غير مدعوم!",
+      "scan": "جاهز للمسح الضوئي ، أضف البطاقة أسفل الجهاز لمسحها ضوئيًا.",
+      "scanSuccess": "تم المسح بنجاح!"
+    },
+    "TapAsyncSection": {
+      "paymentCodeTitleLabel": "كود العملية",
+      "paymentExpiryTitleLabel": "ينتهي الكود في",
+      "paymentProgressLabel": "العملية قد التنفيذ",
+      "paymentRecieptEmail": "بريد إلكتروني",
+      "paymentRecieptLabel": "تم إرسال %@",
+      "paymentRecieptSms": "رسالة نصية",
+      "paymentReferenceTitleLabel": "لكود العملية الخاصة بـ %@",
+      "paymentVisitBranchesLabel": "برجاء زيارة أحد فروع %@ من خلال الرابط أدناه لاكمال العملية"
+    },
+    "TapCardInputKit": {
+      "additionalLinePlaceHolder": "بيانات إضافية",
+      "cardCVVPlaceHolder": "الرمز الأمني",
+      "cardExpiryPlaceHolder": "ش/س",
+      "cardNamePlaceHolder": "صاحب البطاقة",
+      "cardNumberPlaceHolder": "رقم البطاقة",
+      "cardSaveForTapInfoMessage": "ادفع في أكثر من 100000 متجر محلي بنقرة واحدة فقط. يتم تشفير بياناتك لحمايتك وإدارتها بسهولة من خلال إعداد بريد إلكتروني بسيط.",
+      "cardSaveForTapInfoTitle": "إدفع خلال تاب بضغطة واحدة",
+      "cardSaveForTapLabel": "إحفظ للإستعمال في كل متاجر Tap",
+      "cardSaveLabel": "لشراء أسرع إحفظ البطاقة",
+      "cardSectionTitle": "أدخل بيانات البطاقة",
+      "cardSectionTitleOr": "أو أدخل بيانات البطاقة",
+      "cityPlaceHolder": "المدينة",
+      "emailPlaceHolder": "email@email.com",
+      "flatPlaceHolder": "رقم الشقة أو المبنى",
+      "savedCardSectionTitle": "البطاقة المحفوظة",
+      "weSupport": "نحن ندعم"
+    },
+    "TapLoyaltySection": {
+      "amountView": {
+        "title": "المبلغ المستبدل"
+      },
+      "footerView": {
+        "amount": "متبقي القيمة للدفع",
+        "points": "متبقي"
+      },
+      "headerView": {
+        "balance": "الرصيد",
+        "lessThanMinimum": "أقل قيمة",
+        "redeem": "استخدام",
+        "tc": "شروط"
+      },
+      "hintView": {
+        "minimumWarning": "أقل قيمة للإستبدال"
+      }
+    },
+    "TapMerchantSection": {
+      "paymentFor": "سأدفع لـ"
+    },
+    "TapOtpView": {
+      "Message": {
+        "Expired": "",
+        "Invalid": "الكود غير صحيح!",
+        "Ready": "تم إرسال الكود لـ"
+      }
+    },
+    "TapSwitchView": {
+      "goPay": {
+        "notes": "يُرجى التحقق من بريدك الإلكتروني أو رسالة SMS لإكمال عملية تسجيل goPay Checkout.",
+        "subtitle": "من خلال تمكين goPay ، سيتم حفظ رقم هاتفك المحمول مع Tap Payments للحصول على عمليات دفع أسرع وأكثر أمانًا في تطبيقات ومواقع ويب متعددة.",
+        "title": "حفظ ل goPay Checkouts"
+      },
+      "mainCards": {
+        "notes": "",
+        "subtitle": "",
+        "titleEmpty": "للدفع بشكل أسرع،\nبرجاء إستخدام قارئ الكروت",
+        "titleValid": "للدفع بشكل أسرع وأسهل ،\nاحفظ كارت الدفع."
+      },
+      "mainTelecom": {
+        "notes": "",
+        "subtitle": "",
+        "titleEmpty": "للدفع بشكل أسرع وأسهل ،\nاحفظ رقم هاتفك المحمول.",
+        "titleValid": "للدفع بشكل أسرع وأسهل ،\nاحفظ رقم هاتفك المحمول."
+      },
+      "merchant": {
+        "notes": "",
+        "subtitle": "",
+        "title": "حفظ لعمليات دفع %@"
+      }
+    }
+  },
+  "en": {
+    "ActionButton": {
+      "cancel": "Cancel",
+      "close": "Close",
+      "confirm": "Confirm",
+      "next": "Next",
+      "now": "now",
+      "pay": "Pay",
+      "resend": "Resend OTP",
+      "signin": "Signin"
+    },
+    "Common": {
+      "availableInOtherCurrencies": "AVAILABLE IN ANOTHER CURRENCY",
+      "back": "Back",
+      "cancel": "Cancel",
+      "change": "change",
+      "close": "CLOSE",
+      "confirm": "Confirm",
+      "currencyAlert": "Pay in",
+      "done": "Done",
+      "edit": "Edit",
+      "email": "email",
+      "item": "ITEM",
+      "items": "ITEMS",
+      "next": "Next",
+      "password": "Password",
+      "phone": "phone",
+      "previous": "Previous",
+      "recent": "Recent"
+    },
+    "CurrencyChangeWidget": {
+      "confirmButton": "Confirm",
+      "enabledHeader": "is available in other currencies too",
+      "header": "is available after converting to the supported currency"
+    },
+    "DeleteCard": {
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "message": "Are you sure you would like to delete card ending with %@?",
+      "title": "Delete Card"
+    },
+    "ExtraFees": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "message": "You will be charged an additional fee of %@ for this type of payment, totalling an amount of %@",
+      "title": "Confirm Extra Charges"
+    },
+    "GoPay": {
+      "HintLabel": "You can access your saved cards from anywhere with goPay."
+    },
+    "Hints": {
+      "Default": {
+        "scan": "Ready to scan."
+      },
+      "Error": {
+        "wrongCardNumber": "Card number is invalid"
+      },
+      "GoPayLogin": {
+        "otp": "OTP has been sent to",
+        "password": ""
+      },
+      "Scanned": {
+        "successFullScan": "Your card has been scanned successfully."
+      },
+      "Warning": {
+        "missingCVV": "Enter the %i-digits CVV (usually at the back of the card.)",
+        "missingExpiryCVV": "Expiry date & CVV number are missing.",
+        "missingName": "Card name should be greater than 3 charachters"
+      }
+    },
+    "HorizontalHeaders": {
+      "GatewayHeader": {
+        "leftTitle": "SELECT",
+        "rightTitle": "EDIT",
+        "webViewTitle": "APPROVE PAYMENT"
+      },
+      "SaveCardHeader": {
+        "contactCountryPickerHeader": "PICK YOUR COUNTRY",
+        "contactDetailsSectionTitle": "CONTACT DETAILS",
+        "shippingSectionTitle": "SHIPPING"
+      }
+    },
+    "ItemList": {
+      "Discount": "Discount",
+      "hideDesc": "Hide Description",
+      "showDesc": "Show Description"
+    },
+    "NFC": {
+      "disabledNFC": "NFC not enabled",
+      "enableNFC": "Please enable NFC",
+      "nfcDescription": "Near-field communication is a set of communication protocols for communication between two electronic devices over a distance of 4 cm or less.",
+      "nfcUnsupported": "NFC is not supported!",
+      "scan": "Ready to scan, add the card under the device to scan it.",
+      "scanSuccess": "Scanned Successful!"
+    },
+    "TapAsyncSection": {
+      "paymentCodeTitleLabel": "Order code",
+      "paymentExpiryTitleLabel": "Code expires on",
+      "paymentProgressLabel": "Payment in progress",
+      "paymentRecieptEmail": "email",
+      "paymentRecieptLabel": "An %@ has been sent to",
+      "paymentRecieptSms": "sms",
+      "paymentReferenceTitleLabel": "With your %@ reference",
+      "paymentVisitBranchesLabel": "Please visit %@ branches using the link below to complete your order"
+    },
+    "TapCardInputKit": {
+      "additionalLinePlaceHolder": "Additional line",
+      "cardCVVPlaceHolder": "CVV",
+      "cardExpiryPlaceHolder": "MM/YY",
+      "cardNamePlaceHolder": "Card Holder Name",
+      "cardNumberPlaceHolder": "Card number",
+      "cardSaveForTapInfoMessage": "Pay at over 100,000 local stores with just one click. Your details are encrypted for your protection and easy to manage through a simple email setup.",
+      "cardSaveForTapInfoTitle": "1 Click Checkout with Tap",
+      "cardSaveForTapLabel": "Save for other stores powered by Tap",
+      "cardSaveLabel": "Save card for later",
+      "cardSectionTitle": "ENTER CARD",
+      "cardSectionTitleOr": "OR ENTER CARD",
+      "cityPlaceHolder": "City",
+      "emailPlaceHolder": "email@email.com",
+      "flatPlaceHolder": "Flat or building number",
+      "savedCardSectionTitle": "SAVED CARD",
+      "weSupport": "WE ACCEPT"
+    },
+    "TapLoyaltySection": {
+      "amountView": {
+        "title": "Redemption amount"
+      },
+      "footerView": {
+        "amount": "Remaining amount to pay",
+        "points": "Remaining"
+      },
+      "headerView": {
+        "balance": "Balance",
+        "lessThanMinimum": "minimum redemption.",
+        "redeem": "Redeem your",
+        "tc": "T&C"
+      },
+      "hintView": {
+        "minimumWarning": "Minimum redemption is"
+      }
+    },
+    "TapMerchantSection": {
+      "paymentFor": "PAYMENT FOR"
+    },
+    "TapOtpView": {
+      "Message": {
+        "Expired": "",
+        "Invalid": "Invalid OTP number! ",
+        "Ready": "OTP has been sent to"
+      }
+    },
+    "TapSwitchView": {
+      "goPay": {
+        "notes": "Please check your email or SMS's in order to complete the goPay Checkout signup process.",
+        "subtitle": "By enabling goPay, your mobile number will be saved with Tap Payments to get faster and more secure checkouts in multiple apps and websites.",
+        "title": "Save for goPay Checkouts"
+      },
+      "mainCards": {
+        "notes": "",
+        "subtitle": "",
+        "titleEmpty": "For faster and easier checkout,\nuse card scanner.",
+        "titleValid": "For faster and easier checkout,\nsave the card for later."
+      },
+      "mainTelecom": {
+        "notes": "",
+        "subtitle": "",
+        "titleEmpty": "For faster and easier checkout,\nsave your mobile number.",
+        "titleValid": "For faster and easier checkout,\nsave your mobile number."
+      },
+      "merchant": {
+        "notes": "",
+        "subtitle": "",
+        "title": "Save for %@ Checkouts"
+      }
+    }
+  }
+}

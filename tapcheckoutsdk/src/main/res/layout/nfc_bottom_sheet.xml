@@ -8,7 +8,7 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehaviour"
     android:orientation="vertical">
 
-    <company.tap.tapuilibrary.uikit.views.TapBrandView
+    <company.tap.tapcheckout_android.TapBrandView
         android:id="@+id/tab_brand_view_nfc"
         android:layout_width="match_parent"
         android:layoutDirection="locale"

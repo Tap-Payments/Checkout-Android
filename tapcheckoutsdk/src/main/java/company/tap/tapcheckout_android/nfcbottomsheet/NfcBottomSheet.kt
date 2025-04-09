@@ -12,10 +12,11 @@ import androidx.annotation.Nullable
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import company.tap.tapcheckout_android.R
+import company.tap.tapcheckout_android.TapBrandView
 import company.tap.tapcheckout_android.TapCheckout
 import company.tap.tapcheckout_android.doAfterSpecificTime
 
-import company.tap.tapuilibrary.uikit.views.TapBrandView
+
 
 class NfcBottomSheet : BottomSheetDialogFragment() {
 

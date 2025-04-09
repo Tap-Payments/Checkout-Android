@@ -120,31 +120,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:title="@string/operation"
-      >
-
-        <EditTextPreference
-            app:key="publicKey"
-            app:defaultValue="pk_test_ohzQrUWRnTkCLD1cqMeudyjX"
-            app:title="Public Key"
-            app:useSimpleSummaryProvider="true"/>
-
-        <EditTextPreference
-            app:key="hashStringKey"
-            app:defaultValue=""
-            app:title="HashString"
-            app:isPreferenceVisible="false"
-            app:useSimpleSummaryProvider="true"/>
-
-    </PreferenceCategory>
-
-
-
-
-
-
-
 
 
 
