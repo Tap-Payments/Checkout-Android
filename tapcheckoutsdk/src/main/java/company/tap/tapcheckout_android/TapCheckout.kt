@@ -105,6 +105,9 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
         fun cancelRedirect() {
             redirectWebView.loadUrl("javascript:window.returnBack()")
         }
+        fun closeCheckout() {
+            redirectWebView.loadUrl("javascript:window.closeCheckout()")
+        }
 
         fun fillCardNumber(
             cardNumber: String,
@@ -372,7 +375,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                                 else -> {}
                             }
                         }
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutChargeCreated(
+                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutSuccess(
                             request?.url?.getQueryParameterFromUri(keyValueName).toString()
                         )
                     }
@@ -405,7 +408,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                     }
                     if (request?.url.toString().contains(TapCheckoutDelegates.onClose.name)) {
 
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
+                        webChrome.getdialog()?.dismiss()
+                       closePayment()
 
 
 
@@ -505,6 +509,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
                             if (redirectResponse.redirectUrl.isNotEmpty() && redirectResponse.keyword.isNotEmpty() ) {
                                // redirectWebView.loadUrl(mainUrl)
+                                webChrome.getdialog()?.dismiss()
                                 navigateTo3dsActivity(PaymentFlow.REDIRECT.name)
                                 return true
                             }

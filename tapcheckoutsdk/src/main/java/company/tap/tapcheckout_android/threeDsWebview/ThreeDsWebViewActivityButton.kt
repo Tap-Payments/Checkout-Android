@@ -154,14 +154,25 @@ class ThreeDsWebViewActivityButton : AppCompatActivity() {
                     when (request?.url?.toString()?.contains("tap_id", ignoreCase = true)) {
                         true -> {
                             threeDsBottomsheet.dialog?.dismiss()
-                            val splittiedString = request.url.toString().split("?", ignoreCase = true)
-                            if(splittiedString!=null)Log.e("splittedString", splittiedString.toString())
                             try {
-                                TapCheckout.retrieve(splittiedString[1])
+                                val splittiedString = request?.url.toString().split("?", ignoreCase = true)
+                                Log.e("splittedString", splittiedString.toString())
+                                if (splittiedString.size > 1) {
+                                    val queryParams = splittiedString[1] // Get the part after '?'
+                                    val tapId = queryParams.substringAfter("tap_id=").removeSuffix("]")
+                                    Log.d("tapId", tapId)
+                                   // TapCheckout.retrieve(splittiedString[1])
+                                    TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutSuccess(tapId)
+                                    TapCheckout.closeCheckout()
+                                } else {
+                                    TapCheckoutDataConfiguration.getTapCheckoutListener()
+                                        ?.onCheckoutError("tap_id not found in URL")
+                                }
                             } catch (e: Exception) {
                                 TapCheckoutDataConfiguration.getTapCheckoutListener()
                                     ?.onCheckoutError(e.message.toString())
                             }
+
                         }
 
                         false -> {}

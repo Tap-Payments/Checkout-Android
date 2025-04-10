@@ -84,10 +84,13 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         configuration.put("checkoutMode", "page")
         configuration.put("language", getPrefStringValue("selectedlangKey", default = "en"))
         configuration.put("themeMode",  getPrefStringValue("selectedthemeKey","dark"))
-        configuration.put("paymentType",  getPrefStringSetValue("paymentTypeKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))
-        configuration.put("supportedPaymentMethods", getPrefStringSetValue("supportedPaymentMethodKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))
+      //todo uncommnet later
+        /*  configuration.put("paymentType",  getPrefStringSetValue("paymentTypeKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))
+        configuration.put("supportedPaymentMethods", getPrefStringSetValue("supportedPaymentMethodKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))*/
+        configuration.put("paymentType", "ALL")
+        configuration.put("supportedPaymentMethods", "ALL")
        // configuration.put("supportedPaymentMethods", getPrefStringValue("supportedPaymentMethodKey", "ALL"))
-        configuration.put("selectedCurrency", getPrefStringValue("orderCurrencyKey","KWD"))
+        configuration.put("selectedCurrency", getPrefStringValue("orderCurrencyKey","KWD").toUpperCase())
         configuration.put("supportedCurrencies", "ALL")
 
         val gateway = JSONObject()
@@ -142,13 +145,13 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
 
         val order = JSONObject()
         order.put("id", "")
-        order.put("currency", getPrefStringValue("orderCurrencyKey","KWD"))
+        order.put("currency", getPrefStringValue("orderCurrencyKey","KWD").toUpperCase())
         order.put("amount", getPrefStringValue("amountKey","1"))
 
         val items = JSONArray()
         val item = JSONObject()
         item.put("amount", getPrefStringValue("amountKey","1"))
-        item.put("currency", getPrefStringValue("orderCurrencyKey","KWD"))
+        item.put("currency", getPrefStringValue("orderCurrencyKey","KWD").toUpperCase())
         item.put("name", "Item Title 1")
         item.put("quantity", 1)
         item.put("description", "item description 1")
@@ -192,7 +195,9 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
     override fun onCheckoutReady() {
         findViewById<TextView>(R.id.text).text = ""
         findViewById<TextView>(R.id.text).text = "onReady"
-        Toast.makeText(this, "onReady", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(this, "onReady", Toast.LENGTH_SHORT).show()
+        Log.e("<<<<<MainAcityv>>>>>>>>>>>","<<<<<<onCheckoutReady>>>>>>>>>.")
+
     }
 
     override fun onCheckoutSuccess(data: String) {

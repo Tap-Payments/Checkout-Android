@@ -54,12 +54,12 @@
 
         <EditTextPreference
             app:key="amountKey"
-            app:defaultValue=""
+            app:defaultValue="1"
             app:title="@string/amount"
             app:useSimpleSummaryProvider="true"/>
         <EditTextPreference
             app:key="orderCurrencyKey"
-            app:defaultValue=""
+            android:defaultValue="KWD"
             app:title="@string/order_curr"
             app:useSimpleSummaryProvider="true"/>
 
