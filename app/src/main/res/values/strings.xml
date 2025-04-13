@@ -101,6 +101,20 @@
     </string-array>
 
 
+    <string-array name="currencyList">
+        <item>KWD</item>
+        <item>BHD</item>
+        <item>EGP</item>
+        <item>AED</item>
+        <item>SAR</item>
+        <item>OMR</item>
+        <item>INR</item>
+        <item>USD</item>
+        <item>QAR</item>
+
+    </string-array>
+
+
     <string-array name="ButtonList">
         <item>KNET</item>
         <item>BENEFIT</item>

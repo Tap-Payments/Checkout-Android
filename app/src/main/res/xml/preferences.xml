@@ -57,9 +57,16 @@
             app:defaultValue="1"
             app:title="@string/amount"
             app:useSimpleSummaryProvider="true"/>
-        <EditTextPreference
+      <!--  <EditTextPreference
             app:key="orderCurrencyKey"
             android:defaultValue="KWD"
+            app:title="@string/order_curr"
+            app:useSimpleSummaryProvider="true"/>-->
+        <DropDownPreference
+            app:key="orderCurrencyKey"
+            app:entries="@array/currencyList"
+            app:entryValues="@array/currencyList"
+            app:defaultValue="1"
             app:title="@string/order_curr"
             app:useSimpleSummaryProvider="true"/>
 

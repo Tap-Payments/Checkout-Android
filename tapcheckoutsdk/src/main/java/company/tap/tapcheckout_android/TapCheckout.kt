@@ -407,7 +407,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
                     }
                     if (request?.url.toString().contains(TapCheckoutDelegates.onClose.name)) {
-
+dismissDialog()
                         webChrome.getdialog()?.dismiss()
                        closePayment()
 
