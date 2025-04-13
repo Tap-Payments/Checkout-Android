@@ -111,6 +111,10 @@
         <item>INR</item>
         <item>USD</item>
         <item>QAR</item>
+        <item>GBP</item>
+        <item>EUR</item>
+        <item>PKR</item>
+        <item>JOD</item>
 
     </string-array>
 
