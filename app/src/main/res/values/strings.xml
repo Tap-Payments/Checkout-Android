@@ -96,9 +96,7 @@
 
     <string-array name="ScopeList">
         <item>charge</item>
-        <item>AUTHORIZE</item>
-        <item>TAPTOKEN</item>
-        <item>GOOGLEPAYTOKEN</item>
+        <item>authorize</item>
 
     </string-array>
 
