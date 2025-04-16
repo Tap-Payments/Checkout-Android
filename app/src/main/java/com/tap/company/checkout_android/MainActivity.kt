@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
 
         val gateway = JSONObject()
         gateway.put("publicKey", getPrefStringValue("publicKey","pk_test_gznOhsfdL0QMV8AW7tSN2wKP"))
+        gateway.put("merchantId", getPrefStringValue("merchantId",""))
         configuration.put("gateway", gateway)
 
         val customer = JSONObject()
