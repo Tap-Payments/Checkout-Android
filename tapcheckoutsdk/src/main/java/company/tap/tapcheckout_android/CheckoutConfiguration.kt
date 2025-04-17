@@ -3,6 +3,7 @@ package company.tap.tapcheckout_android
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.util.Log
 
 
@@ -16,6 +17,7 @@ import company.tap.tapcheckout_android.enums.headersKey
 import company.tap.tapcheckout_android.enums.urlWebStarter
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 
 class CheckoutConfiguration {
@@ -70,7 +72,27 @@ class CheckoutConfiguration {
                 testEncKey = context.resources.getString(R.string.enryptkeyTest)
                 //  urlWebStarter = tapButtonSDKConfigUrlResponse.baseURL
 
+                val themeMode = tapMapConfiguration["themeMode"] as? String
+                if(themeMode?.contains("dynamic") == true) {
+                    val currentNightMode =
+                        context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+                    val systemTheme = when (currentNightMode) {
+                        Configuration.UI_MODE_NIGHT_YES -> "dark"
+                        Configuration.UI_MODE_NIGHT_NO -> "light"
+                        else -> "light"
+                    }
 
+                    tapMapConfiguration["themeMode"] = systemTheme
+                }
+
+                val language = tapMapConfiguration["language"] as? String
+                if(language?.contains("dynamic") == true|| language?.contains("DYNAMIC") == true) {
+                    // Detect current device language
+                    val locale = Locale.getDefault()
+                    val systemLanguage = if (locale.language == "ar") "ar" else "en"
+
+                    tapMapConfiguration["language"] = systemLanguage
+                }
                 startWithSDKConfigs(
                     context,
                     publicKey ,

@@ -84,12 +84,19 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         configuration.put("checkoutMode", "page")
         configuration.put("language", getPrefStringValue("selectedlangKey", default = "en"))
         configuration.put("themeMode",  getPrefStringValue("selectedthemeKey","dark"))
-      //todo uncommnet later
-        /*  configuration.put("paymentType",  getPrefStringSetValue("paymentTypeKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))
-        configuration.put("supportedPaymentMethods", getPrefStringSetValue("supportedPaymentMethodKey", emptySet<String>().toHashSet()).joinToString(separator = ", "))*/
-        configuration.put("paymentType", "ALL")
-        configuration.put("supportedPaymentMethods", "ALL")
-       // configuration.put("supportedPaymentMethods", getPrefStringValue("supportedPaymentMethodKey", "ALL"))
+
+       val selectedSet= getPrefStringSetValue("supportedPaymentMethodKey", emptySet())
+        val jsonArrayPaymentMethod = JSONArray(selectedSet)
+
+
+        if(selectedSet.contains("ALL")){
+            configuration.put("supportedPaymentMethods", "ALL")
+        }else
+        { configuration.put("supportedPaymentMethods", jsonArrayPaymentMethod)
+        }
+
+        configuration.put("paymentType",  getPrefStringValue("paymentTypeKey","ALL"))
+
         configuration.put("selectedCurrency", getPrefStringValue("orderCurrencyKey","KWD").toUpperCase())
         configuration.put("supportedCurrencies", "ALL")
 
@@ -167,7 +174,18 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         cardOptions.put("collectHolderName", getPrefBooleanValue("collectCardHodlernameKey",true))
         cardOptions.put("preLoadCardName", "")
         cardOptions.put("cardNameEditable", getPrefBooleanValue("cardNameEditableeKey",true))
-        cardOptions.put("cardFundingSource", "all")
+      /*  val cardFundingSource= getPrefStringSetValue("supportedFundSourceKey", emptySet())
+        val jsonArraycardFundingSource = JSONArray(cardFundingSource)
+
+
+        if(cardFundingSource.contains("all")){
+            cardOptions.put("cardFundingSource", "all")
+        }else
+        { cardOptions.put("cardFundingSource", jsonArraycardFundingSource)
+        }*/
+        cardOptions.put("cardFundingSource", getPrefStringValue("supportedFundSourceKey","all"))
+
+       // cardOptions.put("cardFundingSource", "all")
         cardOptions.put("saveCardOption", "all")
         cardOptions.put("forceLtr", getPrefBooleanValue("forceLtrKey",false))
 
@@ -759,7 +777,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         // Show the Alert Dialog box
         alertDialog.show()
     }
-    fun getPrefStringSetAsArray(sharedPreferences: SharedPreferences, key: String): Array<String>? {
+   /* fun getPrefStringSetAsArray(sharedPreferences: SharedPreferences, key: String): Array<String>? {
 
         val sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
         val editor = sharedPreferences.edit()
@@ -787,7 +805,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         }
         // Convert the Set<String> (HashSet) to Array<String>
         return stringSet?.toTypedArray()
-    }
+    }*/
     private fun checkAndroidVersion() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkAndRequestPermissions()

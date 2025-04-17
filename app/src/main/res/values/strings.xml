@@ -162,8 +162,10 @@
     </string-array>
 
     <string-array name="SupportedFundSource">
-        <item>CREDIT</item>
-        <item>DEBIT</item>
+        <item>all</item>
+        <item>credit</item>
+        <item>debit</item>
+
     </string-array>
 
 
@@ -190,8 +192,9 @@
     </string-array>
     <string-array name="paymentTypes">
         <item>ALL</item>
-        <item>CREDIT</item>
-        <item>DEBIT</item>
+        <item>WEB</item>
+        <item>CARD</item>
+        <item>DEVICE</item>
 
 
     </string-array>
@@ -255,6 +258,16 @@
         <item>AMERICAN_EXPRESS</item>
         <item>OMANNET</item>
         <item>MEEZA</item>
+        <item>GOOGLE_PAY</item>
+        <item>SAMSUNGPAY</item>
+        <item>FAWRY</item>
+        <item>TABBY</item>
+        <item>PAYPAL</item>
+        <item>DEEMA</item>
+        <item>STC_PAY</item>
+        <item>NAPS</item>
+        <item>BENEFIT</item>
+        <item>BENEFIT_PAY</item>
 
 
     </string-array>

@@ -154,19 +154,20 @@
             android:entryValues="@array/SupportedSchemes"
 app:isPreferenceVisible="false"
             app:useSimpleSummaryProvider="true"/>
-        <MultiSelectListPreference
+        <DropDownPreference
             app:key="paymentTypeKey"
             android:entries="@array/paymentTypes"
             app:title="Payment Types"
             android:entryValues="@array/paymentTypes"
             android:defaultValue="@array/DefaultSupportedPaymentMethods"
             app:useSimpleSummaryProvider="true"/>
-        <MultiSelectListPreference
+        <DropDownPreference
             app:key="supportedFundSourceKey"
             app:title="supportedFundSource"
             android:entries="@array/SupportedFundSource"
             android:entryValues="@array/SupportedFundSource"
-            app:isPreferenceVisible="false"
+            app:defaultValue="all"
+            app:isPreferenceVisible="true"
             app:useSimpleSummaryProvider="true"/>
 
         <MultiSelectListPreference

@@ -108,10 +108,11 @@ class SettingsActivity : AppCompatActivity(),SimpleSettingsConfig.PreferenceCall
         /**
          * acceptance
          */
-        intent.putExtra("supportedFundSourceKey", getPrefStringSetAsArray(getPrefs(),"supportedFundSourceKey"))
+       // intent.putExtra("supportedFundSourceKey", getPrefStringSetAsArray(getPrefs(),"supportedFundSourceKey"))
+        intent.putExtra("supportedFundSourceKey", getPrefStringValue("supportedFundSourceKey","all"))
         intent.putExtra("supportedPaymentAuthenticationsKey", getPrefStringSetValue("supportedPaymentAuthenticationsKey", emptySet()).toHashSet())
         //  intent.putExtra("supportedSchemesKey", getPrefStringSetValue("supportedSchemesKey", defaultHash).toHashSet())
-        intent.putExtra("supportedSchemesKey", getPrefStringSetAsArray(getPrefs(),"supportedSchemesKey"))
+      //  intent.putExtra("supportedSchemesKey", getPrefStringSetAsArray(getPrefs(),"supportedSchemesKey"))
         intent.putExtra("supportedPaymentMethodKey", getPrefStringSetValue("supportedPaymentMethodKey", emptySet()).toHashSet())
         /**
          * Fields Visibility
@@ -130,7 +131,7 @@ class SettingsActivity : AppCompatActivity(),SimpleSettingsConfig.PreferenceCall
         startActivity(intent)
 
     }
-    fun getPrefStringSetAsArray(sharedPreferences: SharedPreferences, key: String): Array<String>? {
+    /*fun getPrefStringSetAsArray(sharedPreferences: SharedPreferences, key: String): Array<String>? {
 
         val sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
         val editor = sharedPreferences.edit()
@@ -158,5 +159,5 @@ class SettingsActivity : AppCompatActivity(),SimpleSettingsConfig.PreferenceCall
         }
         // Convert the Set<String> (HashSet) to Array<String>
         return stringSet?.toTypedArray()
-    }
+    }*/
 }
