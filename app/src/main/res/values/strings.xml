@@ -257,11 +257,11 @@
         <item>AMERICAN_EXPRESS</item>
         <item>OMANNET</item>
         <item>GOOGLE_PAY</item>
-        <item>SAMSUNGPAY</item>
+       <!-- <item>SAMSUNGPAY</item>-->
         <item>FAWRY</item>
-        <item>TABBY</item>
+        <!--<item>TABBY</item>-->
         <item>PAYPAL</item>
-        <item>DEEMA</item>
+       <!-- <item>DEEMA</item>-->
         <item>STC_PAY</item>
         <item>NAPS</item>
         <item>BENEFIT</item>
