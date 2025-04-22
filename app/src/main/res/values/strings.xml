@@ -111,7 +111,6 @@
         <item>INR</item>
         <item>USD</item>
         <item>QAR</item>
-        <item>GBP</item>
         <item>EUR</item>
         <item>PKR</item>
         <item>JOD</item>
@@ -257,7 +256,6 @@
         <item>MASTERCARD</item>
         <item>AMERICAN_EXPRESS</item>
         <item>OMANNET</item>
-        <item>MEEZA</item>
         <item>GOOGLE_PAY</item>
         <item>SAMSUNGPAY</item>
         <item>FAWRY</item>
