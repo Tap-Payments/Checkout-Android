@@ -1,6 +1,7 @@
 package company.tap.tapcheckout_android
 
 
+import TapTheme
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -16,23 +17,26 @@ import android.util.Base64
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.webkit.*
-import android.widget.*
+import android.webkit.WebChromeClient.CustomViewCallback
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.core.os.postDelayed
-
 import com.google.gson.Gson
 import company.tap.nfcreader.open.utils.TapNfcUtils
-import company.tap.tapcheckout_android.ApiService.BASE_URL_1
-import company.tap.tapcheckout_android.CheckoutConfiguration.Companion.payButonurlFormat
 import company.tap.tapcheckout_android.enums.SCHEMES
 import company.tap.tapcheckout_android.enums.TapCheckoutDelegates
 import company.tap.tapcheckout_android.enums.ThreeDsPayButtonType
 import company.tap.tapcheckout_android.enums.careemPayUrlHandler
 import company.tap.tapcheckout_android.enums.keyValueName
-import company.tap.tapcheckout_android.enums.operatorKey
-import company.tap.tapcheckout_android.enums.publicKeyToGet
 import company.tap.tapcheckout_android.enums.tapID
 import company.tap.tapcheckout_android.models.RedirectResponse
 import company.tap.tapcheckout_android.models.ThreeDsResponse
@@ -44,7 +48,6 @@ import company.tap.tapcheckout_android.threeDsWebview.ThreeDsWebViewActivityButt
 import company.tap.tapuilibrary.themekit.ThemeManager
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -55,8 +58,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.net.URISyntaxException
-import java.util.*
-import kotlin.collections.HashMap
 
 
 @SuppressLint("ViewConstructor")
@@ -787,7 +788,7 @@ dismissDialog()
     private fun callConfigAPI(configuraton: java.util.HashMap<String, Any>) {
         try {
           //  val baseURL = "https://mw-sdk.staging.tap.company/v2/checkout/config"
-            val baseURL = "https://mw-sdk.dev.tap.company/v2/checkout/config"
+          //  val baseURL = "https://mw-sdk.dev.tap.company/v2/checkout/config"
             val builder: OkHttpClient.Builder = OkHttpClient().newBuilder()
             val interceptor = HttpLoggingInterceptor()
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -796,7 +797,7 @@ dismissDialog()
             val body = (configuraton as Map<*, *>?)?.let { JSONObject(it).toString().toRequestBody("application/json".toMediaTypeOrNull()) }
             val okHttpClient: OkHttpClient = builder.build()
             val request: Request = Request.Builder()
-                .url(baseURL )
+                .url(ApiService.BASE_URL_1+"checkout/config" )
                 .method("POST", body)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("application", headersVal.application.toString())

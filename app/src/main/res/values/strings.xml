@@ -252,6 +252,7 @@
     <string-array  name ="SupportedPaymentMethods">
         <item>ALL</item>
         <item>MADA</item>
+        <item>KNET</item>
         <item>VISA</item>
         <item>MASTERCARD</item>
         <item>AMERICAN_EXPRESS</item>
