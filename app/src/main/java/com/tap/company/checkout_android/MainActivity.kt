@@ -146,7 +146,12 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         airline.put("reference", reference)
         charge.put("airline", airline)
 
-        transaction.put("charge", charge)
+        if(getPrefStringValue("scopeKey","charge").contains("authorize")){
+            transaction.put("authorize", charge)
+        }else {
+            transaction.put("charge", charge)
+        }
+
         configuration.put("transaction", transaction)
 
         configuration.put("amount", getPrefStringValue("amountKey","1"))
