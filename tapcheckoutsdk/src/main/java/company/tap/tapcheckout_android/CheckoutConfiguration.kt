@@ -103,7 +103,7 @@ class CheckoutConfiguration {
                 )
 
             } catch (e: Exception) {
-                BASE_URL_1 = urlWebStarter //Todo what should be here
+                BASE_URL_1 = BASE_URL_1 //Todo what should be here
                 testEncKey =  tapCardInputViewWeb?.context?.resources?.getString(R.string.enryptkeyTest)
                 prodEncKey = tapCardInputViewWeb?.context?.resources?.getString(R.string.enryptkeyProduction)
 
