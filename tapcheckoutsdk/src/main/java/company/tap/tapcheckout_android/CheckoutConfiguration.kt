@@ -39,7 +39,7 @@ class CheckoutConfiguration {
             tapCheckoutStatusDelegate: TapCheckoutStatusDelegate? = null
 
         ) {
-//ToDO test when cdn url ready
+
             MainScope().launch {
                 getTapButtonSDKConfigUrls(
                     tapMapConfiguration,
@@ -144,8 +144,8 @@ class CheckoutConfiguration {
             NetworkApp.initNetwork(
                 tapCardInputViewWeb?.context ,
                 publicKey ?: "",
-                // context.packageName,  //TODO
-                "demo.tap.PayButtonSDK",
+                 context.packageName,
+               // "demo.tap.PayButtonSDK",
                 ApiService.BASE_URL,
                 "android-knet",
                 true,
@@ -160,8 +160,8 @@ class CheckoutConfiguration {
             headers = Headers(
                 application = NetworkApp.getApplicationInfo(),
                 mdn = CryptoUtil.encryptJsonString(
-                    // context.packageName.toString(), //TODO remove hardcoding
-                    "demo.tap.PayButtonSDK",
+                     context.packageName.toString(),
+                   // "demo.tap.PayButtonSDK",
                    encodedeky
                 )
             )
