@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_2sdp"
-        android:id="@+id/redirect_pay"
+        android:id="@+id/checkout_pay"
         />
 
     <TextView

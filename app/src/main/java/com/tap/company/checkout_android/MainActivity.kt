@@ -207,7 +207,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
             CheckoutConfiguration.configureWithTapCheckoutDictionary(
                 this,
                 publicKey,
-                findViewById(R.id.redirect_pay),
+                findViewById(R.id.checkout_pay),
                 configuration,
                 this
             )
