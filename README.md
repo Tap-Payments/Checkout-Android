@@ -1,4 +1,4 @@
-# Card-Andriod
+# CheckOut-Andriod
 
 We at [Tap Payments](https://www.tap.company/) strive to make your payments easier than ever. We as a PCI compliant company, provide you a from the self solution to process card payments in your Android app.
 
@@ -555,8 +555,8 @@ configuration.put("isApplePayAvailableOnClient", true)
 
 
 
-## Advanced TapCardStatusDelegate
-An interface that allows integrators to get notified from events fired from the `TapCardKit`. 
+## Advanced TapCheckoutStatusDelegate
+An interface that allows integrators to get notified from events fired from the `TapCheckout`. 
 ```kotlin
 
 interface TapCheckoutStatusDelegate {
