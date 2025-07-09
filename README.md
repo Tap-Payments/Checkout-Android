@@ -8,8 +8,6 @@ We at [Tap Payments](https://www.tap.company/) strive to make your payments easi
 [![SDK Version](https://img.shields.io/badge/targetSdkVersion-33-informational.svg)](https://stuff.mit.edu/afs/sipb/project/android/docs/reference/packages.html)
 [![SDK Version](https://img.shields.io/badge/latestVersion-0.0.52-informational.svg)](https://stuff.mit.edu/afs/sipb/project/android/docs/reference/packages.html)
 
-# Demo
-![Imgur](https://i.imgur.com/qLaQdN5.gif)
 
 # Requirements
 
