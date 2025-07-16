@@ -18,8 +18,10 @@ All rights reserved.
  **/
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 object ApiService {
-    const val BASE_URL = "https://mw-sdk.dev.tap.company/v2/"
-    var BASE_URL_1 = "https://mw-sdk.dev.tap.company/v2/"
+   // const val BASE_URL = "https://mw-sdk.dev.tap.company/v2/"
+    const val BASE_URL = "https://mw-sdk.tap.company/v2/"
+  //  var BASE_URL_1 = "https://mw-sdk.dev.tap.company/v2/"
+    var BASE_URL_1 = "https://mw-sdk.tap.company/v2/"
     var BASE_URL_11 = "https://tap-sdks.b-cdn.net/"
 
     interface TapCheckoutSDKConfigUrls {
