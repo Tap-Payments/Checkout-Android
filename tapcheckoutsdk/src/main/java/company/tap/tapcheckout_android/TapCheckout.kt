@@ -166,13 +166,14 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
             }
         }
         redirectWebView.setBackgroundColor(Color.TRANSPARENT)
-        redirectWebView.setLayerType(LAYER_TYPE_SOFTWARE, null)
+     //   redirectWebView.setLayerType(LAYER_TYPE_SOFTWARE, null)
         webChrome = WebChrome(context)
         redirectWebView.webChromeClient = webChrome
         redirectWebView.webViewClient = MyWebViewClient()
         redirectWebView.clearCache(true)
         redirectWebView.clearHistory()
-
+        redirectWebView.setFocusable(true);
+        redirectWebView.setFocusableInTouchMode(true);
 
 
     }
@@ -300,8 +301,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
 
             if (request?.url.toString().startsWith(careemPayUrlHandler)) {
-                webViewFrame.layoutParams =
-                    LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+              //  webViewFrame.layoutParams =
+              //      LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
                 threeDsResponse = ThreeDsResponse(
                     id = "",
                     url = request?.url.toString(),
@@ -313,20 +314,6 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
             } else {
                 if (request?.url.toString().startsWith(webViewScheme, ignoreCase = true)) {
                     if (request?.url.toString().contains(TapCheckoutDelegates.onReady.name)) {
-
-
-                        /* if (buttonTypeConfigured == ThreeDsPayButtonType.CARD) {
-                             if (firstTimeOnReadyCallback) {
-                                 Thread.sleep(1500)
-                                 firstTimeOnReadyCallback = false
-                             }
-                             *//**
-                         *
-                         *  todo enhance in a better way
-                         *//*
-
-
-                        }*/
 
 
                         TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutReady()
@@ -380,7 +367,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                             request?.url?.getQueryParameterFromUri(keyValueName).toString()
                         )
                     }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onOrderCreated.name)) {
+                   /* if (request?.url.toString().contains(TapCheckoutDelegates.onOrderCreated.name)) {
                         val orderResponse = request?.url?.getQueryParameter(keyValueName).toString()
                         println("orderResponse>>"+orderResponse)
                         //TODO check if decode required
@@ -391,7 +378,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
 
 
-                    }
+                    }*/
                     if (request?.url.toString().contains(TapCheckoutDelegates.onClick.name)) {
                         isBenefitPayUrlIntercepted=false
                         onSuccessCalled = false
@@ -408,7 +395,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
                     }
                     if (request?.url.toString().contains(TapCheckoutDelegates.onClose.name)) {
-dismissDialog()
+                    dismissDialog()
                         webChrome.getdialog()?.dismiss()
                        closePayment()
                         TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()//todo added because there was no callback on checkout close
@@ -438,17 +425,17 @@ dismissDialog()
                                 request?.url?.getQueryParameterFromUri(keyValueName).toString()
                             )*/
                     }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onHeightChange.name)) {
+                  /*  if (request?.url.toString().contains(TapCheckoutDelegates.onHeightChange.name)) {
                         val newHeight = request?.url?.getQueryParameter(keyValueName)
                         val params: ViewGroup.LayoutParams? = webViewFrame.layoutParams
                         params?.height =
                             webViewFrame.context.getDimensionsInDp(newHeight?.toInt() ?: 95)
                         webViewFrame.layoutParams = params
 
-                       /* RedirectDataConfiguration.getTapCheckoutListener()
-                            ?.onPayButtonHeightChange(newHeight.toString())*/
+                       *//* RedirectDataConfiguration.getTapCheckoutListener()
+                            ?.onPayButtonHeightChange(newHeight.toString())*//*
 
-                    }
+                    }*/
                     if (request?.url.toString().contains(TapCheckoutDelegates.onScannerClick.name)) {
                         /**
                          * navigate to Scanner Activity

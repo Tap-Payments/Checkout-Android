@@ -16,7 +16,7 @@ SZhWp4Mnd6wjVgXAsQIDAQAB
 -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPBh0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAuBLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1LSZhWp4Mnd6wjVgXAsQIDAQAB-----END PUBLIC KEY-----
     </string>
     <string name="enryptkeyProduction" translatable="false">
------BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB\nh0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu\nBLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L\nSZhWp4Mnd6wjVgXAsQIDAQAB\n-----END PUBLIC KEY-----
+-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB\nh0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu\nBLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L\nSZhWp4Mnd6wjVgXAsQIDAQAB-----END PUBLIC KEY-----
     </string>
     <string name="enryptkeyBeta" translatable="false" tools:ignore="ExtraTranslation">
 -----BEGIN PUBLIC KEY-----

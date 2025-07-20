@@ -1,7 +1,6 @@
 package com.tap.company.checkout_android
 
 import android.Manifest
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -9,18 +8,20 @@ import android.os.Handler
 import android.os.Looper
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.chillibits.simplesettings.tool.getPrefStringSetValue
 import com.chillibits.simplesettings.tool.getPrefStringValue
 import com.chillibits.simplesettings.tool.getPrefs
 import company.tap.tapcheckout_android.CheckoutConfiguration
-import company.tap.tapcheckout_android.TapCheckout
 import company.tap.tapcheckout_android.TapCheckoutStatusDelegate
 import okhttp3.Call
 import okhttp3.Callback
@@ -35,7 +36,7 @@ import okio.IOException
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.ArrayList
+
 
 class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
     val REQUEST_ID_MULTIPLE_PERMISSIONS = 7
@@ -53,6 +54,13 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
          */
         configureSdk(null)
         checkAndroidVersion()
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        val controller =
+            ViewCompat.getWindowInsetsController(window.decorView)
+        if (controller != null) {
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
 
     }
 
