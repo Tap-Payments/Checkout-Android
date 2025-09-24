@@ -27,9 +27,9 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import company.tap.tapcheckout_android.enums.rawFolderRefrence
 import company.tap.tapcheckout_android.models.ThreeDsResponseCardPayButtons
+import company.tap.tapcheckout_android.theme.ThemeManager
 
 
-import company.tap.tapuilibrary.themekit.ThemeManager
 import jp.wasabeef.blurry.Blurry
 import java.net.URLEncoder
 import java.util.*
@@ -130,7 +130,7 @@ fun ViewGroup.addLoaderWithBlurryToView(showLoadingIcon: Boolean, invokeAfterLoa
     @DrawableRes
     val loaderGif: Int =
         if (ThemeManager.currentTheme.isNotEmpty() && ThemeManager.currentTheme.contains("dark")) {
-            company.tap.tapuilibrary.R.drawable.loader
+            R.drawable.loader
         } else if (ThemeManager.currentTheme.isNotEmpty() && !ThemeManager.currentTheme.contains(
                 "dark"
             )
@@ -138,7 +138,7 @@ fun ViewGroup.addLoaderWithBlurryToView(showLoadingIcon: Boolean, invokeAfterLoa
           R.drawable.output_black_loader_nobg
            // R.drawable.loader
         } else
-            company.tap.tapuilibrary.R.drawable.loader
+            R.drawable.loader
 
 
 

@@ -182,12 +182,22 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         configuration.put("order", order)
 
         val cardOptions = JSONObject()
-        cardOptions.put("showBrands",  getPrefBooleanValue("displayPymtBrndKey",true))
-        cardOptions.put("showLoadingState", getPrefBooleanValue("showLoadingStateKey",false))
-        cardOptions.put("collectHolderName", getPrefBooleanValue("collectCardHodlernameKey",true))
+
+        cardOptions.put("showBrands",  true)
+        cardOptions.put("showLoadingState",false)
+        cardOptions.put("collectHolderName", true)
         cardOptions.put("preLoadCardName", "")
-        cardOptions.put("cardNameEditable", getPrefBooleanValue("cardNameEditableeKey",true))
-      /*  val cardFundingSource= getPrefStringSetValue("supportedFundSourceKey", emptySet())
+        cardOptions.put("cardNameEditable", true)
+        cardOptions.put("showBrands", true)
+        cardOptions.put("showLoadingState", false)
+        cardOptions.put("collectHolderName", true)
+        cardOptions.put("preLoadCardName", "")
+        cardOptions.put("cardNameEditable",
+            true)
+
+
+
+        /*  val cardFundingSource= getPrefStringSetValue("supportedFundSourceKey", emptySet())
         val jsonArraycardFundingSource = JSONArray(cardFundingSource)
 
 

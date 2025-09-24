@@ -1,16 +1,18 @@
 package company.tap.tapcheckout_android
 
-import Customer
-import TapAuthentication
+
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
+import com.tap.commondatamodels.Customer
+import com.tap.commondatamodels.TapAuthentication
 import company.tap.tapcheckout_android.TapCheckoutDataConfiguration.lanuage
+import company.tap.tapcheckout_android.TapCheckoutDataConfiguration.lanuage
+import company.tap.tapcheckout_android.theme.ThemeManager
 import company.tap.taplocalizationkit.LocalizationManager
 
-import company.tap.tapuilibrary.themekit.ThemeManager
 import java.util.Locale
 
 /**

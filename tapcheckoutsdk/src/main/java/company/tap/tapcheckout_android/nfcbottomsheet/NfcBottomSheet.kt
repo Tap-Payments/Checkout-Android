@@ -1,7 +1,6 @@
 package company.tap.tapcheckout_android.nfcbottomsheet
 
-import TapLocal
-import TapTheme
+
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +10,12 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.tap.commondatamodels.TapLocal
+import com.tap.commondatamodels.TapTheme
 import company.tap.tapcheckout_android.R
-import company.tap.tapcheckout_android.TapBrandView
 import company.tap.tapcheckout_android.TapCheckout
 import company.tap.tapcheckout_android.doAfterSpecificTime
-
+import company.tap.tapcheckout_android.theme.TapBrandView
 
 
 class NfcBottomSheet : BottomSheetDialogFragment() {

@@ -36,4 +36,8 @@ jCsvASLGz+cfRrj2swIDAQAB
     </string>
     <string name="exit">Exit</string>
     <string name="dismissing">Dismissing .. Please wait ..</string>
+
+    <string name="back">Back</string>
+    <string name="msg_dismiss">dismiss</string>
+    <string name="msg_ok">ok</string>
 </resources>

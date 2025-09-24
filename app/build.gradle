@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace 'com.tap.company.checkout_android'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.tap.company.checkout_android"
         minSdk 24
-        targetSdk 35
+        targetSdk 36
         versionCode 1
         versionName "1.0.0"
 
@@ -54,10 +54,10 @@ dependencies {
 
 
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.github.Tap-Payments:TapAndroidForm:0.0.3'
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    api 'com.google.code.gson:gson:2.13.2'
+    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+    api 'com.github.Tap-Payments:TapAndroidForm:0.0.3'
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }

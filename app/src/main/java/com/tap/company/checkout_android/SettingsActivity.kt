@@ -20,6 +20,7 @@ import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.chillibits.simplesettings.tool.getPrefStringSetValue
 import com.chillibits.simplesettings.tool.getPrefStringValue
 import com.chillibits.simplesettings.tool.getPrefs
+import com.tap.commondatamodels.TapTheme
 
 class SettingsActivity : AppCompatActivity(),SimpleSettingsConfig.PreferenceCallback  {
     override fun onCreate(savedInstanceState: Bundle?) {

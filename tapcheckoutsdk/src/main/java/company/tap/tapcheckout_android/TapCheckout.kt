@@ -1,7 +1,7 @@
 package company.tap.tapcheckout_android
 
 
-import TapTheme
+
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -31,6 +31,7 @@ import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.core.os.postDelayed
 import com.google.gson.Gson
+import com.tap.commondatamodels.TapTheme
 import company.tap.nfcreader.open.utils.TapNfcUtils
 import company.tap.tapcheckout_android.enums.SCHEMES
 import company.tap.tapcheckout_android.enums.TapCheckoutDelegates
@@ -44,8 +45,10 @@ import company.tap.tapcheckout_android.models.ThreeDsResponseCardPayButtons
 import company.tap.tapcheckout_android.nfcbottomsheet.NFCBottomSheetActivity
 import company.tap.tapcheckout_android.popup_window.WebChrome
 import company.tap.tapcheckout_android.scanner_activity.ScannerActivity
+import company.tap.tapcheckout_android.theme.ThemeManager
 import company.tap.tapcheckout_android.threeDsWebview.ThreeDsWebViewActivityButton
-import company.tap.tapuilibrary.themekit.ThemeManager
+
+
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

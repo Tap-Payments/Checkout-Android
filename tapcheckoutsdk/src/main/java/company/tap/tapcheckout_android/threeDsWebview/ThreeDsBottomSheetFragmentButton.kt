@@ -16,8 +16,8 @@ import company.tap.tapcheckout_android.R
 import company.tap.tapcheckout_android.doAfterSpecificTime
 import company.tap.tapcheckout_android.getDeviceSpecs
 
-import company.tap.tapcheckout_android.TapBrandView
 import company.tap.tapcheckout_android.TapCheckout
+import company.tap.tapcheckout_android.theme.TapBrandView
 
 
 class ThreeDsBottomSheetFragmentButton(var webView: WebView?, var onCancel:()->Unit): BottomSheetDialogFragment() {
