@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <company.tap.tapcardformkit.open.web_wrapper.internal.TapNFCView
+    <company.tap.tapcheckout_android.theme.TapNFCView
         android:id="@+id/custom_nfc"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

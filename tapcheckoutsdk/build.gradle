@@ -109,9 +109,10 @@ afterEvaluate {
         publications {
             create("release", MavenPublication) {
                 // Publish AAR
-                artifact("$buildDir/outputs/aar/${project.name}-release.aar") {
+              /*  artifact("$buildDir/outputs/aar/${project.name}-release.aar") {
                     builtBy tasks.named("assembleRelease")
-                }
+                }   // ✅ Use the proper AAR task*/
+                artifact(tasks.named("bundleReleaseAar"))
 
                 // Attach sources and javadoc
                 artifact(tasks.named("releaseSourcesJar"))
@@ -119,7 +120,7 @@ afterEvaluate {
 
                 groupId = "com.github.Tap-Payments"
                 artifactId = "Checkout-Android"
-                version = "1.0.5"
+                version = "1.0.5.1"
 
                 // Variant-aware: ensure dependencies are included in POM
                 pom.withXml {
@@ -136,7 +137,12 @@ afterEvaluate {
         }
     }
 
-    // Ensure metadata waits for sources/javadoc
+    // ✅ Force publish to depend on bundleReleaseAar
+    tasks.matching { it.name.startsWith("publish") }.all {
+        dependsOn(tasks.named("bundleReleaseAar"))
+    }
+
+    // ✅ Ensure metadata waits for sources/javadoc
     tasks.named("generateMetadataFileForReleasePublication") {
         dependsOn(tasks.named("releaseSourcesJar"))
         dependsOn(tasks.named("releaseJavadoc"))

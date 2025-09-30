@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
 
-    <company.tap.tapcheckout_android.TapBrandView
+    <company.tap.tapcheckout_android.theme.TapBrandView
         android:id="@+id/tab_brand_view"
         android:layout_width="match_parent"
         android:layoutDirection="locale"

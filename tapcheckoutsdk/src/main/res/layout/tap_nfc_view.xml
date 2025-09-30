@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/topLinearNFC">
 
-        <company.tap.tapcardformkit.open.web_wrapper.internal.TapTextViewNew
+        <company.tap.tapcheckout_android.theme.TapTextViewNew
             android:id="@+id/scan_nfc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_height="360dp"
             android:layout_gravity="center_horizontal" />
 
-        <company.tap.tapcardformkit.open.web_wrapper.internal.TapTextViewNew
+        <company.tap.tapcheckout_android.theme.TapTextViewNew
             android:id="@+id/aboutNFC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
