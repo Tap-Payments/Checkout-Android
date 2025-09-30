@@ -119,7 +119,7 @@ afterEvaluate {
 
                 groupId = "com.github.Tap-Payments"
                 artifactId = "Checkout-Android"
-                version = "1.0.4"
+                version = "1.0.5"
 
                 // Variant-aware: ensure dependencies are included in POM
                 pom.withXml {
