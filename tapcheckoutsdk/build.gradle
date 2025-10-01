@@ -41,6 +41,27 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    // Include assets and resources
+    sourceSets {
+        main {
+            java.srcDirs += 'src/main/java'
+            kotlin.srcDirs += 'src/main/kotlin'
+            res.srcDirs += 'src/main/res'
+            assets.srcDirs += 'src/main/assets'   // <-- ensures assets are packaged in AAR
+        }
+
+    }
+
+
+    libraryVariants.all { variant ->
+        variant.mergeAssetsProvider.get().doLast {
+            def destDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
+            project.copy { CopySpec spec ->
+                spec.from("${projectDir}/src/main/assets")
+                spec.into(destDir)
+            }
+        }
+    }
 }
 
 dependencies {
@@ -109,10 +130,9 @@ afterEvaluate {
         publications {
             create("release", MavenPublication) {
                 // Publish AAR
-              /*  artifact("$buildDir/outputs/aar/${project.name}-release.aar") {
+                artifact("$buildDir/outputs/aar/${project.name}-release.aar") {
                     builtBy tasks.named("assembleRelease")
-                }   // ✅ Use the proper AAR task*/
-                artifact(tasks.named("bundleReleaseAar"))
+                }
 
                 // Attach sources and javadoc
                 artifact(tasks.named("releaseSourcesJar"))
@@ -120,7 +140,7 @@ afterEvaluate {
 
                 groupId = "com.github.Tap-Payments"
                 artifactId = "Checkout-Android"
-                version = "1.0.5.1"
+                version = "1.0.5.2"
 
                 // Variant-aware: ensure dependencies are included in POM
                 pom.withXml {
