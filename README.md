@@ -55,8 +55,7 @@ in project module gradle
 allprojects {
     repositories {
         google()
-        jcenter()
-        maven { url 'https://jitpack.io' }
+		maven { url 'https://jitpack.io' }
     }
 }
 ```
