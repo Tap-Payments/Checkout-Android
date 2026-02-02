@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
 
         //  val publicKey = "pk_test_J2OSkKAFxu4jghc9zeRfQ0da"
 
-        val publicKey = getPrefStringValue("publicKey", "pk_test_ohzQrUWRnTkCLD1cqMeudyjX")
+        val publicKey = "pk_test_Vlk842B1EA7tDN5QbrfGjYzh"
 
         /**
          * intent
@@ -97,19 +97,19 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         val jsonArrayPaymentMethod = JSONArray(selectedSet)
 
 
-        if(selectedSet.contains("ALL")){
+       /* if(selectedSet.contains("ALL")){
             configuration.put("supportedPaymentMethods", "ALL")
         }else
         { configuration.put("supportedPaymentMethods", jsonArrayPaymentMethod)
-        }
-
+        }*/
+        configuration.put("supportedPaymentMethods", "ALL")
         configuration.put("paymentType",  getPrefStringValue("paymentTypeKey","ALL"))
 
-        configuration.put("selectedCurrency", getPrefStringValue("orderCurrencyKey","KWD").toUpperCase())
+        configuration.put("selectedCurrency","SAR")
         configuration.put("supportedCurrencies", "ALL")
 
         val gateway = JSONObject()
-        gateway.put("publicKey", getPrefStringValue("publicKey","pk_test_gznOhsfdL0QMV8AW7tSN2wKP"))
+        gateway.put("publicKey", "pk_test_Vlk842B1EA7tDN5QbrfGjYzh")
         gateway.put("merchantId", getPrefStringValue("merchantId",""))
         configuration.put("gateway", gateway)
 
@@ -711,7 +711,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
             .url(" https://mw-sdk.dev.tap.company/v2/intent")
             .method("POST", body)
             .addHeader("Content-Type", "application/json")
-            //  .addHeader("Authorization", "Bearer sk_test_NSln5js3fIeq0QU1MuKRXAkD")
+
             .addHeader(
                 "Authorization",
                 getPrefStringValue("publicKey", "pk_test_ohzQrUWRnTkCLD1cqMeudyjX")
