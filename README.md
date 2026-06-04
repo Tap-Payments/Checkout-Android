@@ -14,30 +14,28 @@ We at [Tap Payments](https://www.tap.company/) strive to make your payments easi
  1. We support from Android minSdk 24
 
 # Steps overview
+
 ```mermaid
 sequenceDiagram
 
-participant  A  as  App
-participant  T  as  Tap
-participant  C  as  Checkout Android
+participant A as App
+participant T as Tap
+participant C as Checkout Android
 
-A->>T:  Regsiter app.
-T-->>A: Public key.
-A ->> C : Install SDK
-A ->> C : Init TapCheckOutView
-C -->> A : tapcheckoutsdk
-A ->> C :   if (intentId == null) {
-            CheckoutConfiguration.configureWithTapCheckoutDictionary(
-                this,
-                publicKey,
-                findViewById(R.id.redirect_pay),
-                configuration,
-                this
-            )
-        } 
-C -->> A: onReady()
+A->>T: Register App
+T-->>A: Return Public Key
 
-C -->> A : onSuccess(data(
+A->>C: Install SDK
+A->>C: Initialize TapCheckoutView
+C-->>A: SDK Initialized
+
+A->>C: Configure Checkout
+Note over A,C: CheckoutConfiguration.configureWithTapCheckoutDictionary(...)
+
+C-->>A: onCheckoutReady()
+C-->>A: onCheckoutSuccess(data)
+C-->>A: onCheckoutError(error)
+C-->>A: onCheckoutCancel()
 ```
 
 # Get your Tap keys
