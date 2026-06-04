@@ -1,74 +1,3 @@
-# Checkout-Android
-
-Overview
-- This repository contains an Android checkout example. This README explains setup, configuration, and where to add API keys (masked).
-
-Requirements
-- Android Studio Arctic Fox or later
-- JDK 11+
-- Internet connection for dependencies
-
-Quick start
-1. Clone the repo
-   git clone <repo-url>
-2. Open in Android Studio
-3. Provide required API keys (see Configuration below)
-4. Build and run on an emulator or device
-
-Configuration (mask keys)
-- Never commit real API keys. Use gradle.properties or local environment variables.
-- Example (project-level gradle.properties; keep this out of VCS):
-  CHECKOUT_API_KEY="REPLACE_WITH_YOUR_API_KEY"    # store locally, not in repo
-  STRIPE_PUBLISHABLE_KEY="pk_test_************"   # example masked
-
-- Example strings.xml approach (better to use gradle.properties and BuildConfig for sensitive keys):
-  <string name="checkout_api_key">REPLACE_WITH_YOUR_API_KEY</string>
-
-Where to add keys
-- Preferred: store in ~/.gradle/gradle.properties or project gradle.properties (but add to .gitignore).
-- Example in module build.gradle (Kotlin DSL):
-  buildConfigField("String", "CHECKOUT_API_KEY", "\"${project.property("CHECKOUT_API_KEY")}\"")
-
-Usage (example Activity snippet)
-- This is an example usage meant to illustrate integration points. Replace keys/placeholders as needed.
-
-```kotlin
-// Example snippet (labelled example) — replace with your actual Activity code
-// ...existing code...
-class CheckoutActivity : AppCompatActivity() {
-    // ...existing code...
-    private val checkoutApiKey = BuildConfig.CHECKOUT_API_KEY // ensure BuildConfig is set
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // ...existing code...
-        // Initialize checkout client with masked key
-        // Example: CheckoutClient.init(checkoutApiKey)
-    }
-    // ...existing code...
-}
-```
-
-AmiancActivity snippet verification
-- I could not verify whether the AmiancActivity code in your repository matches the snippet pasted in this README because I do not have access to your source file.
-- To allow an exact check, please add the actual AmiancActivity source file to the working set (for example:
-  /Users/ahlaam/Documents/AndroidProjects/Checkout-Android/app/src/main/java/.../AmiancActivity.kt or .java).
-- Once that file is available I will:
-  1. Compare imports and method signatures.
-  2. Highlight any mismatches and propose fixes.
-
-Checklist to self-verify snippets quickly
-1. Open your AmiancActivity source file.
-2. Confirm class name and package match the snippet's package/class header.
-3. Confirm method names referenced in README exist and have the same parameters.
-4. Ensure any BuildConfig or string resources used in the snippet are defined in build.gradle or strings.xml.
-
-Masking guidance summary
-- Replace real keys with placeholders like "REPLACE_WITH_YOUR_API_KEY" in README.
-- Store real keys in ~/.gradle/gradle.properties or environment variables.
-- Add configuration keys to .gitignore if placed inside the repo.
-
-If you want me to verify code parity between the README snippet and AmiancActivity, please add the AmiancActivity source file to the working set (path under /Users/ahlaam/Documents/AndroidProjects/Checkout-Android). I will then perform a direct comparison and return exact edits.
-
 # CheckOut-Andriod
 
 We at [Tap Payments](https://www.tap.company/) strive to make your payments easier than ever. We as a PCI compliant company, provide you a from the self solution to process card payments in your Android app.
@@ -176,7 +105,7 @@ android:id="@+id/checkout_pay"
 ## Code
 
  ```kotlin
-val publicKey = getPrefStringValue("publicKey", "pk_test_ohzQrUWRnTkCLD1cqMeudyjX")
+val publicKey = getPrefStringValue("publicKey", "pk_test_XXXXXXXXXXXXXXXXXX")
 
 /**
  * intent
@@ -216,7 +145,7 @@ configuration.put("selectedCurrency", getPrefStringValue("orderCurrencyKey","KWD
 configuration.put("supportedCurrencies", "ALL")
 
 val gateway = JSONObject()
-gateway.put("publicKey", getPrefStringValue("publicKey","pk_test_gznOhsfdL0QMV8AW7tSN2wKP"))
+gateway.put("publicKey", getPrefStringValue("publicKey","pk_test_XXXXXXXXXXXXXXXXXX"))
 gateway.put("merchantId", getPrefStringValue("merchantId",""))
 configuration.put("gateway", gateway)
 
@@ -362,7 +291,7 @@ It is always recommended, that you generate this `HashMap dictionary` from your 
 
 |Configuration| Description                                                                                                                                       | Required | Type| Sample
 |--|---------------------------------------------------------------------------------------------------------------------------------------------------|--| --|--|
-| operator| This is the `Key` that you will get after registering you package name.                                                                           | True  | String| `var operator=HashMap<String,Any>(),operator.put("publicKey","pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7")` |
+| operator| This is the `Key` that you will get after registering you package name.                                                                           | True  | String| `var operator=HashMap<String,Any>(),operator.put("publicKey","pk_test_XXXXXXXXXXXXXXXXXX")` |
 | scope| Defines the intention of using the `Checkout-Android`.                                                                                            | True  | String| ` var scope:String = "Token" ` |
 | purpose| Defines the intention of using the `Token` after generation.                                                                                      | True  | String| ` var purpose:String = "Transaction" ` |
 | order| This is the `order id` that you created before or `amount` , `currency` , `transaction` to generate a new order .   It will be linked this token. | True  | `Dictionary`| ` var order = HashMap<String, Any>(), order.put("id","") order.put("amount",1),order.put("currency","SAR"),order.put("description",""), order.put("reference":"A reference to this order in your system"))` |
@@ -476,7 +405,7 @@ It is always recommended, that you generate this `HashMap dictionary` from your 
 You can create a Dictionary HashMap to pass the data to our sdk. The good part about this, is that you can generate the data from one of your apis. Whenever we have an update to the configurations, you can update your api. This will make sure, that you will not have to update your app on the Google Play Store.
 
 ```kotlin
-     val publicKey = getPrefStringValue("publicKey", "pk_test_ohzQrUWRnTkCLD1cqMeudyjX")
+     val publicKey = getPrefStringValue("publicKey", "pk_test_XXXXXXXXXXXXXXXXXX")
 
 /**
  * intent
@@ -516,7 +445,7 @@ configuration.put("selectedCurrency", getPrefStringValue("orderCurrencyKey","KWD
 configuration.put("supportedCurrencies", "ALL")
 
 val gateway = JSONObject()
-gateway.put("publicKey", getPrefStringValue("publicKey","pk_test_gznOhsfdL0QMV8AW7tSN2wKP"))
+gateway.put("publicKey", getPrefStringValue("publicKey","pk_test_XXXXXXXXXXXXXXXXXX"))
 gateway.put("merchantId", getPrefStringValue("merchantId",""))
 configuration.put("gateway", gateway)
 
