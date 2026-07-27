@@ -38,6 +38,9 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
+import java.util.Locale
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
     val REQUEST_ID_MULTIPLE_PERMISSIONS = 7
 
@@ -67,9 +70,9 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
 
     fun configureSdk(intentId: String?) {
 
-        //  val publicKey = "pk_test_J2OSkKAFxu4jghc9zeRfQ0da"
+          val publicKey = "pk_test_J2OSkKAFxu4jghc9zeRfQ0da"
 
-        val publicKey = "pk_test_Vlk842B1EA7tDN5QbrfGjYzh"
+      //  val publicKey = "pk_test_Vlk842B1EA7tDN5QbrfGjYzh"
 
         /**
          * intent
@@ -86,7 +89,16 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
        // val charge = intent.getStringExtra("scopeKey")
         val configuration = LinkedHashMap<String, Any>()
        // val configuration = JSONObject()
+       /* val hash = generateTapHashString(
+            publicKey = publicKey,
+            secretKey = "",
+            amount = "1",
+            currency = "SAR",
+            postUrl = "",
+            transactionReference = ""
+        )*/
 
+       // println("Hash: $hash")
         configuration.put("open", true)
         configuration.put("hashString", "")
         configuration.put("checkoutMode", "page")
@@ -103,13 +115,14 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         { configuration.put("supportedPaymentMethods", jsonArrayPaymentMethod)
         }*/
         configuration.put("supportedPaymentMethods", "ALL")
-        configuration.put("paymentType",  getPrefStringValue("paymentTypeKey","ALL"))
+        //configuration.put("paymentType",  getPrefStringValue("paymentTypeKey","ALL"))
+        configuration.put("paymentType", "ALL")
 
-        configuration.put("selectedCurrency","SAR")
+        configuration.put("selectedCurrency","KWD")
         configuration.put("supportedCurrencies", "ALL")
 
         val gateway = JSONObject()
-        gateway.put("publicKey", "pk_test_Vlk842B1EA7tDN5QbrfGjYzh")
+        gateway.put("publicKey", "pk_test_J2OSkKAFxu4jghc9zeRfQ0da")
         gateway.put("merchantId", getPrefStringValue("merchantId",""))
         configuration.put("gateway", gateway)
 
@@ -865,5 +878,46 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
             return false
         }
         return true
+    }
+
+
+    fun generateTapHashString(
+        publicKey: String,
+        secretKey: String,
+        amount: String,
+        currency: String,
+        postUrl: String = "",
+        transactionReference: String = ""
+    ): String {
+
+        // Format amount with 3 decimal places
+        val amountDouble = amount.toDoubleOrNull() ?: 0.0
+        val formattedAmount = String.format(Locale.US, "%.3f", amountDouble)
+
+        // Build string to hash
+        val toBeHashed =
+            "x_publickey${publicKey}" +
+                    "x_amount${formattedAmount}" +
+                    "x_currency${currency}" +
+                    "x_transaction${transactionReference}" +
+                    "x_post${postUrl}"
+
+        return hmacSHA256(toBeHashed, secretKey)
+    }
+
+    private fun hmacSHA256(data: String, key: String): String {
+        val secretKeySpec = SecretKeySpec(
+            key.toByteArray(Charsets.UTF_8),
+            "HmacSHA256"
+        )
+
+        val mac = Mac.getInstance("HmacSHA256")
+        mac.init(secretKeySpec)
+
+        val hashBytes = mac.doFinal(data.toByteArray(Charsets.UTF_8))
+
+        return hashBytes.joinToString("") {
+            "%02x".format(it)
+        }
     }
 }
