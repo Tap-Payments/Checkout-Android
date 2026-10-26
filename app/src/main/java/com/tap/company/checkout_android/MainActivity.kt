@@ -315,6 +315,7 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         // Add timestamp to the message
         val timestamp = java.text.SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(java.util.Date())
         callbackMessages.add(0, "[$timestamp] $message")
+        Log.d("TapCheckoutCallback", message)
 
         // Limit the number of messages to show
         while (callbackMessages.size > maxCallbacksToShow) {

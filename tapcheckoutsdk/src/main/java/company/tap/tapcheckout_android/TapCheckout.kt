@@ -316,228 +316,229 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                 return true
             } else {
                 if (request?.url.toString().startsWith(webViewScheme, ignoreCase = true)) {
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onReady.name)) {
+                    val url = request?.url.toString()
+                    when {
+                        url.contains(TapCheckoutDelegates.onReady.name) -> {
 
 
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutReady()
-
-                    }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onSuccess.name)) {
-                        onSuccessCalled = true
-                        var datafromUrl = request?.url?.getQueryParameter(keyValueName).toString()
-                        println("datafromUrl>>"+datafromUrl)
-                        var decoded = decodeBase64(datafromUrl)
-                        println("decoded>>"+decoded)
-                        if (decoded != null) {
-                            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutSuccess(
-                                decoded
-                            )
+                            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutReady()
 
                         }
-                        pair = Pair(request?.url?.getQueryParameterFromUri(keyValueName).toString(),true)
-
-                        when(iSAppInForeground) {
-
-                            true ->{//closePayment()
-                                dismissDialog()
-                                Log.e("success","one")
-                            }
-                            false ->{}
-                        }
-                    }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onChargeCreated.name)) {
-
-                        val data = decodeBase64(request?.url?.getQueryParameter(keyValueName).toString())
-                        Log.e("chargedData", data.toString())
-                        val jsonObject = JSONObject(data);
-                        var jsonObject1 = JSONObject()
-                        if(jsonObject.has("gateway_response")){
-                            jsonObject1 = jsonObject.getJSONObject("gateway_response")
-                            // println("jsonObject1"+jsonObject1.get("name"))
-                        }
-                        val gson = Gson()
-                        /**Check added for benefitpay ***/
-                        if(jsonObject1!=null && jsonObject1.has("name") &&jsonObject1.get("name").toString().equals("BENEFITPAY")){
-
-                        }else {
-                            threeDsResponse = gson.fromJson(data, ThreeDsResponse::class.java)
-                            when (threeDsResponse.stopRedirection) {
-                                false -> navigateTo3dsActivity(PaymentFlow.PAYMENTBUTTON.name)
-                                else -> {}
-                            }
-                        }
-                        if (data != null) {
-                            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutChargeCreated(
-                                data
-                            )
-                        }
-                    }
-                   /* if (request?.url.toString().contains(TapCheckoutDelegates.onOrderCreated.name)) {
-                        val orderResponse = request?.url?.getQueryParameter(keyValueName).toString()
-                        println("orderResponse>>"+orderResponse)
-                        //TODO check if decode required
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()
-                            ?.onCheckoutOrderCreated(
-                                orderResponse
-                            )
-
-
-
-                    }*/
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onClick.name)) {
-                        isBenefitPayUrlIntercepted=false
-                        onSuccessCalled = false
-                        pair = Pair("",false)
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutClick()
-
-                    }
-
-                    if (request?.url.toString().contains(TapCheckoutDelegates.cancel.name)) {
-
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
-
-
-
-                    }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onClose.name)) {
-                    dismissDialog()
-                        webChrome.getdialog()?.dismiss()
-                       closePayment()
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()//todo added because there was no callback on checkout close
-
-
-                    }
-
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onCancel.name)) {
-                        android.os.Handler(Looper.getMainLooper()).postDelayed(3000) {
-                            if(!onSuccessCalled){
-                                TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
-                            }
-
-
-                        }
-
-                        if (!(pair.first.isNotEmpty() and pair.second)) {
-                            dismissDialog()
-                        }
-
-                    }
-                    if (request?.url.toString()
-                            .contains(TapCheckoutDelegates.onBinIdentification.name)
-                    ) {
-                       /* RedirectDataConfiguration.getTapCheckoutListener()
-                            ?.onPayButtonBindIdentification(
-                                request?.url?.getQueryParameterFromUri(keyValueName).toString()
-                            )*/
-                    }
-                  /*  if (request?.url.toString().contains(TapCheckoutDelegates.onHeightChange.name)) {
-                        val newHeight = request?.url?.getQueryParameter(keyValueName)
-                        val params: ViewGroup.LayoutParams? = webViewFrame.layoutParams
-                        params?.height =
-                            webViewFrame.context.getDimensionsInDp(newHeight?.toInt() ?: 95)
-                        webViewFrame.layoutParams = params
-
-                       *//* RedirectDataConfiguration.getTapCheckoutListener()
-                            ?.onPayButtonHeightChange(newHeight.toString())*//*
-
-                    }*/
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onScannerClick.name)) {
-                        /**
-                         * navigate to Scanner Activity
-                         */
-                        val intent = Intent(context, ScannerActivity::class.java)
-                        (context).startActivity(intent)
-
-                    }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onNfcClick.name)) {
-                        /**
-                         * navigate to NFC Activity
-                         */
-                        if (TapNfcUtils.isNfcAvailable(context)) {
-                            NFCopened = true
-                            /**
-                             * old NFCLauncher
-                             */
-//                        val intent = Intent(context,NFCLaunchActivity::class.java)
-                            /**
-                             * new NFC act as bottomSheet
-                             */
-                            val intent = Intent(context, NFCBottomSheetActivity()::class.java)
-                            (context).startActivity(intent)
-                        } else {
-                            TapCheckoutDataConfiguration.getTapCheckoutListener()
-                                ?.onCheckoutError("NFC is not supported on this device")
-                        }
-
-
-                    }
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onRedirectUrl.name)) {
-                        if (isRedirectHandled) return true // Prevent further handling
-                        isRedirectHandled = true
-                        /**
-                         * navigate onRedirectUrl
-                         */
-                        val queryParams =
-                            request?.url?.getQueryParameterFromUri(keyValueName).toString()
-                        Log.e("data onRedirectUrl", queryParams.toString())
-                        try {
-                            val jsonObject = JSONObject(queryParams)
-
-                            // Extract fields
-                            val powered = jsonObject.optBoolean("powered", false)
-                            val keyword = jsonObject.optString("keyword", "")
-                            val redirectionObject = jsonObject.optJSONObject("redirectionUrl")
-                            val redirectUrl = redirectionObject?.optString("url") ?: ""
-                            // Optional: load the main url or redirect
-                            val mainUrl = jsonObject.optString("url", "")
-                            // Create the model instance
-                             redirectResponse = RedirectResponse(
-                                redirectUrl = mainUrl,
-                                powered = powered,
-                                keyword = keyword
-                            )
-
-                            Log.d("RedirectResponse", redirectResponse.toString())
-
-
-                            if (redirectResponse.redirectUrl.isNotEmpty() && redirectResponse.keyword.isNotEmpty() ) {
-                               // redirectWebView.loadUrl(mainUrl)
-                                webChrome.getdialog()?.dismiss()
-                                navigateTo3dsActivity(PaymentFlow.REDIRECT.name)
-                                return true
-                            }
-
-                        } catch (e: Exception) {
-                            Log.e("ParseError", "Failed to parse redirect data", e)
-                            isRedirectHandled = false
-                        }
-
-
-                    }
-                    /**
-                     * for google button specifically
-                     */
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onClosePopup.name)) {
-                        webChrome.getdialog()?.dismiss()
-
-                    }
-
-                    /* if (request?.url.toString().contains(KnetStatusDelegate.onError.name)) {
-
-                         RedirectDataConfiguration.getTapCheckoutListener()
-                             ?.onPayButtonError(
-                                 request?.url?.getQueryParameterFromUri(keyValueName).toString()
-                             )
-                     }*/
-                    if (request?.url.toString().contains(TapCheckoutDelegates.onError.name)) {
-                        decodeBase64(request?.url?.getQueryParameter(keyValueName).toString())?.let {
-                            TapCheckoutDataConfiguration.getTapCheckoutListener()
-                                ?.onCheckoutError(
-                                    it
+                        url.contains(TapCheckoutDelegates.onSuccess.name) -> {
+                            onSuccessCalled = true
+                            var datafromUrl = request?.url?.getQueryParameter(keyValueName).toString()
+                            println("datafromUrl>>"+datafromUrl)
+                            var decoded = decodeBase64(datafromUrl)
+                            println("decoded>>"+decoded)
+                            if (decoded != null) {
+                                TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutSuccess(
+                                    decoded
                                 )
-                        }
-                        pair = Pair(request?.url?.getQueryParameterFromUri(keyValueName).toString(),true)
 
+                            }
+                            pair = Pair(request?.url?.getQueryParameterFromUri(keyValueName).toString(),true)
+
+                            when(iSAppInForeground) {
+
+                                true ->{//closePayment()
+                                    dismissDialog()
+                                    Log.e("success","one")
+                                }
+                                false ->{}
+                            }
+                        }
+                        url.contains(TapCheckoutDelegates.onChargeCreated.name) -> {
+
+                            val data = decodeBase64(request?.url?.getQueryParameter(keyValueName).toString())
+                            Log.e("chargedData", data.toString())
+                            val jsonObject = JSONObject(data);
+                            var jsonObject1 = JSONObject()
+                            if(jsonObject.has("gateway_response")){
+                                jsonObject1 = jsonObject.getJSONObject("gateway_response")
+                                // println("jsonObject1"+jsonObject1.get("name"))
+                            }
+                            val gson = Gson()
+                            /**Check added for benefitpay ***/
+                            if(jsonObject1!=null && jsonObject1.has("name") &&jsonObject1.get("name").toString().equals("BENEFITPAY")){
+
+                            }else {
+                                threeDsResponse = gson.fromJson(data, ThreeDsResponse::class.java)
+                                when (threeDsResponse.stopRedirection) {
+                                    false -> navigateTo3dsActivity(PaymentFlow.PAYMENTBUTTON.name)
+                                    else -> {}
+                                }
+                            }
+                            if (data != null) {
+                                TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutChargeCreated(
+                                    data
+                                )
+                            }
+                        }
+                       /* if (request?.url.toString().contains(TapCheckoutDelegates.onOrderCreated.name)) {
+                            val orderResponse = request?.url?.getQueryParameter(keyValueName).toString()
+                            println("orderResponse>>"+orderResponse)
+                            //TODO check if decode required
+                            TapCheckoutDataConfiguration.getTapCheckoutListener()
+                                ?.onCheckoutOrderCreated(
+                                    orderResponse
+                                )
+
+
+
+                        }*/
+                        url.contains(TapCheckoutDelegates.onClick.name) -> {
+                            isBenefitPayUrlIntercepted=false
+                            onSuccessCalled = false
+                            pair = Pair("",false)
+                            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutClick()
+
+                        }
+
+                        url.contains(TapCheckoutDelegates.cancel.name) -> {
+
+                            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
+
+
+
+                        }
+                        /**
+                         * for google button specifically
+                         */
+                        url.contains(TapCheckoutDelegates.onClosePopup.name) -> {
+                            webChrome.getdialog()?.dismiss()
+
+                        }
+                        url.contains(TapCheckoutDelegates.onClose.name) -> {
+                        dismissDialog()
+                            webChrome.getdialog()?.dismiss()
+                           closePayment()
+                            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()//todo added because there was no callback on checkout close
+
+
+                        }
+
+                        url.contains(TapCheckoutDelegates.onCancel.name) -> {
+                            android.os.Handler(Looper.getMainLooper()).postDelayed(3000) {
+                                if(!onSuccessCalled){
+                                    TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()
+                                }
+
+
+                            }
+
+                            if (!(pair.first.isNotEmpty() and pair.second)) {
+                                dismissDialog()
+                            }
+
+                        }
+                        url.contains(TapCheckoutDelegates.onBinIdentification.name) -> {
+                           /* RedirectDataConfiguration.getTapCheckoutListener()
+                                ?.onPayButtonBindIdentification(
+                                    request?.url?.getQueryParameterFromUri(keyValueName).toString()
+                                )*/
+                        }
+                      /*  if (request?.url.toString().contains(TapCheckoutDelegates.onHeightChange.name)) {
+                            val newHeight = request?.url?.getQueryParameter(keyValueName)
+                            val params: ViewGroup.LayoutParams? = webViewFrame.layoutParams
+                            params?.height =
+                                webViewFrame.context.getDimensionsInDp(newHeight?.toInt() ?: 95)
+                            webViewFrame.layoutParams = params
+
+                           *//* RedirectDataConfiguration.getTapCheckoutListener()
+                                ?.onPayButtonHeightChange(newHeight.toString())*//*
+
+                        }*/
+                        url.contains(TapCheckoutDelegates.onScannerClick.name) -> {
+                            /**
+                             * navigate to Scanner Activity
+                             */
+                            val intent = Intent(context, ScannerActivity::class.java)
+                            (context).startActivity(intent)
+
+                        }
+                        url.contains(TapCheckoutDelegates.onNfcClick.name) -> {
+                            /**
+                             * navigate to NFC Activity
+                             */
+                            if (TapNfcUtils.isNfcAvailable(context)) {
+                                NFCopened = true
+                                /**
+                                 * old NFCLauncher
+                                 */
+    //                        val intent = Intent(context,NFCLaunchActivity::class.java)
+                                /**
+                                 * new NFC act as bottomSheet
+                                 */
+                                val intent = Intent(context, NFCBottomSheetActivity()::class.java)
+                                (context).startActivity(intent)
+                            } else {
+                                TapCheckoutDataConfiguration.getTapCheckoutListener()
+                                    ?.onCheckoutError("NFC is not supported on this device")
+                            }
+
+
+                        }
+                        url.contains(TapCheckoutDelegates.onRedirectUrl.name) -> {
+                            if (isRedirectHandled) return true // Prevent further handling
+                            isRedirectHandled = true
+                            /**
+                             * navigate onRedirectUrl
+                             */
+                            val queryParams =
+                                request?.url?.getQueryParameterFromUri(keyValueName).toString()
+                            Log.e("data onRedirectUrl", queryParams.toString())
+                            try {
+                                val jsonObject = JSONObject(queryParams)
+
+                                // Extract fields
+                                val powered = jsonObject.optBoolean("powered", false)
+                                val keyword = jsonObject.optString("keyword", "")
+                                val redirectionObject = jsonObject.optJSONObject("redirectionUrl")
+                                val redirectUrl = redirectionObject?.optString("url") ?: ""
+                                // Optional: load the main url or redirect
+                                val mainUrl = jsonObject.optString("url", "")
+                                // Create the model instance
+                                 redirectResponse = RedirectResponse(
+                                    redirectUrl = mainUrl,
+                                    powered = powered,
+                                    keyword = keyword
+                                )
+
+                                Log.d("RedirectResponse", redirectResponse.toString())
+
+
+                                if (redirectResponse.redirectUrl.isNotEmpty() && redirectResponse.keyword.isNotEmpty() ) {
+                                   // redirectWebView.loadUrl(mainUrl)
+                                    webChrome.getdialog()?.dismiss()
+                                    navigateTo3dsActivity(PaymentFlow.REDIRECT.name)
+                                    return true
+                                }
+
+                            } catch (e: Exception) {
+                                Log.e("ParseError", "Failed to parse redirect data", e)
+                                isRedirectHandled = false
+                            }
+
+
+                        }
+
+                        /* if (request?.url.toString().contains(KnetStatusDelegate.onError.name)) {
+
+                             RedirectDataConfiguration.getTapCheckoutListener()
+                                 ?.onPayButtonError(
+                                     request?.url?.getQueryParameterFromUri(keyValueName).toString()
+                                 )
+                         }*/
+                        url.contains(TapCheckoutDelegates.onError.name) -> {
+                            decodeBase64(request?.url?.getQueryParameter(keyValueName).toString())?.let {
+                                TapCheckoutDataConfiguration.getTapCheckoutListener()
+                                    ?.onCheckoutError(
+                                        it
+                                    )
+                            }
+                            pair = Pair(request?.url?.getQueryParameterFromUri(keyValueName).toString(),true)
+
+                        }
                     }
                     if (request?.url.toString().startsWith("intent://")) {
                         try {
