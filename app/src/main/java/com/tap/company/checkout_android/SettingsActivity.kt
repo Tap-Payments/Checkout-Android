@@ -59,7 +59,8 @@ private object Options {
     val paymentMethods = listOf("ALL", "AMERICAN_EXPRESS", "APPLE_PAY", "BENEFIT", "BENEFITPAY", "CAREEMPAY", "FAWRY",
         "GOOGLE_PAY", "KNET", "MADA", "MASTERCARD", "MEEZA", "OMANNET", "PAYPAL", "POST_PAY",
         "NAPS", "STC_PAY", "TABBY", "VISA").map { Option(it) }
-    val languages = listOf("auto", "en", "ar").map { Option(it) }
+    /** "dynamic" makes the SDK use the device language; "auto" leaves the key out. */
+    val languages = listOf("auto", "en", "ar", "dynamic").map { Option(it) }
     val regions = listOf("LOCAL", "REGIONAL", "GLOBAL").map { Option(it) }
     val supportedPaymentTypes = listOf("CARD", "DEVICE_WALLET", "EXPRESS_CHECKOUT_WALLET", "PASS_THRU_WALLET",
         "STORED_VALUE_WALLET", "CASH_WALLET", "BNPL").map { Option(it) }
@@ -71,7 +72,8 @@ private object Options {
     val saveCardOptions = listOf("all", "merchant", "tap", "none").map { Option(it) }
     val discountTypes = listOf(Option("F", "Fixed amount"), Option("P", "Percentage"))
     val modes = listOf(Option("charge", "Charge"), Option("authorize", "Authorize"))
-    val themes = listOf("light", "dark", "light_mono", "dark_colored", "auto").map { Option(it) }
+    /** "dynamic" makes the SDK follow the device's light/dark mode; "auto" leaves the key out. */
+    val themes = listOf("light", "dark", "light_mono", "dark_colored", "dynamic", "auto").map { Option(it) }
     val checkoutModes = listOf("popup", "page").map { Option(it) }
     val authorizeTypes = listOf("CAPTURE", "VOID").map { Option(it) }
     val agreementTypes = listOf("SCHEDULED", "UNSCHEDULED").map { Option(it) }
@@ -97,6 +99,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun build() {
+        infoRows = 0
         val screen = preferenceManager.createPreferenceScreen(requireContext())
         preferenceScreen = screen
         sdkSection()
@@ -138,6 +141,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         multiChoice("Supported Countries", Options.countries, settings.supportedCountries) { settings.supportedCountries = it }
         multiChoice("Supported Payment Types", Options.supportedPaymentTypes, settings.supportedPaymentTypes) { settings.supportedPaymentTypes = it }
         multiChoice("Supported Schemes", Options.schemes, settings.supportedSchemes) { settings.supportedSchemes = it }
+        toggle("Apple Pay Available On Client", settings.isApplePayAvailableOnClient) { settings.isApplePayAvailableOnClient = it }
     }
 
     private fun userSection() = section("User Configuration") {
@@ -190,10 +194,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         choice("Transaction Mode", Options.modes, settings.mode, rebuilds = true) { settings.mode = it }
         if (settings.mode == "authorize") {
             choice("Authorize Type", Options.authorizeTypes, settings.authorizeType) { settings.authorizeType = it }
+            integer("Authorize Time (hours)", settings.authorizeTime) { settings.authorizeTime = it }
         }
         choice("Theme", Options.themes, settings.theme) { settings.theme = it }
         choice("Checkout Mode", Options.checkoutModes, settings.checkoutMode) { settings.checkoutMode = it }
         toggle("3D Secure", settings.threeDSecure) { settings.threeDSecure = it }
+        toggle("Save Card", settings.saveCard) { settings.saveCard = it }
+        text("Redirect URL", settings.redirectUrl, InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI) { settings.redirectUrl = it }
         text("Hashstring", settings.hashString) { settings.hashString = it }
         toggle("Agreed payment", settings.agreedPayment, rebuilds = true) { settings.agreedPayment = it }
         if (settings.agreedPayment) {
@@ -218,6 +225,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     // Row builders
 
     private var category: PreferenceCategory? = null
+    private var infoRows = 0
 
     private fun section(title: String, footer: String? = null, rows: () -> Unit) {
         val section = PreferenceCategory(requireContext()).apply { this.title = title; isIconSpaceReserved = false }
@@ -228,6 +236,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun <P : Preference> add(preference: P, title: String?): P {
+        // Rows that open a dialog are looked up by key, so every row needs a unique one.
+        preference.key = title ?: "info_${infoRows++}"
         preference.title = title
         preference.isPersistent = false
         preference.isIconSpaceReserved = false

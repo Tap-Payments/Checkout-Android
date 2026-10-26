@@ -28,12 +28,13 @@ data class CheckoutSettings(
     var paymentType: String = "ALL",
     var supportedPaymentMethods: List<String> = listOf("ALL"),
     var selectedCurrency: String = "SAR",
-    /** auto, en or ar. "auto" lets the checkout decide, so the key is not sent. */
+    /** auto, en, ar or dynamic (device language). "auto" lets the checkout decide, so the key is not sent. */
     var language: String = "en",
     var supportedRegions: List<String> = emptyList(),
     var supportedCountries: List<String> = emptyList(),
     var supportedPaymentTypes: List<String> = emptyList(),
     var supportedSchemes: List<String> = emptyList(),
+    var isApplePayAvailableOnClient: Boolean = true,
 
     // User configuration
 
@@ -73,14 +74,19 @@ data class CheckoutSettings(
 
     /** "charge" or "authorize". */
     var mode: String = "charge",
-    /** light, dark, light_mono, dark_colored or auto ("auto" = key not sent). */
+    /** light, dark, light_mono, dark_colored, dynamic (device mode) or auto ("auto" = key not sent). */
     var theme: String = "light",
     /** popup or page. */
     var checkoutMode: String = "popup",
     var threeDSecure: Boolean = true,
+    var saveCard: Boolean = true,
+    /** `transaction.<mode>.redirect.url`; the web demo returns to its own page. */
+    var redirectUrl: String = REDIRECT_URL,
     var hashString: String = "",
     /** CAPTURE or VOID: what happens automatically to an authorization. Only editable in authorize mode. */
     var authorizeType: String = "VOID",
+    /** Hours before [authorizeType] is applied. */
+    var authorizeTime: Int = 100,
     var agreedPayment: Boolean = false,
     /** SCHEDULED or UNSCHEDULED. */
     var agreementType: String = "SCHEDULED",
@@ -145,7 +151,7 @@ data class CheckoutSettings(
             "amount" to jsonNumber(totalAmount),
             "order" to order,
             "cardOptions" to cardOptions,
-            "isApplePayAvailableOnClient" to true,
+            "isApplePayAvailableOnClient" to isApplePayAvailableOnClient,
         )
 
         // "auto" means "let the checkout decide": the key is not sent at all.
@@ -225,10 +231,10 @@ data class CheckoutSettings(
      */
     private fun transaction(now: Date): Map<String, Any> {
         val transaction = linkedMapOf<String, Any>(
-            "saveCard" to true,
-            // Sent in both modes. `type` only matters (and is only editable) for authorizations.
-            "auto" to linkedMapOf("type" to authorizeType, "time" to 100),
-            "redirect" to linkedMapOf("url" to REDIRECT_URL),
+            "saveCard" to saveCard,
+            // Sent in both modes. `type` and `time` only matter (and are only editable) for authorizations.
+            "auto" to linkedMapOf("type" to authorizeType, "time" to authorizeTime),
+            "redirect" to linkedMapOf("url" to redirectUrl),
             "threeDSecure" to threeDSecure,
         )
 

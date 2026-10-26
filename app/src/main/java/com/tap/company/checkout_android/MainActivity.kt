@@ -136,9 +136,29 @@ class MainActivity : AppCompatActivity(), TapCheckoutStatusDelegate {
         val configuration = HashMap(testHooks.apply(settings.makeConfiguration()))
         val publicKey = (configuration["gateway"] as? Map<*, *>)?.get("publicKey") as? String
 
-        // Load the checkout invisibly; it's shown on onReady so a page that never loads can't cover this screen
-        checkoutView.visibility = View.INVISIBLE
+        // The checkout view shows the SDK's loader right away; the button shows a spinner until the
+        // checkout is ready, and a page that never loads is taken off the screen after a minute.
+        setLoading(true)
+        checkoutView.visibility = View.VISIBLE
+        checkoutView.removeCallbacks(loadTimeout)
+        checkoutView.postDelayed(loadTimeout, LOAD_TIMEOUT_MS)
         CheckoutConfiguration.configureWithTapCheckoutDictionary(this, publicKey, checkoutView, configuration, this)
+    }
+
+    private val loadTimeout: Runnable = Runnable {
+        setLoading(false)
+        checkoutView.visibility = View.GONE
+        Toast.makeText(this, "The checkout did not load. Check your connection and try again.", Toast.LENGTH_LONG).show()
+    }
+
+    private fun setLoading(loading: Boolean): Unit = runOnUiThread {
+        if (!loading) checkoutView.removeCallbacks(loadTimeout)
+        findViewById<Button>(R.id.start_checkout).apply {
+            isEnabled = !loading
+            alpha = if (loading) 0.7f else 1f
+            text = if (loading) "Opening checkout…" else "Start Checkout"
+        }
+        findViewById<View>(R.id.start_progress).visibility = if (loading) View.VISIBLE else View.GONE
     }
 
     // Summary and configuration
@@ -285,13 +305,16 @@ class MainActivity : AppCompatActivity(), TapCheckoutStatusDelegate {
 
     private fun color(@ColorRes id: Int) = ContextCompat.getColor(this, id)
 
-    private fun hideCheckout() = runOnUiThread { checkoutView.visibility = View.GONE }
+    private fun hideCheckout() = runOnUiThread {
+        setLoading(false)
+        checkoutView.visibility = View.GONE
+    }
 
     // TapCheckoutStatusDelegate
 
     override fun onCheckoutReady() {
         addCallback("onReady", null)
-        runOnUiThread { checkoutView.visibility = View.VISIBLE }
+        setLoading(false)
     }
 
     override fun onCheckoutChargeCreated(data: String) {
@@ -316,6 +339,7 @@ class MainActivity : AppCompatActivity(), TapCheckoutStatusDelegate {
     private companion object {
         const val MENU_SETTINGS = 1
         const val STATE_CALLBACKS = "callbacks"
+        const val LOAD_TIMEOUT_MS = 60_000L
     }
 }
 

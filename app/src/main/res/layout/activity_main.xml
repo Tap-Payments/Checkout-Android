@@ -181,20 +181,36 @@
             </LinearLayout>
         </ScrollView>
 
-        <Button
-            android:id="@+id/start_checkout"
+        <!-- Start Checkout; shows a spinner while the checkout is loading. -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/rounded_button"
-            android:stateListAnimator="@null"
-            android:text="Start Checkout"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="12dp">
+
+            <Button
+                android:id="@+id/start_checkout"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="@drawable/rounded_button"
+                android:stateListAnimator="@null"
+                android:text="Start Checkout"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/start_progress"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:elevation="4dp"
+                android:indeterminateTint="@android:color/white"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
 
     <company.tap.tapcheckout_android.TapCheckout
