@@ -412,7 +412,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                         url.contains(TapCheckoutDelegates.onClose.name) -> {
                         dismissDialog()
                             webChrome.getdialog()?.dismiss()
-                           closePayment()
+                            /** Closing only reports onCheckoutcancel, like iOS; success and error were already delivered when they happened ***/
+                            pair = Pair("",false)
                             TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutcancel()//todo added because there was no callback on checkout close
 
 
@@ -537,7 +538,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                                         it
                                     )
                             }
-                            pair = Pair(request?.url?.getQueryParameterFromUri(keyValueName).toString(),true)
+                            /** An error is not a pending success; keeping it here made a later close report it as onCheckoutSuccess ***/
+                            pair = Pair("",false)
 
                         }
                     }
@@ -753,15 +755,6 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
         }
     }
 
-    private fun closePayment() {
-
-        if (pair.second) {
-            Log.e("app","one")
-            dismissDialog()
-            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutSuccess(pair.first)
-
-        }
-    }
     override fun onEnterForeground() {
         iSAppInForeground = true
         Log.e("applifeCycle","onEnterForeground")
