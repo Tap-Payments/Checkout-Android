@@ -363,7 +363,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
                             }else {
                                 threeDsResponse = gson.fromJson(data, ThreeDsResponse::class.java)
-                                when (threeDsResponse.stopRedirection) {
+                                /** No url means nothing to authenticate (e.g. declined charge); opening the 3DS screen would leave it stuck ***/
+                                when (threeDsResponse.stopRedirection || threeDsResponse.url.isNullOrBlank()) {
                                     false -> navigateTo3dsActivity(PaymentFlow.PAYMENTBUTTON.name)
                                     else -> {}
                                 }
