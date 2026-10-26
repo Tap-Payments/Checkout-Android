@@ -18,6 +18,12 @@ android {
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Each instrumented test runs in a fresh app process with cleared data, like a relaunch on iOS.
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
 
     buildTypes {
@@ -47,10 +53,12 @@ dependencies {
 
     implementation libs.androidx.appcompat
     implementation project(':tapcheckoutsdk')
+    implementation 'androidx.preference:preference-ktx:1.2.1'
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
-    androidTestImplementation platform(libs.androidx.compose.bom)
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
+    androidTestUtil 'androidx.test:orchestrator:1.5.1'
 
 
 

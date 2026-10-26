@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?android:attr/colorBackground">
 
     <LinearLayout
         android:id="@+id/content"
@@ -16,20 +16,21 @@
             android:id="@+id/start_checkout"
             android:layout_width="200dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_button"
             android:text="Start Checkout"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/options"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_button"
-            android:text="Options"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+        <!-- What the next checkout will do: charge or authorize, and for how much. -->
+        <TextView
+            android:id="@+id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="15sp" />
 
         <ScrollView
             android:id="@+id/callbacks_scroll"
@@ -37,16 +38,17 @@
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
+            android:background="@drawable/callbacks_background"
             android:scrollbars="vertical">
 
             <TextView
                 android:id="@+id/callbacks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/callbacks_background"
+                android:contentDescription="callbackLog"
                 android:padding="8dp"
                 android:text="Callbacks will appear here..."
-                android:textColor="#555555"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textIsSelectable="true"
                 android:textSize="14sp" />
         </ScrollView>
