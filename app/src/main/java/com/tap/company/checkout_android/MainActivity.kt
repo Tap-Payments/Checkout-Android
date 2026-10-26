@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(), TapCheckoutStatusDelegate {
         val publicKey = (configuration["gateway"] as? Map<*, *>)?.get("publicKey") as? String
 
         // The checkout view shows the SDK's loader right away; the button shows a spinner until the
-        // checkout is ready, and a page that never loads is taken off the screen after a minute.
+        // checkout is ready, and a page that never loads is taken off the screen after two minutes.
         setLoading(true)
         checkoutView.visibility = View.VISIBLE
         checkoutView.removeCallbacks(loadTimeout)
@@ -339,7 +339,7 @@ class MainActivity : AppCompatActivity(), TapCheckoutStatusDelegate {
     private companion object {
         const val MENU_SETTINGS = 1
         const val STATE_CALLBACKS = "callbacks"
-        const val LOAD_TIMEOUT_MS = 60_000L
+        const val LOAD_TIMEOUT_MS = 120_000L
     }
 }
 
