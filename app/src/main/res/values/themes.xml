@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.CheckoutAndroid" parent="Theme.AppCompat.DayNight" />
+    <style name="Theme.CheckoutAndroid" parent="Theme.AppCompat.DayNight">
+        <!-- A plain bar in the screen colour, like a large-title navigation bar on iOS. -->
+        <item name="colorPrimary">@color/screen_background</item>
+        <item name="colorPrimaryDark">@color/screen_background</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="actionMenuTextColor">@color/accent</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="android:windowLightStatusBar">@bool/light_status_bar</item>
+    </style>
+
+    <style name="ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="background">@color/screen_background</item>
+        <item name="elevation">0dp</item>
+        <item name="titleTextStyle">@style/ActionBarTitle</item>
+    </style>
+
+    <style name="ActionBarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SectionHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:paddingHorizontal">4dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="CardAction">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

@@ -322,7 +322,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 }
 
 /** Shows the configuration map as pretty JSON (sorted keys), with a Copy button. */
-private object ConfigurationJsonDialog {
+internal object ConfigurationJsonDialog {
 
     fun show(context: Context, configuration: Map<String, Any>) {
         val json = prettyJson(configuration)
