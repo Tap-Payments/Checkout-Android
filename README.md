@@ -16,7 +16,6 @@ Tap Payments' Android checkout SDK. Show a full Tap checkout in your app, collec
 - [Charge vs Authorize](#charge-vs-authorize)
 - [Sandbox vs production](#sandbox-vs-production)
 - [Example app](#example-app)
-- [Tests](#tests)
 - [Troubleshooting](#troubleshooting)
 
 ## Requirements
@@ -363,22 +362,6 @@ The `com.google.gms.google-services` plugin is applied to the example app, so it
 | Card number | Expiry | CVV |
 |---|---|---|
 | 4508 7500 1574 1019 | 01/39 | 100 |
-
-## Tests
-
-**Unit tests** check, on your machine, that the example app builds the configuration with the defaults and rules documented above:
-
-```bash
-./gradlew :app:testDebugUnitTest
-```
-
-**Device tests** ([`ReadmeConfigurationTests`](app/src/androidTest/java/com/tap/company/checkout_android/ReadmeConfigurationTests.kt)) start the checkout on an emulator against the Tap sandbox, once per configuration value in this README, and check what the checkout shows or what the created charge contains. Each test logs a `RESULT |` line (logcat tag `ReadmeConfig`) and saves a screenshot on the device under `/sdcard/Android/data/com.tap.company.checkout_android.test/files/readme-config-screenshots/`. Each test runs in a fresh app process (Android Test Orchestrator with cleared app data), like a relaunch. Pass a sandbox key; it is never committed:
-
-```bash
-./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.TAP_PUBLIC_KEY=pk_test_...
-```
-
-Without the key the device tests are skipped.
 
 ## Troubleshooting
 
