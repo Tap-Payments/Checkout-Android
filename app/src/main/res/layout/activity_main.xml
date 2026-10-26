@@ -1,43 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_wallpaper"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
-
-    <company.tap.tapcheckout_android.TapCheckout
+    <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_2sdp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/start_checkout"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button"
+            android:text="Start Checkout"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/options"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_button"
+            android:text="Options"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+        <ScrollView
+            android:id="@+id/callbacks_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/callbacks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/callbacks_background"
+                android:padding="8dp"
+                android:text="Callbacks will appear here..."
+                android:textColor="#555555"
+                android:textIsSelectable="true"
+                android:textSize="14sp" />
+        </ScrollView>
+    </LinearLayout>
+
+    <company.tap.tapcheckout_android.TapCheckout
         android:id="@+id/checkout_pay"
-        />
-
-    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:layout_marginTop="@dimen/_150sdp"
-        android:scrollbars="vertical"
-        tools:text="Hello guys"
-        />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold|italic"
-        android:textColor="@color/black_color"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="@string/generate_authenticate_token"
-        android:id="@+id/auth_token"
-        android:visibility="gone"
-        />
-
-
-
-
-
-
-</LinearLayout>
+</FrameLayout>

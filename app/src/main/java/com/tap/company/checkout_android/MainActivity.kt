@@ -6,9 +6,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.method.ScrollingMovementMethod
+import android.content.Intent
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.chillibits.simplesettings.tool.getPrefStringSetValue
@@ -43,6 +47,8 @@ import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
     val REQUEST_ID_MULTIPLE_PERMISSIONS = 7
+    private val callbackMessages = mutableListOf<String>()
+    private val maxCallbacksToShow = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +61,25 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
         /*** If PASSING INTENT OBJECT **** /
          *
          */
-        configureSdk(null)
+        findViewById<Button>(R.id.start_checkout).setOnClickListener {
+            findViewById<View>(R.id.checkout_pay).visibility = View.VISIBLE
+            configureSdk(null)
+        }
+        findViewById<Button>(R.id.options).setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            finish()
+        }
+        // targetSdk 35+ draws edge-to-edge, so keep the content below the action bar and above the nav bar
+        val content = findViewById<View>(R.id.content)
+        ViewCompat.setOnApplyWindowInsetsListener(content) { view, insets ->
+            val navBar = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            view.post {
+                val actionBarBottom = window.decorView
+                    .findViewById<View>(androidx.appcompat.R.id.action_bar_container)?.bottom ?: 0
+                view.setPadding(view.paddingLeft, actionBarBottom + view.paddingLeft, view.paddingRight, navBar.bottom + view.paddingLeft)
+            }
+            insets
+        }
         checkAndroidVersion()
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         val controller =
@@ -248,60 +272,59 @@ class MainActivity : AppCompatActivity() , TapCheckoutStatusDelegate {
     }
 
     override fun onCheckoutReady() {
-        findViewById<TextView>(R.id.text).text = ""
-        findViewById<TextView>(R.id.text).text = "onReady"
-       // Toast.makeText(this, "onReady", Toast.LENGTH_SHORT).show()
         Log.e("<<<<<MainAcityv>>>>>>>>>>>","<<<<<<onCheckoutReady>>>>>>>>>.")
-
+        addCallbackMessage("onReady: Checkout is ready")
     }
 
     override fun onCheckoutSuccess(data: String) {
         Log.i("onSuccess", data)
-        findViewById<TextView>(R.id.text).text = ""
-        findViewById<TextView>(R.id.text).text = "onSuccess>>>> $data"
-        findViewById<TextView>(R.id.text).movementMethod = ScrollingMovementMethod()
-
-      //  customAlertBox("onCheckoutSuccess",data)
-        Toast.makeText(this, "onSuccess $data", Toast.LENGTH_SHORT).show()
-
+        addCallbackMessage("onSuccess: $data")
+        hideCheckout()
     }
 
     override fun onCheckoutClick() {
-        Toast.makeText(this, "onClick", Toast.LENGTH_SHORT).show()
-        findViewById<TextView>(R.id.text).text = ""
-        findViewById<TextView>(R.id.text).text = "onClick "
-
+        addCallbackMessage("onClick")
     }
 
 
     override fun onCheckoutChargeCreated(data: String) {
         Log.e("data", data.toString())
-        findViewById<TextView>(R.id.text).text = ""
-        findViewById<TextView>(R.id.text).text = "onChargeCreated $data"
-
-        Toast.makeText(this, "onChargeCreated $data", Toast.LENGTH_SHORT).show()
-
+        addCallbackMessage("onChargeCreated: $data")
     }
 
    /* override fun onCheckoutOrderCreated(data: String) {
-        findViewById<TextView>(R.id.text).text = ""
-        findViewById<TextView>(R.id.text).text = "onOrderCreated >> $data"
         Log.e("mainactv", "onPayButtonOrderCreated: " + data)
-        Toast.makeText(this, "onOrderCreated $data", Toast.LENGTH_SHORT).show()
+        addCallbackMessage("onOrderCreated: $data")
     }*/
 
     override fun onCheckoutcancel() {
-      //  customAlertBox("onCheckoutcancel","Canceled")
-        Toast.makeText(this, "Cancel ", Toast.LENGTH_SHORT).show()
+        addCallbackMessage("onClose: Checkout was closed")
+        hideCheckout()
     }
 
     override fun onCheckoutError(error: String) {
         Log.e("onCheckoutError", error.toString())
-        findViewById<TextView>(R.id.text).text = ""
-        findViewById<TextView>(R.id.text).text = "onError $error"
-      //  customAlertBox("onCheckoutError",error)
-        Toast.makeText(this, "onError received $error ", Toast.LENGTH_SHORT).show()
+        addCallbackMessage("onError: $error")
+    }
 
+    private fun hideCheckout() = runOnUiThread {
+        findViewById<View>(R.id.checkout_pay).visibility = View.GONE
+    }
+
+    private fun addCallbackMessage(message: String) = runOnUiThread {
+        // Add timestamp to the message
+        val timestamp = java.text.SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(java.util.Date())
+        callbackMessages.add(0, "[$timestamp] $message")
+
+        // Limit the number of messages to show
+        while (callbackMessages.size > maxCallbacksToShow) {
+            callbackMessages.removeAt(callbackMessages.lastIndex)
+        }
+
+        findViewById<TextView>(R.id.callbacks).text = callbackMessages.joinToString("\n\n")
+
+        // Scroll to the top to show the latest message
+        findViewById<ScrollView>(R.id.callbacks_scroll).smoothScrollTo(0, 0)
     }
 
     private fun callIntentAPI() {

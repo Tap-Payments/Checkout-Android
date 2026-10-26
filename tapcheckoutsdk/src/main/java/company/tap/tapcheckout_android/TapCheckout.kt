@@ -366,9 +366,11 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                                 else -> {}
                             }
                         }
-                        TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutSuccess(
-                            request?.url?.getQueryParameterFromUri(keyValueName).toString()
-                        )
+                        if (data != null) {
+                            TapCheckoutDataConfiguration.getTapCheckoutListener()?.onCheckoutChargeCreated(
+                                data
+                            )
+                        }
                     }
                    /* if (request?.url.toString().contains(TapCheckoutDelegates.onOrderCreated.name)) {
                         val orderResponse = request?.url?.getQueryParameter(keyValueName).toString()
