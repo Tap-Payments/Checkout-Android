@@ -21,7 +21,7 @@ data class CheckoutSettings(
     // SDK configuration
 
     var publicKey: String = Keys.PUBLIC_KEY,
-    var merchantId: String = "",
+    var merchantId: String = Keys.MERCHANT_ID,
     /** Any of ALL, AUTO, KWD, BHD, SAR, AED, OMR, EGP, GBP, USD, EUR. */
     var supportedCurrencies: List<String> = listOf("ALL"),
     /** ALL, WEB, CARD or DEVICE. */
