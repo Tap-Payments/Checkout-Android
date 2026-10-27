@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="screen_background">#000000</color>
+    <color name="card_background">#1C1C1E</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#98989F</color>
+    <color name="divider">#38383A</color>
+    <color name="accent">#0A84FF</color>
+    <color name="hero_start">#0A6AD9</color>
+    <color name="hero_end">#2C2C9E</color>
+    <color name="code_background">#2C2C2E</color>
+
+    <color name="event_ready">#0A84FF</color>
+    <color name="event_charge">#BF5AF2</color>
+    <color name="event_success">#30D158</color>
+    <color name="event_error">#FF453A</color>
+    <color name="event_close">#98989D</color>
+
+    <color name="chip_sandbox">#30D158</color>
+    <color name="chip_live">#FF9F0A</color>
+    <color name="chip_missing">#FF453A</color>
+</resources>

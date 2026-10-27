@@ -6,6 +6,13 @@ plugins {
 
 }
 
+/** keys.local.json as a Java string literal, or an empty list when the file is missing (see keys.local.example.json). */
+def localKeysJson() {
+    def file = rootProject.file('keys.local.json')
+    def json = file.exists() ? groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file)) : '[]'
+    return '"' + json.replace('\\', '\\\\').replace('"', '\\"') + '"'
+}
+
 android {
     namespace 'com.tap.company.checkout_android'
     compileSdk 36
@@ -18,10 +25,21 @@ android {
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Each instrumented test runs in a fresh app process with cleared data, like a relaunch on iOS.
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
 
     buildTypes {
+        debug {
+            // Your own sandbox keys from keys.local.json at the repo root (gitignored), offered in Settings > Saved Keys.
+            buildConfigField "String", "LOCAL_KEYS_JSON", localKeysJson()
+        }
         release {
+            buildConfigField "String", "LOCAL_KEYS_JSON", '"[]"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -36,6 +54,7 @@ android {
     }
     buildFeatures {
         compose false
+        buildConfig true
     }
 
 }
@@ -47,10 +66,12 @@ dependencies {
 
     implementation libs.androidx.appcompat
     implementation project(':tapcheckoutsdk')
+    implementation 'androidx.preference:preference-ktx:1.2.1'
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
-    androidTestImplementation platform(libs.androidx.compose.bom)
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
+    androidTestUtil 'androidx.test:orchestrator:1.5.1'
 
 
 

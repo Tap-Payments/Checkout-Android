@@ -1,0 +1,8 @@
+/build
+.gradle/
+
+# Local secrets: never commit
+app/google-services.json
+
+# Your own sandbox keys for the example app (see keys.local.example.json)
+/keys.local.json

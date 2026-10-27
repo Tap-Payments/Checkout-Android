@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Example app palette; values-night/colors_example.xml has the dark-mode values. -->
+<resources>
+    <color name="screen_background">#F2F2F7</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="text_primary">#1C1C1E</color>
+    <color name="text_secondary">#6E6E73</color>
+    <color name="divider">#E5E5EA</color>
+    <color name="accent">#007AFF</color>
+    <color name="hero_start">#0A84FF</color>
+    <color name="hero_end">#3A3AD9</color>
+    <color name="code_background">#F2F2F7</color>
+
+    <color name="event_ready">#007AFF</color>
+    <color name="event_charge">#AF52DE</color>
+    <color name="event_success">#34C759</color>
+    <color name="event_error">#FF3B30</color>
+    <color name="event_close">#8E8E93</color>
+
+    <color name="chip_sandbox">#34C759</color>
+    <color name="chip_live">#FF9500</color>
+    <color name="chip_missing">#FF3B30</color>
+</resources>

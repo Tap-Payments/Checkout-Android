@@ -5,7 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class ThreeDsResponse(var id: String, var url: String,var powered:Boolean,var stopRedirection:Boolean=false) :
+/** powered is null when the charge payload leaves it out; Gson would otherwise read that as false ***/
+data class ThreeDsResponse(var id: String, var url: String,var powered:Boolean?,var stopRedirection:Boolean=false) :
     Parcelable
 
 @Parcelize

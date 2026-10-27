@@ -20,7 +20,7 @@ import company.tap.tapcheckout_android.TapCheckout
 import company.tap.tapcheckout_android.theme.TapBrandView
 
 
-class ThreeDsBottomSheetFragmentButton(var webView: WebView?, var onCancel:()->Unit): BottomSheetDialogFragment() {
+class ThreeDsBottomSheetFragmentButton(var webView: WebView?, var powered: Boolean, var onCancel:()->Unit): BottomSheetDialogFragment() {
 
     @Nullable
     override fun onCreateView(
@@ -39,15 +39,7 @@ class ThreeDsBottomSheetFragmentButton(var webView: WebView?, var onCancel:()->U
         super.onViewCreated(view, savedInstanceState)
         val tapBrandView = view.findViewById<TapBrandView>(R.id.tab_brand_view)
 
-        try {
-            val powerd  = TapCheckout.threeDsResponse.powered
-            when(powerd){
-                false ->tapBrandView.poweredByImage.visibility = View.INVISIBLE
-                else -> {}
-            }
-        }catch (e:java.lang.Exception){
-            Log.e("excption",e.toString())
-        }
+        if (!powered) tapBrandView.poweredByImage.visibility = View.INVISIBLE
         ( dialog as BottomSheetDialog).behavior.isFitToContents = true
         ( dialog as BottomSheetDialog).behavior.peekHeight = (context?.getDeviceSpecs()?.first?: 950) - 250
 
