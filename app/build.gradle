@@ -6,6 +6,13 @@ plugins {
 
 }
 
+/** keys.local.json as a Java string literal, or an empty list when the file is missing (see keys.local.example.json). */
+def localKeysJson() {
+    def file = rootProject.file('keys.local.json')
+    def json = file.exists() ? groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file)) : '[]'
+    return '"' + json.replace('\\', '\\\\').replace('"', '\\"') + '"'
+}
+
 android {
     namespace 'com.tap.company.checkout_android'
     compileSdk 36
@@ -27,7 +34,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Your own sandbox keys from keys.local.json at the repo root (gitignored), offered in Settings > Saved Keys.
+            buildConfigField "String", "LOCAL_KEYS_JSON", localKeysJson()
+        }
         release {
+            buildConfigField "String", "LOCAL_KEYS_JSON", '"[]"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -42,6 +54,7 @@ android {
     }
     buildFeatures {
         compose false
+        buildConfig true
     }
 
 }

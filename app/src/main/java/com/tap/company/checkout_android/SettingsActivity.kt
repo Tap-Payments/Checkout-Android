@@ -130,6 +130,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
         "SDK Configuration",
         footer = "Defaults to the key in Keys.kt. Under each public key there can be several merchant ids; use the one that belongs to it.",
     ) {
+        // Saved Keys appears only when keys.local.json has keys (debug builds).
+        val savedKeys = LocalKeys.all
+        if (savedKeys.isNotEmpty()) {
+            val current = savedKeys.indexOfFirst { it.publicKey == settings.publicKey && it.merchantId.orEmpty() == settings.merchantId }
+            val options = listOf(Option("", "Custom")) + savedKeys.mapIndexed { index, key -> Option(index.toString(), key.name) }
+            choice("Saved Keys", options, if (current >= 0) current.toString() else "", rebuilds = true) { picked ->
+                savedKeys.getOrNull(picked.toIntOrNull() ?: -1)?.let {
+                    settings.publicKey = it.publicKey
+                    settings.merchantId = it.merchantId.orEmpty()
+                }
+            }
+        }
         text("Public Key", settings.publicKey) { settings.publicKey = it }
         text("Merchant Id", settings.merchantId) { settings.merchantId = it }
         multiChoice("Supported Currencies", Options.supportedCurrencies, settings.supportedCurrencies) { settings.supportedCurrencies = it }
