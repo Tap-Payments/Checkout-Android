@@ -493,7 +493,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                                 val jsonObject = JSONObject(queryParams)
 
                                 // Extract fields
-                                val powered = jsonObject.optBoolean("powered", false)
+                                /** Like iOS, show Powered by Tap unless the event says powered:false ***/
+                                val powered = jsonObject.optBoolean("powered", true)
                                 val keyword = jsonObject.optString("keyword", "")
                                 val redirectionObject = jsonObject.optJSONObject("redirectionUrl")
                                 val redirectUrl = redirectionObject?.optString("url") ?: ""

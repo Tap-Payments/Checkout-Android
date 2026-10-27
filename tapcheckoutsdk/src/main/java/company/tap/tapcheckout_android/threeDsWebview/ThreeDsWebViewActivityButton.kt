@@ -78,7 +78,13 @@ class ThreeDsWebViewActivityButton : AppCompatActivity() {
             }
         }
 
-        threeDsBottomsheet = ThreeDsBottomSheetFragmentButton(webView, onCancel = {
+        /** Each flow keeps its own powered flag; read the one that opened this screen ***/
+        val powered = when (paymentFlow) {
+            PaymentFlow.CARDPAY.name -> TapCheckout.threeDsResponseCardPayButtons.powered
+            PaymentFlow.REDIRECT.name -> TapCheckout.redirectResponse.powered
+            else -> TapCheckout.threeDsResponse.powered != false
+        }
+        threeDsBottomsheet = ThreeDsBottomSheetFragmentButton(webView, powered, onCancel = {
             when (paymentFlow) {
                 PaymentFlow.PAYMENTBUTTON.name -> {
                     TapCheckout.cancel()
