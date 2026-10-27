@@ -876,14 +876,8 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
                                 // knetWebView.loadUrl(redirectURL)
                                 urlToBeloaded = redirectURL
                                 Handler(Looper.getMainLooper()).post {
-                                  // redirectWebView.loadUrl(redirectURL.replace("https://checkout.dev.tap.company","https://tap-checkout-wrapper.netlify.app")+"&platform=mobile")
                                    redirectWebView.loadUrl(redirectURL+"&platform=mobile")
                                     println("Redirect Webview url >>>"+redirectURL+"&platform=mobile")
-                                   // redirectWebView.loadUrl("https://checkout.staging.tap.company/v2/?mode=page&themeMode=dark&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ZDY3ZWQxMThjNzNkNDhhNjI2MzkzNCJ9.BMfm_TNmEol-K6vhUTkTEad6DftTZJzQJqgISzpxn4c")
-                                    //redirectWebView.loadUrl("https://www.google.com/");
-
-
-
                                 }
                             }
                         }else{
