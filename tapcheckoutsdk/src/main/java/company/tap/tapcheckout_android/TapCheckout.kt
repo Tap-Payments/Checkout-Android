@@ -3,8 +3,10 @@ package company.tap.tapcheckout_android
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -19,6 +21,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.webkit.WebChromeClient.CustomViewCallback
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -29,6 +32,8 @@ import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.os.postDelayed
 import com.google.gson.Gson
 import com.tap.commondatamodels.TapTheme
@@ -86,6 +91,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
     private var isRedirectHandled = false
 
     companion object {
+        private const val KEYBOARD_SETTLE_MS = 250L
         var NFCopened: Boolean = false
         lateinit var threeDsResponse: ThreeDsResponse
         lateinit var threeDsResponseCardPayButtons: ThreeDsResponseCardPayButtons
@@ -143,7 +149,74 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
     init {
         LayoutInflater.from(context).inflate(R.layout.activity_button_web_wrapper, this)
         initWebView()
+        followKeyboard()
 
+    }
+
+    /** The host window's keyboard mode, kept while the checkout is on screen so it can be restored ***/
+    private var hostSoftInputMode: Int? = null
+
+    /**
+     * With adjustResize the window resizes the WebView on every keyboard change. The page hides the keyboard for a
+     * moment when it swaps card fields (or flips to the letter keyboard), so the sheet dropped and came back: the flicker.
+     * While the checkout is visible the window leaves the view alone and the view makes room for the keyboard itself:
+     * it shrinks the page right away when the keyboard opens or grows, but waits before giving the room back, so a
+     * keyboard that comes back within that time never moves the sheet. The host's own mode comes back when it is hidden.
+     ***/
+    private val giveRoomBack = Runnable { setKeyboardRoom(keyboardTarget) }
+    private var keyboardTarget = 0
+
+    private fun followKeyboard() {
+        ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
+            keyboardTarget = keyboardRoom(insets)
+            removeCallbacks(giveRoomBack)
+            if (keyboardTarget >= paddingBottom) setKeyboardRoom(keyboardTarget)
+            else postDelayed(giveRoomBack, KEYBOARD_SETTLE_MS)
+            insets
+        }
+    }
+
+    private fun setKeyboardRoom(room: Int) {
+        if (room != paddingBottom) setPadding(paddingLeft, paddingTop, paddingRight, room)
+    }
+
+    /** How much of the checkout page the keyboard covers, measured as if no room had been made yet. ***/
+    private fun keyboardRoom(insets: WindowInsetsCompat): Int {
+        val keyboard = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+        if (keyboard == 0 || rootView.height == 0) return 0
+        // The web view can end above this view's bottom edge (it stops short of the gesture bar).
+        val page: View = findViewById(R.id.webview) ?: this
+        val location = IntArray(2)
+        page.getLocationInWindow(location)
+        val bottom = location[1] + page.height + paddingBottom
+        return (bottom - (rootView.height - keyboard)).coerceAtLeast(0)
+    }
+
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        if (changedView == this) updateSoftInputMode(visibility == View.VISIBLE)
+    }
+
+    private fun updateSoftInputMode(checkoutVisible: Boolean) {
+        val window = context.findActivity()?.window ?: return
+        if (checkoutVisible && hostSoftInputMode == null) {
+            hostSoftInputMode = window.attributes.softInputMode
+            window.setSoftInputMode(
+                (window.attributes.softInputMode and WindowManager.LayoutParams.SOFT_INPUT_MASK_ADJUST.inv())
+                        or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+            )
+        } else if (!checkoutVisible) {
+            removeCallbacks(giveRoomBack)
+            setKeyboardRoom(0)
+            hostSoftInputMode?.let { window.setSoftInputMode(it) }
+            hostSoftInputMode = null
+        }
+    }
+
+    private fun Context.findActivity(): Activity? = when (this) {
+        is Activity -> this
+        is ContextWrapper -> baseContext.findActivity()
+        else -> null
     }
 
 
@@ -706,6 +779,7 @@ class TapCheckout : LinearLayout , ApplicationLifecycle {
 
 
     override fun onDetachedFromWindow() {
+        updateSoftInputMode(false)
         redirectWebView.destroy()
         println("onDetachedFromWindow")
         super.onDetachedFromWindow()
